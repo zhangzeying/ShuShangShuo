@@ -9,6 +9,17 @@
 #ifndef CommonConst_h
 #define CommonConst_h
 
+//屏幕
+#define ScreenBounds [UIScreen mainScreen].bounds
+#define ScreenWidth ScreenBounds.size.width
+#define ScreenHeight ScreenBounds.size.height
+
+#define iPhone4_inch (ScreenHeight <= 480)
+#define iPhone5_inch (ScreenHeight > 480 && ScreenHeight <= 568)
+#define iPhone6_inch (ScreenHeight > 568 && ScreenHeight <= 667)
+#define iPhone6p_inch (ScreenHeight > 667 && ScreenHeight <= 736)
+#define iPhoneX_inch ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 //获取MediumFont
 #define Font(fontSize)           [UIFont systemFontOfSize:fontSize]
 #define BOLDFont(fontSize)       [UIFont boldSystemFontOfSize:fontSize]

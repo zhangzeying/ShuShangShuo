@@ -11,5 +11,5 @@
 
 //默认主题颜色
 #define NormalDefaultThemeColor [UIColor colorWithHexString:@"f9f9f9"]
-
+#define OrangeThemeColor [UIColor colorWithHexString:@"eb773d"]
 #endif /* ColorConst_h */

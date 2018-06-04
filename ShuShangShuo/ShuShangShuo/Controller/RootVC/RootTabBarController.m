@@ -19,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTabBar];
-    
     //创建自己的tabbar，然后用kvc将自己的tabbar和系统的tabBar替换下
     STabBar *tabbar = [[STabBar alloc] init];
 
@@ -45,15 +44,14 @@
         BaseNavigationController *nc = [[BaseNavigationController alloc] initWithRootViewController:vc];
         vc.tabBarItem.title = titles[i];
         vc.tabBarItem.image = [[UIImage imageNamed:imageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        vc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        vc.tabBarItem.selectedImage = [IMAGENAMED(selectedImageNames[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [vc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:OrangeThemeColor} forState:UIControlStateSelected];
 //        vc.view.layer.shadowColor = [UIColor blackColor].CGColor;
 //        vc.view.layer.shadowOffset = CGSizeMake(-3.5, 0);
 //        vc.view.layer.shadowOpacity = 0.2;
         [self addChildViewController:nc];
         
     }
-    self.selectedIndex = 0;
-    
 }
 
 - (void)didReceiveMemoryWarning {
