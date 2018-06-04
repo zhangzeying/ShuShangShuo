@@ -1,0 +1,23 @@
+//
+//  PrefixHeader.pch
+//  ShuShangShuo
+//
+//  Created by zhangzey on 03/06/2018.
+//  Copyright © 2018 lanmao. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "ColorConst.h"
+#import "CommonConst.h"
+#import "SaticCommonConst.h"
+#import "Macro.h"
+#import "UIColor+String.h"
+#import "UIView+Frame.h"
+
+
+#define MAS_SHORTHAND_GLOBALS
+#import <Masonry.h>
+
+#endif /* PrefixHeader_pch */

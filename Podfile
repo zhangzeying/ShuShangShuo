@@ -12,7 +12,7 @@ target 'ShuShangShuo'  do
    pod 'MJRefresh'
    pod 'MBProgressHUD'
    pod 'Masonry'                              
-   pod 'YYKit'
+   pod 'YYModel'
    pod 'Bugly'
    pod 'MLeaksFinder'
    pod 'DZNEmptyDataSet'

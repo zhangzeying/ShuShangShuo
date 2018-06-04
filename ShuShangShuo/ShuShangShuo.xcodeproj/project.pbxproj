@@ -8,18 +8,57 @@
 
 /* Begin PBXBuildFile section */
 		4A7A00E2C1615A0246B27421 /* libPods-ShuShangShuo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85667DF2E0DA67917D6CDCC7 /* libPods-ShuShangShuo.a */; };
+		5A254BE820C5272F00C45FF8 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BE720C5272F00C45FF8 /* UIView+Frame.m */; };
+		5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BEC20C5284E00C45FF8 /* RootTabBarController.m */; };
+		5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
+		5ACC540D20C3C729001F3F58 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC540C20C3C729001F3F58 /* BaseNavigationController.m */; };
+		5ACC541020C3C74E001F3F58 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC540F20C3C74E001F3F58 /* BaseViewController.m */; };
+		5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC541220C3C772001F3F58 /* RefreshBaseViewController.m */; };
+		5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC541620C3CD27001F3F58 /* UIResponder+Router.m */; };
+		5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC541B20C4EA4D001F3F58 /* UIColor+String.m */; };
+		5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC541E20C50FC5001F3F58 /* NSData+CommonCrypto.m */; };
+		5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */; };
+		5ACC542820C524EE001F3F58 /* STabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC542720C524EE001F3F58 /* STabBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A254BE620C5272F00C45FF8 /* UIView+Frame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		5A254BE720C5272F00C45FF8 /* UIView+Frame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		5A254BEB20C5284E00C45FF8 /* RootTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
+		5A254BEC20C5284E00C45FF8 /* RootTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
+		5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookshelfViewController.h; sourceTree = "<group>"; };
+		5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookshelfViewController.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5ACC53F320C39DCA001F3F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5ACC53F420C39DCA001F3F58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5ACC540720C3A23A001F3F58 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5ACC540820C3A256001F3F58 /* CommonConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConst.h; sourceTree = "<group>"; };
+		5ACC540920C3A263001F3F58 /* ColorConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorConst.h; sourceTree = "<group>"; };
+		5ACC540A20C3A275001F3F58 /* SaticCommonConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaticCommonConst.h; sourceTree = "<group>"; };
+		5ACC540B20C3C729001F3F58 /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		5ACC540C20C3C729001F3F58 /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		5ACC540E20C3C74E001F3F58 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		5ACC540F20C3C74E001F3F58 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		5ACC541120C3C772001F3F58 /* RefreshBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshBaseViewController.h; sourceTree = "<group>"; };
+		5ACC541220C3C772001F3F58 /* RefreshBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshBaseViewController.m; sourceTree = "<group>"; };
+		5ACC541520C3CD27001F3F58 /* UIResponder+Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+Router.h"; sourceTree = "<group>"; };
+		5ACC541620C3CD27001F3F58 /* UIResponder+Router.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+Router.m"; sourceTree = "<group>"; };
+		5ACC541A20C4EA4D001F3F58 /* UIColor+String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+String.h"; sourceTree = "<group>"; };
+		5ACC541B20C4EA4D001F3F58 /* UIColor+String.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+String.m"; sourceTree = "<group>"; };
+		5ACC541D20C4EC16001F3F58 /* Macro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
+		5ACC541E20C50FC5001F3F58 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		5ACC541F20C50FC6001F3F58 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		5ACC542120C51047001F3F58 /* PrivacyFuncTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacyFuncTool.h; sourceTree = "<group>"; };
+		5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacyFuncTool.m; sourceTree = "<group>"; };
+		5ACC542420C520EF001F3F58 /* 0.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = 0.5cb; sourceTree = "<group>"; };
+		5ACC542620C524EE001F3F58 /* STabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STabBar.h; sourceTree = "<group>"; };
+		5ACC542720C524EE001F3F58 /* STabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STabBar.m; sourceTree = "<group>"; };
 		60D7A78AE2EE54DE3000EF8E /* Pods-ShuShangShuo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuShangShuo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ShuShangShuo/Pods-ShuShangShuo.release.xcconfig"; sourceTree = "<group>"; };
 		85667DF2E0DA67917D6CDCC7 /* libPods-ShuShangShuo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShuShangShuo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F22207DC375343588A8DB914 /* Pods-ShuShangShuo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuShangShuo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ShuShangShuo/Pods-ShuShangShuo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -46,6 +85,39 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5A254BE920C5282000C45FF8 /* RootVC */ = {
+			isa = PBXGroup;
+			children = (
+				5A254BEB20C5284E00C45FF8 /* RootTabBarController.h */,
+				5A254BEC20C5284E00C45FF8 /* RootTabBarController.m */,
+			);
+			path = RootVC;
+			sourceTree = "<group>";
+		};
+		5A254BEF20C5315A00C45FF8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5A254BF020C5316200C45FF8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5A254BF120C5316700C45FF8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5A254BE920C5282000C45FF8 /* RootVC */,
+				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
+				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		5ACC53D920C39DC9001F3F58 = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				5ACC540620C39F4C001F3F58 /* AppDelegate */,
-				5ACC540520C39F44001F3F58 /* Modules */,
+				5A254BF020C5316200C45FF8 /* Model */,
+				5A254BEF20C5315A00C45FF8 /* View */,
+				5A254BF120C5316700C45FF8 /* Controller */,
 				5ACC540120C39EE8001F3F58 /* CommonUIs */,
 				5ACC540020C39EDE001F3F58 /* CommonUtils */,
 				5ACC53FF20C39ED1001F3F58 /* CommonCategory */,
@@ -85,6 +159,7 @@
 		5ACC53FB20C39E92001F3F58 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC542420C520EF001F3F58 /* 0.5cb */,
 				5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -93,6 +168,11 @@
 		5ACC53FC20C39EB8001F3F58 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC540720C3A23A001F3F58 /* PrefixHeader.pch */,
+				5ACC540820C3A256001F3F58 /* CommonConst.h */,
+				5ACC540920C3A263001F3F58 /* ColorConst.h */,
+				5ACC540A20C3A275001F3F58 /* SaticCommonConst.h */,
+				5ACC541D20C4EC16001F3F58 /* Macro.h */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -100,6 +180,12 @@
 		5ACC53FD20C39EBE001F3F58 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC540B20C3C729001F3F58 /* BaseNavigationController.h */,
+				5ACC540C20C3C729001F3F58 /* BaseNavigationController.m */,
+				5ACC540E20C3C74E001F3F58 /* BaseViewController.h */,
+				5ACC540F20C3C74E001F3F58 /* BaseViewController.m */,
+				5ACC541120C3C772001F3F58 /* RefreshBaseViewController.h */,
+				5ACC541220C3C772001F3F58 /* RefreshBaseViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -114,6 +200,8 @@
 		5ACC53FF20C39ED1001F3F58 /* CommonCategory */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC541920C4EA2E001F3F58 /* UIView */,
+				5ACC541820C4EA26001F3F58 /* UIColor */,
 			);
 			path = CommonCategory;
 			sourceTree = "<group>";
@@ -121,6 +209,7 @@
 		5ACC540020C39EDE001F3F58 /* CommonUtils */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC541420C3CD08001F3F58 /* PrivateTool */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -128,15 +217,9 @@
 		5ACC540120C39EE8001F3F58 /* CommonUIs */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC542520C524C3001F3F58 /* UITabBar */,
 			);
 			path = CommonUIs;
-			sourceTree = "<group>";
-		};
-		5ACC540520C39F44001F3F58 /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Modules;
 			sourceTree = "<group>";
 		};
 		5ACC540620C39F4C001F3F58 /* AppDelegate */ = {
@@ -146,6 +229,46 @@
 				5ACC53E620C39DC9001F3F58 /* AppDelegate.m */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		5ACC541420C3CD08001F3F58 /* PrivateTool */ = {
+			isa = PBXGroup;
+			children = (
+				5ACC541F20C50FC6001F3F58 /* NSData+CommonCrypto.h */,
+				5ACC541E20C50FC5001F3F58 /* NSData+CommonCrypto.m */,
+				5ACC541520C3CD27001F3F58 /* UIResponder+Router.h */,
+				5ACC541620C3CD27001F3F58 /* UIResponder+Router.m */,
+				5ACC542120C51047001F3F58 /* PrivacyFuncTool.h */,
+				5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */,
+				5A254BE620C5272F00C45FF8 /* UIView+Frame.h */,
+				5A254BE720C5272F00C45FF8 /* UIView+Frame.m */,
+			);
+			path = PrivateTool;
+			sourceTree = "<group>";
+		};
+		5ACC541820C4EA26001F3F58 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				5ACC541A20C4EA4D001F3F58 /* UIColor+String.h */,
+				5ACC541B20C4EA4D001F3F58 /* UIColor+String.m */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		5ACC541920C4EA2E001F3F58 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		5ACC542520C524C3001F3F58 /* UITabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5ACC542620C524EE001F3F58 /* STabBar.h */,
+				5ACC542720C524EE001F3F58 /* STabBar.m */,
+			);
+			path = UITabBar;
 			sourceTree = "<group>";
 		};
 		CD10237AB73D007912150625 /* Frameworks */ = {
@@ -265,8 +388,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */,
+				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
+				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
+				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,
+				5ACC541020C3C74E001F3F58 /* BaseViewController.m in Sources */,
 				5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */,
+				5ACC540D20C3C729001F3F58 /* BaseNavigationController.m in Sources */,
+				5ACC542820C524EE001F3F58 /* STabBar.m in Sources */,
+				5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */,
+				5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */,
+				5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */,
+				5A254BE820C5272F00C45FF8 /* UIView+Frame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,9 +523,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ShuShangShuo/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = ShuShangShuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lanmao.ShuShangShuo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -404,9 +542,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ShuShangShuo/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = ShuShangShuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lanmao.ShuShangShuo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
