@@ -25,6 +25,7 @@
 		5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */; };
 		5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2420C6CF9500C45FF8 /* HomeViewController.m */; };
 		5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */; };
+		5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -73,6 +74,8 @@
 		5A254C2420C6CF9500C45FF8 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		5A254C2820C6D4DD00C45FF8 /* BookshelfCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookshelfCollectionCell.h; sourceTree = "<group>"; };
 		5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookshelfCollectionCell.m; sourceTree = "<group>"; };
+		5A254C2B20C6D76300C45FF8 /* HistorySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchViewController.h; sourceTree = "<group>"; };
+		5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchViewController.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -237,6 +240,8 @@
 				5A254C2420C6CF9500C45FF8 /* HomeViewController.m */,
 				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
 				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
+				5A254C2B20C6D76300C45FF8 /* HistorySearchViewController.h */,
+				5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
 				5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */,
+				5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
 				5A254C1B20C6CACD00C45FF8 /* SGQRCodeScanningView.m in Sources */,
