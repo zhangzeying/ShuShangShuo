@@ -24,6 +24,7 @@
 		5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1620C6CACD00C45FF8 /* SGQRCodeAlbumManager.m */; };
 		5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */; };
 		5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2420C6CF9500C45FF8 /* HomeViewController.m */; };
+		5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -70,6 +71,8 @@
 		5A254C2120C6CC6000C45FF8 /* SGQRCodeScanningVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningVC.h; sourceTree = "<group>"; };
 		5A254C2320C6CF9500C45FF8 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		5A254C2420C6CF9500C45FF8 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		5A254C2820C6D4DD00C45FF8 /* BookshelfCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookshelfCollectionCell.h; sourceTree = "<group>"; };
+		5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookshelfCollectionCell.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		5A254BEF20C5315A00C45FF8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C2720C6D4A600C45FF8 /* CollectionCell */,
 				5A254C0020C595D200C45FF8 /* TableCell */,
 			);
 			path = View;
@@ -235,6 +239,15 @@
 				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		5A254C2720C6D4A600C45FF8 /* CollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C2820C6D4DD00C45FF8 /* BookshelfCollectionCell.h */,
+				5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */,
+			);
+			path = CollectionCell;
 			sourceTree = "<group>";
 		};
 		5ACC53D920C39DC9001F3F58 = {
@@ -525,6 +538,7 @@
 				5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */,
 				5ACC540D20C3C729001F3F58 /* BaseNavigationController.m in Sources */,
 				5ACC542820C524EE001F3F58 /* STabBar.m in Sources */,
+				5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */,
 				5A254C1920C6CACD00C45FF8 /* UIImage+ImageSize.m in Sources */,
 				5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */,
 				5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */,
