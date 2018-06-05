@@ -8,7 +8,7 @@
 
 #import "STabBar.h"
 
-#define LBMagin 10
+#define KRadius 35
 
 @interface STabBar ()
 
@@ -24,14 +24,22 @@
 
         self.backgroundColor = NormalDefaultThemeColor;
 
-//        [self setShadowImage:[UIImage imageWithColor:[UIColor clearColor]]];        
+        CAShapeLayer *bowLayer = [CAShapeLayer new];
+        bowLayer.lineWidth = 0.5;
+        //圆环的颜色
+        bowLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+        //背景填充色
+        bowLayer.fillColor = NormalDefaultThemeColor.CGColor;
+        
+        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(ScreenWidth/2, 50/2 - 4) radius:KRadius startAngle:(1.2*M_PI) endAngle:1.8f*M_PI clockwise:YES];
+        bowLayer.path = [path CGPath];
+        
+        [self.layer addSublayer:bowLayer];
+        
         self.scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.scanBtn setBackgroundImage:IMAGENAMED(@"scan") forState:UIControlStateNormal];
         [self.scanBtn addTarget:self action:@selector(plusBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.scanBtn];
-        
-        
-        
     }
     return self;
 }
@@ -41,9 +49,8 @@
     [super layoutSubviews];
     //系统自带的按钮类型是UITabBarButton，找出这些类型的按钮，然后重新排布位置，空出中间的位置
     Class class = NSClassFromString(@"UITabBarButton");
-    
     self.scanBtn.centerX = self.width / 2;
-    self.scanBtn.centerY = self.height / 2 - 10;
+    self.scanBtn.centerY = 50 / 2 - 10;
     self.scanBtn.size = CGSizeMake(self.scanBtn.currentBackgroundImage.size.width, self.scanBtn.currentBackgroundImage.size.height);
 
     int btnIndex = 0;
