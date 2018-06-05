@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol STabBarDelegate <NSObject>
+
+- (void)scan;
+
+@end
+
 @interface STabBar : UITabBar
+
+@property (nonatomic, weak) id<STabBarDelegate> tabbarDelegate;
 
 @end

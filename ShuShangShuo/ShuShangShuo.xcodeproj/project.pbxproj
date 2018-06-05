@@ -15,6 +15,14 @@
 		5A254BFF20C58B8600C45FF8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BFE20C58B8600C45FF8 /* SettingViewController.m */; };
 		5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0220C5965C00C45FF8 /* SettingTableCell.m */; };
 		5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0620C6910500C45FF8 /* IPSettingViewController.m */; };
+		5A254C1820C6CACD00C45FF8 /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A254C0A20C6CACD00C45FF8 /* SGQRCode.bundle */; };
+		5A254C1920C6CACD00C45FF8 /* UIImage+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0D20C6CACD00C45FF8 /* UIImage+ImageSize.m */; };
+		5A254C1A20C6CACD00C45FF8 /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0E20C6CACD00C45FF8 /* SGQRCodeHelperTool.m */; };
+		5A254C1B20C6CACD00C45FF8 /* SGQRCodeScanningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0F20C6CACD00C45FF8 /* SGQRCodeScanningView.m */; };
+		5A254C1C20C6CACD00C45FF8 /* SGQRCodeScanManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1020C6CACD00C45FF8 /* SGQRCodeScanManager.m */; };
+		5A254C1D20C6CACD00C45FF8 /* SGQRCodeGenerateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1120C6CACD00C45FF8 /* SGQRCodeGenerateManager.m */; };
+		5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1620C6CACD00C45FF8 /* SGQRCodeAlbumManager.m */; };
+		5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -43,6 +51,22 @@
 		5A254C0220C5965C00C45FF8 /* SettingTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTableCell.m; sourceTree = "<group>"; };
 		5A254C0520C6910500C45FF8 /* IPSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPSettingViewController.h; sourceTree = "<group>"; };
 		5A254C0620C6910500C45FF8 /* IPSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPSettingViewController.m; sourceTree = "<group>"; };
+		5A254C0920C6CACD00C45FF8 /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
+		5A254C0A20C6CACD00C45FF8 /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
+		5A254C0C20C6CACD00C45FF8 /* UIImage+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageSize.h"; sourceTree = "<group>"; };
+		5A254C0D20C6CACD00C45FF8 /* UIImage+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageSize.m"; sourceTree = "<group>"; };
+		5A254C0E20C6CACD00C45FF8 /* SGQRCodeHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeHelperTool.m; sourceTree = "<group>"; };
+		5A254C0F20C6CACD00C45FF8 /* SGQRCodeScanningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningView.m; sourceTree = "<group>"; };
+		5A254C1020C6CACD00C45FF8 /* SGQRCodeScanManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanManager.m; sourceTree = "<group>"; };
+		5A254C1120C6CACD00C45FF8 /* SGQRCodeGenerateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeGenerateManager.m; sourceTree = "<group>"; };
+		5A254C1220C6CACD00C45FF8 /* SGQRCodeAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeAlbumManager.h; sourceTree = "<group>"; };
+		5A254C1320C6CACD00C45FF8 /* SGQRCodeHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeHelperTool.h; sourceTree = "<group>"; };
+		5A254C1420C6CACD00C45FF8 /* SGQRCodeScanningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningView.h; sourceTree = "<group>"; };
+		5A254C1520C6CACD00C45FF8 /* SGQRCodeScanManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanManager.h; sourceTree = "<group>"; };
+		5A254C1620C6CACD00C45FF8 /* SGQRCodeAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeAlbumManager.m; sourceTree = "<group>"; };
+		5A254C1720C6CACD00C45FF8 /* SGQRCodeGenerateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeGenerateManager.h; sourceTree = "<group>"; };
+		5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningVC.m; sourceTree = "<group>"; };
+		5A254C2120C6CC6000C45FF8 /* SGQRCodeScanningVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningVC.h; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -124,6 +148,7 @@
 		5A254BF120C5316700C45FF8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C1F20C6CC4D00C45FF8 /* Scan */,
 				5A254C0420C690A200C45FF8 /* Setting */,
 				5A254BE920C5282000C45FF8 /* RootVC */,
 				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
@@ -159,6 +184,44 @@
 				5A254C0620C6910500C45FF8 /* IPSettingViewController.m */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		5A254C0820C6CACD00C45FF8 /* SGQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C0920C6CACD00C45FF8 /* SGQRCode.h */,
+				5A254C0A20C6CACD00C45FF8 /* SGQRCode.bundle */,
+				5A254C0B20C6CACD00C45FF8 /* Category */,
+				5A254C0E20C6CACD00C45FF8 /* SGQRCodeHelperTool.m */,
+				5A254C0F20C6CACD00C45FF8 /* SGQRCodeScanningView.m */,
+				5A254C1020C6CACD00C45FF8 /* SGQRCodeScanManager.m */,
+				5A254C1120C6CACD00C45FF8 /* SGQRCodeGenerateManager.m */,
+				5A254C1220C6CACD00C45FF8 /* SGQRCodeAlbumManager.h */,
+				5A254C1320C6CACD00C45FF8 /* SGQRCodeHelperTool.h */,
+				5A254C1420C6CACD00C45FF8 /* SGQRCodeScanningView.h */,
+				5A254C1520C6CACD00C45FF8 /* SGQRCodeScanManager.h */,
+				5A254C1620C6CACD00C45FF8 /* SGQRCodeAlbumManager.m */,
+				5A254C1720C6CACD00C45FF8 /* SGQRCodeGenerateManager.h */,
+			);
+			path = SGQRCode;
+			sourceTree = "<group>";
+		};
+		5A254C0B20C6CACD00C45FF8 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C0C20C6CACD00C45FF8 /* UIImage+ImageSize.h */,
+				5A254C0D20C6CACD00C45FF8 /* UIImage+ImageSize.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		5A254C1F20C6CC4D00C45FF8 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C2120C6CC6000C45FF8 /* SGQRCodeScanningVC.h */,
+				5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		5ACC53D920C39DC9001F3F58 = {
@@ -236,6 +299,7 @@
 		5ACC53FE20C39EC7001F3F58 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C0820C6CACD00C45FF8 /* SGQRCode */,
 				5A254BF920C57F1C00C45FF8 /* SPPageMenu */,
 			);
 			path = Libs;
@@ -383,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */,
+				5A254C1820C6CACD00C45FF8 /* SGQRCode.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,17 +502,24 @@
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
+				5A254C1B20C6CACD00C45FF8 /* SGQRCodeScanningView.m in Sources */,
 				5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */,
+				5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */,
 				5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */,
 				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,
 				5ACC541020C3C74E001F3F58 /* BaseViewController.m in Sources */,
 				5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */,
 				5ACC540D20C3C729001F3F58 /* BaseNavigationController.m in Sources */,
 				5ACC542820C524EE001F3F58 /* STabBar.m in Sources */,
+				5A254C1920C6CACD00C45FF8 /* UIImage+ImageSize.m in Sources */,
 				5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */,
 				5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */,
+				5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */,
+				5A254C1C20C6CACD00C45FF8 /* SGQRCodeScanManager.m in Sources */,
 				5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */,
+				5A254C1D20C6CACD00C45FF8 /* SGQRCodeGenerateManager.m in Sources */,
 				5A254BE820C5272F00C45FF8 /* UIView+Frame.m in Sources */,
+				5A254C1A20C6CACD00C45FF8 /* SGQRCodeHelperTool.m in Sources */,
 				5A254BFF20C58B8600C45FF8 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

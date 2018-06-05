@@ -38,7 +38,7 @@
         
         self.scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.scanBtn setBackgroundImage:IMAGENAMED(@"scan") forState:UIControlStateNormal];
-        [self.scanBtn addTarget:self action:@selector(plusBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.scanBtn addTarget:self action:@selector(scanBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.scanBtn];
     }
     return self;
@@ -73,16 +73,7 @@
     [self bringSubviewToFront:self.scanBtn];
 }
 
-//点击了发布按钮
-- (void)plusBtnDidClick
-{
-    //如果tabbar的代理实现了对应的代理方法，那么就调用代理的该方法
-//    if ([self.delegate respondsToSelector:@selector(tabBarPlusBtnClick:)]) {
-//        [self.myDelegate tabBarPlusBtnClick:self];
-//    }
-    
-}
-
+#pragma mark - overwirte
 //重写hitTest方法，去监听发布按钮的点击，目的是为了让凸出的部分点击也有反应
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     
@@ -106,6 +97,13 @@
     
     else {//tabbar隐藏了，那么说明已经push到其他的页面了，这个时候还是让系统去判断最合适的view处理就好了
         return [super hitTest:point withEvent:event];
+    }
+}
+
+#pragma mark - event response
+- (void)scanBtnClick {
+    if ([self.tabbarDelegate respondsToSelector:@selector(scan)]) {
+        [self.tabbarDelegate scan];
     }
 }
 
