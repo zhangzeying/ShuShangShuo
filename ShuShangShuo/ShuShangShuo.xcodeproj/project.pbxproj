@@ -23,6 +23,7 @@
 		5A254C1D20C6CACD00C45FF8 /* SGQRCodeGenerateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1120C6CACD00C45FF8 /* SGQRCodeGenerateManager.m */; };
 		5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C1620C6CACD00C45FF8 /* SGQRCodeAlbumManager.m */; };
 		5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */; };
+		5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2420C6CF9500C45FF8 /* HomeViewController.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -67,6 +68,8 @@
 		5A254C1720C6CACD00C45FF8 /* SGQRCodeGenerateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeGenerateManager.h; sourceTree = "<group>"; };
 		5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningVC.m; sourceTree = "<group>"; };
 		5A254C2120C6CC6000C45FF8 /* SGQRCodeScanningVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningVC.h; sourceTree = "<group>"; };
+		5A254C2320C6CF9500C45FF8 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5A254C2420C6CF9500C45FF8 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -148,11 +151,10 @@
 		5A254BF120C5316700C45FF8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C2620C6CFB400C45FF8 /* Home */,
 				5A254C1F20C6CC4D00C45FF8 /* Scan */,
 				5A254C0420C690A200C45FF8 /* Setting */,
 				5A254BE920C5282000C45FF8 /* RootVC */,
-				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
-				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,6 +224,17 @@
 				5A254C2020C6CC6000C45FF8 /* SGQRCodeScanningVC.m */,
 			);
 			path = Scan;
+			sourceTree = "<group>";
+		};
+		5A254C2620C6CFB400C45FF8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C2320C6CF9500C45FF8 /* HomeViewController.h */,
+				5A254C2420C6CF9500C45FF8 /* HomeViewController.m */,
+				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
+				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		5ACC53D920C39DC9001F3F58 = {
@@ -500,6 +513,7 @@
 				5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */,
 				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
+				5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
 				5A254C1B20C6CACD00C45FF8 /* SGQRCodeScanningView.m in Sources */,

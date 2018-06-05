@@ -32,7 +32,7 @@
 - (void)setTabBar {
     
     //添加子控制器
-    NSArray *classNames = @[@"BookshelfViewController", @"SettingViewController"];
+    NSArray *classNames = @[@"HomeViewController", @"SettingViewController"];
     
     NSArray *titles = @[@"书架", @"设置"];
     
