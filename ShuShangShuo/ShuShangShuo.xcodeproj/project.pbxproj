@@ -13,6 +13,7 @@
 		5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */; };
 		5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BFA20C57F1C00C45FF8 /* SPPageMenu.m */; };
 		5A254BFF20C58B8600C45FF8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BFE20C58B8600C45FF8 /* SettingViewController.m */; };
+		5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0220C5965C00C45FF8 /* SettingTableCell.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -37,6 +38,8 @@
 		5A254BFB20C57F1C00C45FF8 /* SPPageMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPageMenu.h; sourceTree = "<group>"; };
 		5A254BFD20C58B8600C45FF8 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		5A254BFE20C58B8600C45FF8 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		5A254C0120C5965C00C45FF8 /* SettingTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingTableCell.h; sourceTree = "<group>"; };
+		5A254C0220C5965C00C45FF8 /* SettingTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTableCell.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		5A254BEF20C5315A00C45FF8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C0020C595D200C45FF8 /* TableCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -117,11 +121,10 @@
 		5A254BF120C5316700C45FF8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5A254C0420C690A200C45FF8 /* Setting */,
 				5A254BE920C5282000C45FF8 /* RootVC */,
 				5A254BF220C531BA00C45FF8 /* BookshelfViewController.h */,
 				5A254BF320C531BA00C45FF8 /* BookshelfViewController.m */,
-				5A254BFD20C58B8600C45FF8 /* SettingViewController.h */,
-				5A254BFE20C58B8600C45FF8 /* SettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -133,6 +136,24 @@
 				5A254BFA20C57F1C00C45FF8 /* SPPageMenu.m */,
 			);
 			path = SPPageMenu;
+			sourceTree = "<group>";
+		};
+		5A254C0020C595D200C45FF8 /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				5A254C0120C5965C00C45FF8 /* SettingTableCell.h */,
+				5A254C0220C5965C00C45FF8 /* SettingTableCell.m */,
+			);
+			path = TableCell;
+			sourceTree = "<group>";
+		};
+		5A254C0420C690A200C45FF8 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5A254BFD20C58B8600C45FF8 /* SettingViewController.h */,
+				5A254BFE20C58B8600C45FF8 /* SettingViewController.m */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		5ACC53D920C39DC9001F3F58 = {
@@ -409,6 +430,7 @@
 				5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */,
 				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
+				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
 				5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */,
 				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,

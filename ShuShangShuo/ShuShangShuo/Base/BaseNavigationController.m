@@ -18,7 +18,7 @@
     [super viewDidLoad];
     self.navigationBar.barTintColor = NormalDefaultThemeColor;
     NSMutableDictionary *attr = [NSMutableDictionary dictionary];
-    attr[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    attr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
     attr[NSFontAttributeName] = [UIFont systemFontOfSize:18.0];
     [self.navigationBar setTitleTextAttributes:attr];
 }
