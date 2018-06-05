@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "IPSettingViewController.h"
 #import "SettingTableCell.h"
 
 static NSString *const CellID = @"SettingTableCell";
@@ -75,8 +76,10 @@ static NSString *const CellID = @"SettingTableCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (<#condition#>) {
-        <#statements#>
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        IPSettingViewController *ipSettingVC = [[IPSettingViewController alloc]init];
+        ipSettingVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:ipSettingVC animated:YES];
     }
 }
 

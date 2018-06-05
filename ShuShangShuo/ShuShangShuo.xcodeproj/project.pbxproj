@@ -14,6 +14,7 @@
 		5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BFA20C57F1C00C45FF8 /* SPPageMenu.m */; };
 		5A254BFF20C58B8600C45FF8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254BFE20C58B8600C45FF8 /* SettingViewController.m */; };
 		5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0220C5965C00C45FF8 /* SettingTableCell.m */; };
+		5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C0620C6910500C45FF8 /* IPSettingViewController.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -40,6 +41,8 @@
 		5A254BFE20C58B8600C45FF8 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		5A254C0120C5965C00C45FF8 /* SettingTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingTableCell.h; sourceTree = "<group>"; };
 		5A254C0220C5965C00C45FF8 /* SettingTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTableCell.m; sourceTree = "<group>"; };
+		5A254C0520C6910500C45FF8 /* IPSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPSettingViewController.h; sourceTree = "<group>"; };
+		5A254C0620C6910500C45FF8 /* IPSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPSettingViewController.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 			children = (
 				5A254BFD20C58B8600C45FF8 /* SettingViewController.h */,
 				5A254BFE20C58B8600C45FF8 /* SettingViewController.m */,
+				5A254C0520C6910500C45FF8 /* IPSettingViewController.h */,
+				5A254C0620C6910500C45FF8 /* IPSettingViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
 				5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */,
+				5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */,
 				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,
 				5ACC541020C3C74E001F3F58 /* BaseViewController.m in Sources */,
 				5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */,
