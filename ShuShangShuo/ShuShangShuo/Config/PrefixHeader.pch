@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#ifdef __OBJC__
+
 #import "ColorConst.h"
 #import "CommonConst.h"
 #import "SaticCommonConst.h"
@@ -16,8 +18,9 @@
 #import "UIColor+String.h"
 #import "UIView+Frame.h"
 
-
 #define MAS_SHORTHAND_GLOBALS
 #import <Masonry.h>
+
+#endif
 
 #endif /* PrefixHeader_pch */
