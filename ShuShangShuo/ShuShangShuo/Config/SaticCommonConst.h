@@ -9,5 +9,7 @@
 #ifndef SaticCommonConst_h
 #define SaticCommonConst_h
 
+//---- FileName ----
+#define kSearchHistoryFileName @"SearchHistoryFileName"
 
 #endif /* SaticCommonConst_h */

@@ -677,6 +677,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M2L5D7RWYQ;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ShuShangShuo/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = ShuShangShuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -696,6 +697,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M2L5D7RWYQ;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ShuShangShuo/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = ShuShangShuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "BookshelfViewController.h"
+#import "HistorySearchViewController.h"
 #import "SPPageMenu.h"
 
 static CGFloat const pageMenuH = 50;
@@ -67,13 +68,15 @@ static CGFloat const pageMenuH = 50;
 }
 
 - (void)searchClick {
-    
+    HistorySearchViewController *historySearchVC = [[HistorySearchViewController alloc]init];
+    historySearchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:historySearchVC animated:YES];
 }
 
 #pragma mark - SPPageMenuDelegate
 
 - (void)pageMenu:(SPPageMenu *)pageMenu itemSelectedAtIndex:(NSInteger)index {
-    NSLog(@"%zd",index);
+    
 }
 
 - (void)pageMenu:(SPPageMenu *)pageMenu itemSelectedFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
