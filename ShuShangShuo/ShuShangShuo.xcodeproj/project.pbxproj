@@ -81,6 +81,9 @@
 		5A51173D20D128F2004EEFDA /* LSYReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51170620D128F2004EEFDA /* LSYReadView.m */; };
 		5A51174120D1583C004EEFDA /* SVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174020D1583C004EEFDA /* SVerticalButton.m */; };
 		5A51174420D160F1004EEFDA /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174320D160F1004EEFDA /* AESCipher.m */; };
+		5A51174D20D16123004EEFDA /* HSSessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174620D16123004EEFDA /* HSSessionModel.m */; };
+		5A51174E20D16123004EEFDA /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174820D16123004EEFDA /* NSString+Hash.m */; };
+		5A51174F20D16123004EEFDA /* HSDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174C20D16123004EEFDA /* HSDownloadManager.m */; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
@@ -236,6 +239,12 @@
 		5A51174020D1583C004EEFDA /* SVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVerticalButton.m; sourceTree = "<group>"; };
 		5A51174220D160F1004EEFDA /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		5A51174320D160F1004EEFDA /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCipher.m; sourceTree = "<group>"; };
+		5A51174620D16123004EEFDA /* HSSessionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSessionModel.m; sourceTree = "<group>"; };
+		5A51174820D16123004EEFDA /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		5A51174920D16123004EEFDA /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		5A51174A20D16123004EEFDA /* HSDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDownloadManager.h; sourceTree = "<group>"; };
+		5A51174B20D16123004EEFDA /* HSSessionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSessionModel.h; sourceTree = "<group>"; };
+		5A51174C20D16123004EEFDA /* HSDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDownloadManager.m; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -623,6 +632,27 @@
 			path = UIButton;
 			sourceTree = "<group>";
 		};
+		5A51174520D16123004EEFDA /* HSDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				5A51174620D16123004EEFDA /* HSSessionModel.m */,
+				5A51174720D16123004EEFDA /* MD5 */,
+				5A51174A20D16123004EEFDA /* HSDownloadManager.h */,
+				5A51174B20D16123004EEFDA /* HSSessionModel.h */,
+				5A51174C20D16123004EEFDA /* HSDownloadManager.m */,
+			);
+			path = HSDownloadManager;
+			sourceTree = "<group>";
+		};
+		5A51174720D16123004EEFDA /* MD5 */ = {
+			isa = PBXGroup;
+			children = (
+				5A51174820D16123004EEFDA /* NSString+Hash.m */,
+				5A51174920D16123004EEFDA /* NSString+Hash.h */,
+			);
+			path = MD5;
+			sourceTree = "<group>";
+		};
 		5ACC53D920C39DC9001F3F58 = {
 			isa = PBXGroup;
 			children = (
@@ -697,6 +727,7 @@
 		5ACC53FE20C39EC7001F3F58 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				5A51174520D16123004EEFDA /* HSDownloadManager */,
 				5A51169520D128F2004EEFDA /* Reader */,
 				5A254C0820C6CACD00C45FF8 /* SGQRCode */,
 				5A254BF920C57F1C00C45FF8 /* SPPageMenu */,
@@ -909,6 +940,7 @@
 				5A51170A20D128F2004EEFDA /* unzip.c in Sources */,
 				5A51171620D128F2004EEFDA /* CXMLNode_CreationExtensions.m in Sources */,
 				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
+				5A51174F20D16123004EEFDA /* HSDownloadManager.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
 				5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */,
 				5A51172B20D128F2004EEFDA /* LSYTopMenuView.m in Sources */,
@@ -938,6 +970,7 @@
 				5A51170820D128F2004EEFDA /* LSYReadParser.m in Sources */,
 				5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */,
 				5A51171E20D128F2004EEFDA /* NSString+HTML.m in Sources */,
+				5A51174D20D16123004EEFDA /* HSSessionModel.m in Sources */,
 				5A51172120D128F2004EEFDA /* LSYCatalogViewController.m in Sources */,
 				5A51172820D128F2004EEFDA /* LSYNoteModel.m in Sources */,
 				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,
@@ -969,6 +1002,7 @@
 				5A51171A20D128F2004EEFDA /* CXHTMLDocument.m in Sources */,
 				5A51171820D128F2004EEFDA /* CTidy.m in Sources */,
 				5A51171B20D128F2004EEFDA /* CXMLElement_CreationExtensions.m in Sources */,
+				5A51174E20D16123004EEFDA /* NSString+Hash.m in Sources */,
 				5A51171320D128F2004EEFDA /* CXMLNode_PrivateExtensions.m in Sources */,
 				5A254BE820C5272F00C45FF8 /* UIView+Frame.m in Sources */,
 				5A51170C20D128F2004EEFDA /* ioapi.c in Sources */,
