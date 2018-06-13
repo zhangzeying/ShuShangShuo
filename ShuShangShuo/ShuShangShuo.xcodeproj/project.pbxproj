@@ -26,35 +26,8 @@
 		5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2420C6CF9500C45FF8 /* HomeViewController.m */; };
 		5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */; };
 		5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */; };
-		5A8BD74D20C820B40013ADBE /* EPUBImagePreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD72C20C820B40013ADBE /* EPUBImagePreViewController.m */; };
-		5A8BD74E20C820B40013ADBE /* epubtheme.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD73020C820B40013ADBE /* epubtheme.xml */; };
-		5A8BD74F20C820B40013ADBE /* XWEPUBSearchJieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73120C820B40013ADBE /* XWEPUBSearchJieViewController.m */; };
-		5A8BD75020C820B40013ADBE /* EPUBParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73620C820B40013ADBE /* EPUBParser.m */; };
-		5A8BD75120C820B40013ADBE /* EPUBPageProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73820C820B40013ADBE /* EPUBPageProgressView.m */; };
-		5A8BD75220C820B40013ADBE /* EPUBReadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73A20C820B40013ADBE /* EPUBReadMainViewController.m */; };
-		5A8BD75320C820B40013ADBE /* UIWebView+SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73B20C820B40013ADBE /* UIWebView+SearchWebView.m */; };
-		5A8BD75420C820B40013ADBE /* EPUBPageWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73C20C820B40013ADBE /* EPUBPageWebView.m */; };
-		5A8BD75520C820B40013ADBE /* EPUBPageOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73E20C820B40013ADBE /* EPUBPageOptionView.m */; };
-		5A8BD75620C820B40013ADBE /* EPUBFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD73F20C820B40013ADBE /* EPUBFontViewController.m */; };
-		5A8BD75720C820B40013ADBE /* EPUBPageSearchTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD74020C820B40013ADBE /* EPUBPageSearchTextViewController.m */; };
-		5A8BD75820C820B40013ADBE /* EPUBFileInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD74120C820B40013ADBE /* EPUBFileInfoViewController.m */; };
-		5A8BD75920C820B40013ADBE /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD74320C820B40013ADBE /* SearchWebView.js */; };
-		5A8BD75A20C820B40013ADBE /* epub.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD74420C820B40013ADBE /* epub.bundle */; };
-		5A8BD75B20C820B40013ADBE /* DFPShaoNvW5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD74720C820B40013ADBE /* DFPShaoNvW5.ttf */; };
-		5A8BD75C20C820B40013ADBE /* EPUBPageOptionMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD74920C820B40013ADBE /* EPUBPageOptionMoreViewController.m */; };
-		5A8BD75D20C820B40013ADBE /* EPUBPageCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD74A20C820B40013ADBE /* EPUBPageCatalogViewController.m */; };
-		5A8BD75E20C820B40013ADBE /* EPUBPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD74B20C820B40013ADBE /* EPUBPageViewController.m */; };
-		5A8BD76220C820C40013ADBE /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD76120C820C40013ADBE /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
-		5A8BD78C20C824970013ADBE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78020C824970013ADBE /* unzip.c */; };
-		5A8BD78D20C824970013ADBE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78120C824970013ADBE /* zip.c */; };
-		5A8BD78E20C824970013ADBE /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78220C824970013ADBE /* Makefile */; };
-		5A8BD78F20C824970013ADBE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78320C824970013ADBE /* ioapi.c */; };
-		5A8BD79020C824970013ADBE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78420C824970013ADBE /* mztools.c */; };
-		5A8BD79120C824970013ADBE /* ChangeLogUnzip in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD78520C824970013ADBE /* ChangeLogUnzip */; };
-		5A8BD79220C824970013ADBE /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8BD78B20C824970013ADBE /* ZipArchive.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5A8BD79620C82AA00013ADBE /* 《实践论》《矛盾论》导读.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5A8BD79520C82A9F0013ADBE /* 《实践论》《矛盾论》导读.epub */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -105,57 +78,8 @@
 		5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookshelfCollectionCell.m; sourceTree = "<group>"; };
 		5A254C2B20C6D76300C45FF8 /* HistorySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchViewController.h; sourceTree = "<group>"; };
 		5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchViewController.m; sourceTree = "<group>"; };
-		5A8BD72B20C820B40013ADBE /* EPUBPageOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageOptionView.h; sourceTree = "<group>"; };
-		5A8BD72C20C820B40013ADBE /* EPUBImagePreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBImagePreViewController.m; sourceTree = "<group>"; };
-		5A8BD72D20C820B40013ADBE /* EPUBPageWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageWebView.h; sourceTree = "<group>"; };
-		5A8BD72E20C820B40013ADBE /* UIWebView+SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+SearchWebView.h"; sourceTree = "<group>"; };
-		5A8BD72F20C820B40013ADBE /* EPUBReadMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBReadMainViewController.h; sourceTree = "<group>"; };
-		5A8BD73020C820B40013ADBE /* epubtheme.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = epubtheme.xml; sourceTree = "<group>"; };
-		5A8BD73120C820B40013ADBE /* XWEPUBSearchJieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWEPUBSearchJieViewController.m; sourceTree = "<group>"; };
-		5A8BD73220C820B40013ADBE /* EPUBFileInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBFileInfoViewController.h; sourceTree = "<group>"; };
-		5A8BD73320C820B40013ADBE /* EPUBPageSearchTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageSearchTextViewController.h; sourceTree = "<group>"; };
-		5A8BD73420C820B40013ADBE /* EPUBFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBFontViewController.h; sourceTree = "<group>"; };
-		5A8BD73520C820B40013ADBE /* EPUBPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageViewController.h; sourceTree = "<group>"; };
-		5A8BD73620C820B40013ADBE /* EPUBParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBParser.m; sourceTree = "<group>"; };
-		5A8BD73720C820B40013ADBE /* EPUBPageCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageCatalogViewController.h; sourceTree = "<group>"; };
-		5A8BD73820C820B40013ADBE /* EPUBPageProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageProgressView.m; sourceTree = "<group>"; };
-		5A8BD73920C820B40013ADBE /* EPUBPageOptionMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageOptionMoreViewController.h; sourceTree = "<group>"; };
-		5A8BD73A20C820B40013ADBE /* EPUBReadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBReadMainViewController.m; sourceTree = "<group>"; };
-		5A8BD73B20C820B40013ADBE /* UIWebView+SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+SearchWebView.m"; sourceTree = "<group>"; };
-		5A8BD73C20C820B40013ADBE /* EPUBPageWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageWebView.m; sourceTree = "<group>"; };
-		5A8BD73D20C820B40013ADBE /* EPUBImagePreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBImagePreViewController.h; sourceTree = "<group>"; };
-		5A8BD73E20C820B40013ADBE /* EPUBPageOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageOptionView.m; sourceTree = "<group>"; };
-		5A8BD73F20C820B40013ADBE /* EPUBFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBFontViewController.m; sourceTree = "<group>"; };
-		5A8BD74020C820B40013ADBE /* EPUBPageSearchTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageSearchTextViewController.m; sourceTree = "<group>"; };
-		5A8BD74120C820B40013ADBE /* EPUBFileInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBFileInfoViewController.m; sourceTree = "<group>"; };
-		5A8BD74220C820B40013ADBE /* XWEPUBSearchJieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWEPUBSearchJieViewController.h; sourceTree = "<group>"; };
-		5A8BD74320C820B40013ADBE /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
-		5A8BD74420C820B40013ADBE /* epub.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = epub.bundle; sourceTree = "<group>"; };
-		5A8BD74520C820B40013ADBE /* EPUBCustomType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBCustomType.h; sourceTree = "<group>"; };
-		5A8BD74720C820B40013ADBE /* DFPShaoNvW5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DFPShaoNvW5.ttf; sourceTree = "<group>"; };
-		5A8BD74820C820B40013ADBE /* EPUBPageProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBPageProgressView.h; sourceTree = "<group>"; };
-		5A8BD74920C820B40013ADBE /* EPUBPageOptionMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageOptionMoreViewController.m; sourceTree = "<group>"; };
-		5A8BD74A20C820B40013ADBE /* EPUBPageCatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageCatalogViewController.m; sourceTree = "<group>"; };
-		5A8BD74B20C820B40013ADBE /* EPUBPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPUBPageViewController.m; sourceTree = "<group>"; };
-		5A8BD74C20C820B40013ADBE /* EPUBParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPUBParser.h; sourceTree = "<group>"; };
-		5A8BD76020C820C40013ADBE /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		5A8BD76120C820C40013ADBE /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
-		5A8BD77E20C824970013ADBE /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
-		5A8BD78020C824970013ADBE /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		5A8BD78120C824970013ADBE /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		5A8BD78220C824970013ADBE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		5A8BD78320C824970013ADBE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		5A8BD78420C824970013ADBE /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
-		5A8BD78520C824970013ADBE /* ChangeLogUnzip */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLogUnzip; sourceTree = "<group>"; };
-		5A8BD78620C824970013ADBE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		5A8BD78720C824970013ADBE /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		5A8BD78820C824970013ADBE /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		5A8BD78920C824970013ADBE /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		5A8BD78A20C824970013ADBE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		5A8BD78B20C824970013ADBE /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
-		5A8BD79520C82A9F0013ADBE /* 《实践论》《矛盾论》导读.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "《实践论》《矛盾论》导读.epub"; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -337,92 +261,6 @@
 			path = CollectionCell;
 			sourceTree = "<group>";
 		};
-		5A8BD72A20C820B40013ADBE /* EPUBReadModular */ = {
-			isa = PBXGroup;
-			children = (
-				5A8BD72B20C820B40013ADBE /* EPUBPageOptionView.h */,
-				5A8BD72C20C820B40013ADBE /* EPUBImagePreViewController.m */,
-				5A8BD72D20C820B40013ADBE /* EPUBPageWebView.h */,
-				5A8BD72E20C820B40013ADBE /* UIWebView+SearchWebView.h */,
-				5A8BD72F20C820B40013ADBE /* EPUBReadMainViewController.h */,
-				5A8BD73020C820B40013ADBE /* epubtheme.xml */,
-				5A8BD73120C820B40013ADBE /* XWEPUBSearchJieViewController.m */,
-				5A8BD73220C820B40013ADBE /* EPUBFileInfoViewController.h */,
-				5A8BD73320C820B40013ADBE /* EPUBPageSearchTextViewController.h */,
-				5A8BD73420C820B40013ADBE /* EPUBFontViewController.h */,
-				5A8BD73520C820B40013ADBE /* EPUBPageViewController.h */,
-				5A8BD73620C820B40013ADBE /* EPUBParser.m */,
-				5A8BD73720C820B40013ADBE /* EPUBPageCatalogViewController.h */,
-				5A8BD73820C820B40013ADBE /* EPUBPageProgressView.m */,
-				5A8BD73920C820B40013ADBE /* EPUBPageOptionMoreViewController.h */,
-				5A8BD73A20C820B40013ADBE /* EPUBReadMainViewController.m */,
-				5A8BD73B20C820B40013ADBE /* UIWebView+SearchWebView.m */,
-				5A8BD73C20C820B40013ADBE /* EPUBPageWebView.m */,
-				5A8BD73D20C820B40013ADBE /* EPUBImagePreViewController.h */,
-				5A8BD73E20C820B40013ADBE /* EPUBPageOptionView.m */,
-				5A8BD73F20C820B40013ADBE /* EPUBFontViewController.m */,
-				5A8BD74020C820B40013ADBE /* EPUBPageSearchTextViewController.m */,
-				5A8BD74120C820B40013ADBE /* EPUBFileInfoViewController.m */,
-				5A8BD74220C820B40013ADBE /* XWEPUBSearchJieViewController.h */,
-				5A8BD74320C820B40013ADBE /* SearchWebView.js */,
-				5A8BD74420C820B40013ADBE /* epub.bundle */,
-				5A8BD74520C820B40013ADBE /* EPUBCustomType.h */,
-				5A8BD74620C820B40013ADBE /* fonts */,
-				5A8BD74820C820B40013ADBE /* EPUBPageProgressView.h */,
-				5A8BD74920C820B40013ADBE /* EPUBPageOptionMoreViewController.m */,
-				5A8BD74A20C820B40013ADBE /* EPUBPageCatalogViewController.m */,
-				5A8BD74B20C820B40013ADBE /* EPUBPageViewController.m */,
-				5A8BD74C20C820B40013ADBE /* EPUBParser.h */,
-			);
-			path = EPUBReadModular;
-			sourceTree = "<group>";
-		};
-		5A8BD74620C820B40013ADBE /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				5A8BD74720C820B40013ADBE /* DFPShaoNvW5.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
-		5A8BD75F20C820C40013ADBE /* GDataXML */ = {
-			isa = PBXGroup;
-			children = (
-				5A8BD76020C820C40013ADBE /* GDataXMLNode.h */,
-				5A8BD76120C820C40013ADBE /* GDataXMLNode.m */,
-			);
-			path = GDataXML;
-			sourceTree = "<group>";
-		};
-		5A8BD77D20C824970013ADBE /* ZipArchive */ = {
-			isa = PBXGroup;
-			children = (
-				5A8BD77E20C824970013ADBE /* ZipArchive.h */,
-				5A8BD77F20C824970013ADBE /* minizip */,
-				5A8BD78B20C824970013ADBE /* ZipArchive.m */,
-			);
-			name = ZipArchive;
-			path = "../../../../../Downloads/Epub-master/掌上阅读/thirdparty/ZipArchive";
-			sourceTree = "<group>";
-		};
-		5A8BD77F20C824970013ADBE /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				5A8BD78020C824970013ADBE /* unzip.c */,
-				5A8BD78120C824970013ADBE /* zip.c */,
-				5A8BD78220C824970013ADBE /* Makefile */,
-				5A8BD78320C824970013ADBE /* ioapi.c */,
-				5A8BD78420C824970013ADBE /* mztools.c */,
-				5A8BD78520C824970013ADBE /* ChangeLogUnzip */,
-				5A8BD78620C824970013ADBE /* crypt.h */,
-				5A8BD78720C824970013ADBE /* zip.h */,
-				5A8BD78820C824970013ADBE /* unzip.h */,
-				5A8BD78920C824970013ADBE /* mztools.h */,
-				5A8BD78A20C824970013ADBE /* ioapi.h */,
-			);
-			path = minizip;
-			sourceTree = "<group>";
-		};
 		5ACC53D920C39DC9001F3F58 = {
 			isa = PBXGroup;
 			children = (
@@ -498,10 +336,6 @@
 		5ACC53FE20C39EC7001F3F58 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				5A8BD79520C82A9F0013ADBE /* 《实践论》《矛盾论》导读.epub */,
-				5A8BD77D20C824970013ADBE /* ZipArchive */,
-				5A8BD75F20C820C40013ADBE /* GDataXML */,
-				5A8BD72A20C820B40013ADBE /* EPUBReadModular */,
 				5A254C0820C6CACD00C45FF8 /* SGQRCode */,
 				5A254BF920C57F1C00C45FF8 /* SPPageMenu */,
 			);
@@ -653,12 +487,6 @@
 			files = (
 				5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */,
 				5A254C1820C6CACD00C45FF8 /* SGQRCode.bundle in Resources */,
-				5A8BD75B20C820B40013ADBE /* DFPShaoNvW5.ttf in Resources */,
-				5A8BD75A20C820B40013ADBE /* epub.bundle in Resources */,
-				5A8BD79620C82AA00013ADBE /* 《实践论》《矛盾论》导读.epub in Resources */,
-				5A8BD75920C820B40013ADBE /* SearchWebView.js in Resources */,
-				5A8BD79120C824970013ADBE /* ChangeLogUnzip in Resources */,
-				5A8BD74E20C820B40013ADBE /* epubtheme.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,47 +536,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8BD78E20C824970013ADBE /* Makefile in Sources */,
-				5A8BD78C20C824970013ADBE /* unzip.c in Sources */,
 				5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */,
 				5A254BF420C531BA00C45FF8 /* BookshelfViewController.m in Sources */,
-				5A8BD74F20C820B40013ADBE /* XWEPUBSearchJieViewController.m in Sources */,
-				5A8BD75220C820B40013ADBE /* EPUBReadMainViewController.m in Sources */,
-				5A8BD75C20C820B40013ADBE /* EPUBPageOptionMoreViewController.m in Sources */,
-				5A8BD75D20C820B40013ADBE /* EPUBPageCatalogViewController.m in Sources */,
 				5ACC53F520C39DCA001F3F58 /* main.m in Sources */,
 				5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */,
 				5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
-				5A8BD75320C820B40013ADBE /* UIWebView+SearchWebView.m in Sources */,
-				5A8BD75020C820B40013ADBE /* EPUBParser.m in Sources */,
-				5A8BD75E20C820B40013ADBE /* EPUBPageViewController.m in Sources */,
 				5A254C1B20C6CACD00C45FF8 /* SGQRCodeScanningView.m in Sources */,
-				5A8BD75720C820B40013ADBE /* EPUBPageSearchTextViewController.m in Sources */,
 				5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */,
 				5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */,
 				5A254C0720C6910500C45FF8 /* IPSettingViewController.m in Sources */,
 				5ACC541C20C4EA4D001F3F58 /* UIColor+String.m in Sources */,
 				5ACC541020C3C74E001F3F58 /* BaseViewController.m in Sources */,
-				5A8BD75520C820B40013ADBE /* EPUBPageOptionView.m in Sources */,
 				5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */,
 				5ACC540D20C3C729001F3F58 /* BaseNavigationController.m in Sources */,
 				5ACC542820C524EE001F3F58 /* STabBar.m in Sources */,
-				5A8BD75620C820B40013ADBE /* EPUBFontViewController.m in Sources */,
-				5A8BD79220C824970013ADBE /* ZipArchive.m in Sources */,
-				5A8BD74D20C820B40013ADBE /* EPUBImagePreViewController.m in Sources */,
 				5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */,
-				5A8BD75420C820B40013ADBE /* EPUBPageWebView.m in Sources */,
-				5A8BD76220C820C40013ADBE /* GDataXMLNode.m in Sources */,
 				5A254C1920C6CACD00C45FF8 /* UIImage+ImageSize.m in Sources */,
-				5A8BD75120C820B40013ADBE /* EPUBPageProgressView.m in Sources */,
-				5A8BD78F20C824970013ADBE /* ioapi.c in Sources */,
-				5A8BD78D20C824970013ADBE /* zip.c in Sources */,
 				5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */,
 				5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */,
-				5A8BD75820C820B40013ADBE /* EPUBFileInfoViewController.m in Sources */,
-				5A8BD79020C824970013ADBE /* mztools.c in Sources */,
 				5A254C2220C6CC6100C45FF8 /* SGQRCodeScanningVC.m in Sources */,
 				5A254C1C20C6CACD00C45FF8 /* SGQRCodeScanManager.m in Sources */,
 				5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */,

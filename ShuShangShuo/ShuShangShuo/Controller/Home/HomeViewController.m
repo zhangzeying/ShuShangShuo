@@ -10,8 +10,6 @@
 #import "BookshelfViewController.h"
 #import "HistorySearchViewController.h"
 #import "SPPageMenu.h"
-#import "EPUBParser.h"
-#import "EPUBReadMainViewController.h"
 
 static CGFloat const pageMenuH = 50;
 
@@ -22,7 +20,6 @@ static CGFloat const pageMenuH = 50;
 @property (nonatomic, strong) SPPageMenu *pageMenu;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *childViewControllerArray;
-@property (strong, nonatomic) EPUBParser *epubParser; //epub解析器
 
 @end
 
@@ -30,8 +27,6 @@ static CGFloat const pageMenuH = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //前提条件
-    _epubParser=[[EPUBParser alloc] init];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[IMAGENAMED(@"search") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(searchClick)];
     
     BookshelfViewController *browseHistoryVC = [[BookshelfViewController alloc]init];
@@ -73,32 +68,9 @@ static CGFloat const pageMenuH = 50;
 }
 
 - (void)searchClick {
-    NSString *fileFullPath = [[NSBundle mainBundle] pathForResource:@"《实践论》《矛盾论》导读" ofType:@"epub"];
-    
-    //
-    NSMutableDictionary *fileInfo=[NSMutableDictionary dictionary];
-    [fileInfo setObject:fileFullPath forKey:@"fileFullPath"];
-    
-    
-    EPUBReadMainViewController *epubVC=[EPUBReadMainViewController new];
-    epubVC.epubParser=self.epubParser;
-    epubVC.fileInfo=fileInfo;
-    
-    epubVC.epubReadBackBlock=^(NSMutableDictionary *para1){
-        NSLog(@"回调=%@",para1);
-        //[self dismissViewControllerAnimated:YES completion:nil];  //a方式  oK
-        //[self.navigationController popToRootViewControllerAnimated:YES];    //b方式  oK
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        return 1;
-    };
-    
-    //[self showViewController:epubVC sender:nil];  //a方式  oK
-    //[self.navigationController pushViewController:epubVC animated:YES];  //b方式  oK
-    [self.navigationController presentViewController:epubVC animated:YES completion:nil];
-//    HistorySearchViewController *historySearchVC = [[HistorySearchViewController alloc]init];
-//    historySearchVC.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:historySearchVC animated:YES];
+    HistorySearchViewController *historySearchVC = [[HistorySearchViewController alloc]init];
+    historySearchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:historySearchVC animated:YES];
 }
 
 #pragma mark - SPPageMenuDelegate

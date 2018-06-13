@@ -39,7 +39,7 @@ DEPENDENCIES:
   - YYModel
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bugly
     - DZNEmptyDataSet
@@ -65,4 +65,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 106ae65e0a495030e02d515727c5d7098b7ea191
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
