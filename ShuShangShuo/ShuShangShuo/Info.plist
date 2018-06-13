@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>您还没有开启照片权限，开启之后即可使用相册图片</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>您还没有开启照片权限，开启之后即可使用相册图片</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>您还没有开启相机权限，开启之后即可拍照或录像，用于扫描二维码</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
