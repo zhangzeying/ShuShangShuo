@@ -10,4 +10,6 @@
 
 @interface BookshelfCollectionCell : UICollectionViewCell
 
+@property (nonatomic, strong) UIImageView *bookImageView;
+
 @end

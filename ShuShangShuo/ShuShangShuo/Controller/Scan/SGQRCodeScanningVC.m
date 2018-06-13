@@ -8,6 +8,7 @@
 
 #import "SGQRCodeScanningVC.h"
 #import "SGQRCode.h"
+#import "HSDownloadManager.h"
 
 @interface SGQRCodeScanningVC () <SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
 @property (nonatomic, strong) SGQRCodeScanManager *manager;
@@ -34,7 +35,7 @@
 }
 
 - (void)dealloc {
-
+    
     [self removeScanningView];
 }
 
@@ -60,9 +61,9 @@
 - (SGQRCodeScanningView *)scanningView {
     if (!_scanningView) {
         _scanningView = [[SGQRCodeScanningView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.9 * self.view.frame.size.height)];
-//        _scanningView.scanningImageName = @"SGQRCode.bundle/QRCodeScanningLineGrid";
-//        _scanningView.scanningAnimationStyle = ScanningAnimationStyleGrid;
-//        _scanningView.cornerColor = [UIColor orangeColor];
+        //        _scanningView.scanningImageName = @"SGQRCode.bundle/QRCodeScanningLineGrid";
+        //        _scanningView.scanningAnimationStyle = ScanningAnimationStyleGrid;
+        //        _scanningView.cornerColor = [UIColor orangeColor];
     }
     return _scanningView;
 }
@@ -96,7 +97,7 @@
     [self.view addSubview:self.scanningView];
 }
 - (void)QRCodeAlbumManager:(SGQRCodeAlbumManager *)albumManager didFinishPickingMediaWithResult:(NSString *)result {
-    #warning - 待处理
+    [self downloadEpub:result];
 }
 
 #pragma mark - - - SGQRCodeScanManagerDelegate
@@ -107,9 +108,10 @@
         [scanManager palySoundName:@"SGQRCode.bundle/sound.caf"];
         [scanManager stopRunning];
         [scanManager videoPreviewLayerRemoveFromSuperlayer];
-
+        
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-#warning - 待处理
+        NSString *url = obj.stringValue;
+        [self downloadEpub:url];
         
     } else {
         
@@ -124,6 +126,30 @@
         if (self.isSelectedFlashlightBtn == NO) {
             [self removeFlashlightBtn];
         }
+    }
+}
+
+- (void)downloadEpub:(NSString *)url {
+    if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
+        [kUserDefaults setObject:url forKey:@"current_download_url"];
+        [kUserDefaults synchronize];
+        [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SProgressHUD showProgressValue:progress title:@"正在下载"];
+            });
+        } state:^(DownloadState state) {
+            if (state == DownloadStateCompleted) {
+                
+                //                NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[subPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                //                NSURL *fileURL = [NSURL URLWithString:fullPath];
+                //                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+                //                [kUserDefaults removeObjectForKey:@"current_download_url"];
+                //                [kUserDefaults synchronize];
+                //                dispatch_async(dispatch_get_main_queue(), ^{
+                //
+                //                });
+            }
+        }];
     }
 }
 

@@ -22,6 +22,8 @@
 #import "UIColor+String.h"
 #import "UIView+Frame.h"
 
+#import "SProgressHUD.h"
+
 //--- epub ---
 #import "LSYReadUtilites.h"
 #import "LSYReadModel.h"

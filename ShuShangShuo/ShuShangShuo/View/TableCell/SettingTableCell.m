@@ -27,6 +27,11 @@
     if (self.indexPath.section == 0) {
         [self.contentView addSubview:self.contentLbl];
         [self.contentView addSubview:self.switchView];
+        if (self.indexPath.row == 0) {
+            [self.switchView setOn: [kUserDefaults boolForKey:@"full_screen"]];
+        } else {
+            [self.switchView setOn: [kUserDefaults boolForKey:@"show_page"]];
+        }
     } else {
         if (self.indexPath.row == 0) {
             [self.contentView addSubview:self.contentLbl];
@@ -63,7 +68,7 @@
         make.height.mas_equalTo(1);
         make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
     }];
-
+    
     [_switchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
@@ -73,6 +78,17 @@
         make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
     }];
+}
+
+- (void)switchChange:(UISwitch *)sender {
+    if (self.indexPath.row == 0) {
+        [kUserDefaults setObject:@(sender.isOn) forKey:@"full_screen"];
+        [kUserDefaults synchronize];
+        
+    } else {
+        [kUserDefaults setObject:@(sender.isOn) forKey:@"show_page"];
+        [kUserDefaults synchronize];
+    }
 }
 
 #pragma mark - getter and setter
@@ -114,6 +130,7 @@
         _switchView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
         _switchView.layer.cornerRadius = _switchView.height / 2.0;
         _switchView.layer.masksToBounds = YES;
+        [_switchView addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];
     }
     return _switchView;
 }

@@ -16,9 +16,27 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
+        [self setupUI];
+        [self autoLayout];
     }
     return self;
 }
 
+- (void)setupUI {
+    [self.contentView addSubview:self.bookImageView];
+}
+
+- (void)autoLayout {
+    [_bookImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.contentView);
+    }];
+}
+
+- (UIImageView *)bookImageView {
+    if(!_bookImageView) {
+        _bookImageView = [[UIImageView alloc]init];
+        _bookImageView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+    }
+    return _bookImageView;
+}
 @end

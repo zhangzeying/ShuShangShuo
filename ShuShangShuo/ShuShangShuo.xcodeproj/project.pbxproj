@@ -84,6 +84,7 @@
 		5A51174D20D16123004EEFDA /* HSSessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174620D16123004EEFDA /* HSSessionModel.m */; };
 		5A51174E20D16123004EEFDA /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174820D16123004EEFDA /* NSString+Hash.m */; };
 		5A51174F20D16123004EEFDA /* HSDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174C20D16123004EEFDA /* HSDownloadManager.m */; };
+		5A51175320D161CE004EEFDA /* SProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51175120D161CE004EEFDA /* SProgressHUD.m */; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
@@ -245,6 +246,8 @@
 		5A51174A20D16123004EEFDA /* HSDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDownloadManager.h; sourceTree = "<group>"; };
 		5A51174B20D16123004EEFDA /* HSSessionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSessionModel.h; sourceTree = "<group>"; };
 		5A51174C20D16123004EEFDA /* HSDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDownloadManager.m; sourceTree = "<group>"; };
+		5A51175120D161CE004EEFDA /* SProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SProgressHUD.m; sourceTree = "<group>"; };
+		5A51175220D161CE004EEFDA /* SProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SProgressHUD.h; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,7 +275,6 @@
 		5ACC541F20C50FC6001F3F58 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		5ACC542120C51047001F3F58 /* PrivacyFuncTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacyFuncTool.h; sourceTree = "<group>"; };
 		5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacyFuncTool.m; sourceTree = "<group>"; };
-		5ACC542420C520EF001F3F58 /* 0.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = 0.5cb; sourceTree = "<group>"; };
 		5ACC542620C524EE001F3F58 /* STabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STabBar.h; sourceTree = "<group>"; };
 		5ACC542720C524EE001F3F58 /* STabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STabBar.m; sourceTree = "<group>"; };
 		60D7A78AE2EE54DE3000EF8E /* Pods-ShuShangShuo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuShangShuo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ShuShangShuo/Pods-ShuShangShuo.release.xcconfig"; sourceTree = "<group>"; };
@@ -653,6 +655,15 @@
 			path = MD5;
 			sourceTree = "<group>";
 		};
+		5A51175020D161CE004EEFDA /* SProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				5A51175120D161CE004EEFDA /* SProgressHUD.m */,
+				5A51175220D161CE004EEFDA /* SProgressHUD.h */,
+			);
+			path = SProgressHUD;
+			sourceTree = "<group>";
+		};
 		5ACC53D920C39DC9001F3F58 = {
 			isa = PBXGroup;
 			children = (
@@ -693,7 +704,6 @@
 		5ACC53FB20C39E92001F3F58 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5ACC542420C520EF001F3F58 /* 0.5cb */,
 				5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -727,6 +737,7 @@
 		5ACC53FE20C39EC7001F3F58 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				5A51175020D161CE004EEFDA /* SProgressHUD */,
 				5A51174520D16123004EEFDA /* HSDownloadManager */,
 				5A51169520D128F2004EEFDA /* Reader */,
 				5A254C0820C6CACD00C45FF8 /* SGQRCode */,
@@ -996,6 +1007,7 @@
 				5A51171420D128F2004EEFDA /* CXMLUnsupportedNode.m in Sources */,
 				5A51171F20D128F2004EEFDA /* UIImage+ImageEffects.m in Sources */,
 				5A254C1C20C6CACD00C45FF8 /* SGQRCodeScanManager.m in Sources */,
+				5A51175320D161CE004EEFDA /* SProgressHUD.m in Sources */,
 				5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */,
 				5A51172020D128F2004EEFDA /* GTMNSString+HTML.m in Sources */,
 				5A254C1D20C6CACD00C45FF8 /* SGQRCodeGenerateManager.m in Sources */,
