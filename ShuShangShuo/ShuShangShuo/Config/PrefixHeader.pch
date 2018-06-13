@@ -11,12 +11,21 @@
 
 #ifdef __OBJC__
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreText/CoreText.h>
+
 #import "ColorConst.h"
 #import "CommonConst.h"
 #import "SaticCommonConst.h"
 #import "Macro.h"
 #import "UIColor+String.h"
 #import "UIView+Frame.h"
+
+//--- epub ---
+#import "LSYReadUtilites.h"
+#import "LSYReadModel.h"
+#import "LSYReadParser.h"
 
 #define MAS_SHORTHAND_GLOBALS
 #import <Masonry.h>
