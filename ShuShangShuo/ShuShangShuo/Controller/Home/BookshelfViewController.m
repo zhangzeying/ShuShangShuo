@@ -49,8 +49,10 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         for (NSString *subPath in files) {
             NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[subPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
             NSURL *fileURL = [NSURL URLWithString:fullPath];
-            LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-            [self.dataArr addObject:model];
+            if ([fileURL.pathExtension isEqualToString:@"epub"]) {
+                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+                [self.dataArr addObject:model];
+            }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView reloadData];
