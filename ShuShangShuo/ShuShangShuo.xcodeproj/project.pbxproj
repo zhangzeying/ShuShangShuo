@@ -80,6 +80,7 @@
 		5A51173C20D128F2004EEFDA /* LSYMarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51170320D128F2004EEFDA /* LSYMarkVC.m */; };
 		5A51173D20D128F2004EEFDA /* LSYReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51170620D128F2004EEFDA /* LSYReadView.m */; };
 		5A51174120D1583C004EEFDA /* SVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174020D1583C004EEFDA /* SVerticalButton.m */; };
+		5A51174420D160F1004EEFDA /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174320D160F1004EEFDA /* AESCipher.m */; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
@@ -233,6 +234,8 @@
 		5A51170620D128F2004EEFDA /* LSYReadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSYReadView.m; sourceTree = "<group>"; };
 		5A51173F20D1583C004EEFDA /* SVerticalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVerticalButton.h; sourceTree = "<group>"; };
 		5A51174020D1583C004EEFDA /* SVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVerticalButton.m; sourceTree = "<group>"; };
+		5A51174220D160F1004EEFDA /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
+		5A51174320D160F1004EEFDA /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCipher.m; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -738,6 +741,8 @@
 		5ACC541420C3CD08001F3F58 /* PrivateTool */ = {
 			isa = PBXGroup;
 			children = (
+				5A51174220D160F1004EEFDA /* AESCipher.h */,
+				5A51174320D160F1004EEFDA /* AESCipher.m */,
 				5ACC541F20C50FC6001F3F58 /* NSData+CommonCrypto.h */,
 				5ACC541E20C50FC5001F3F58 /* NSData+CommonCrypto.m */,
 				5ACC541520C3CD27001F3F58 /* UIResponder+Router.h */,
@@ -916,6 +921,7 @@
 				5A51172D20D128F2004EEFDA /* LSYMagnifierView.m in Sources */,
 				5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
+				5A51174420D160F1004EEFDA /* AESCipher.m in Sources */,
 				5A51171120D128F2004EEFDA /* CXMLNamespaceNode.m in Sources */,
 				5ACC541320C3C772001F3F58 /* RefreshBaseViewController.m in Sources */,
 				5A51173B20D128F2004EEFDA /* LSYChapterVC.m in Sources */,
