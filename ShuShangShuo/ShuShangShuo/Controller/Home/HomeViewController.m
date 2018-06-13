@@ -10,6 +10,8 @@
 #import "BookshelfViewController.h"
 #import "HistorySearchViewController.h"
 #import "SPPageMenu.h"
+#import "DownLoadEpubFileTool.h"
+#import "HSDownloadManager.h"
 
 static CGFloat const pageMenuH = 50;
 
@@ -64,6 +66,14 @@ static CGFloat const pageMenuH = 50;
     }
     
     [self.view addSubview:self.scrollView];
+    
+    NSString *currentDownloadUrl = [kUserDefaults objectForKey:@"current_download_url"];
+    if (currentDownloadUrl.length > 0) {
+        CGFloat progress = [[HSDownloadManager sharedInstance] progress:currentDownloadUrl];
+        if (progress < 1) {
+            [[DownLoadEpubFileTool sharedtool] downloadEpubFile:currentDownloadUrl];
+        }
+    }
     
 }
 
