@@ -9,6 +9,8 @@
 #import "SGQRCodeScanningVC.h"
 #import "SGQRCode.h"
 #import "HSDownloadManager.h"
+#import "NSString+Hash.h"
+#import "DownLoadEpubFileTool.h"
 
 @interface SGQRCodeScanningVC () <SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
 @property (nonatomic, strong) SGQRCodeScanManager *manager;
@@ -97,7 +99,8 @@
     [self.view addSubview:self.scanningView];
 }
 - (void)QRCodeAlbumManager:(SGQRCodeAlbumManager *)albumManager didFinishPickingMediaWithResult:(NSString *)result {
-    [self downloadEpub:result];
+    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:result];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - - - SGQRCodeScanManagerDelegate
@@ -111,12 +114,15 @@
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         NSString *url = obj.stringValue;
-        [self downloadEpub:url];
+        [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
         
     } else {
         
         NSLog(@"暂未识别出扫描的二维码");
     }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 - (void)QRCodeScanManager:(SGQRCodeScanManager *)scanManager brightnessValue:(CGFloat)brightnessValue {
     
@@ -126,30 +132,6 @@
         if (self.isSelectedFlashlightBtn == NO) {
             [self removeFlashlightBtn];
         }
-    }
-}
-
-- (void)downloadEpub:(NSString *)url {
-    if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
-        [kUserDefaults setObject:url forKey:@"current_download_url"];
-        [kUserDefaults synchronize];
-        [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SProgressHUD showProgressValue:progress title:@"正在下载"];
-            });
-        } state:^(DownloadState state) {
-            if (state == DownloadStateCompleted) {
-                
-                //                NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[subPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-                //                NSURL *fileURL = [NSURL URLWithString:fullPath];
-                //                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-                //                [kUserDefaults removeObjectForKey:@"current_download_url"];
-                //                [kUserDefaults synchronize];
-                //                dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                //                });
-            }
-        }];
     }
 }
 
