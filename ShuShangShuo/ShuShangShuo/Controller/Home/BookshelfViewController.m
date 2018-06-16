@@ -27,7 +27,17 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
-    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.pageStyle == PageStyle_BrowseHistory) {
+        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+        
+    } else {
+        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
+    }
+    [self.collectionView reloadData];
 }
 
 - (void)setupUI {
@@ -41,23 +51,6 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         make.left.mas_equalTo(self.view).offset(10);
         make.right.mas_equalTo(self.view.mas_right).offset(-10);
     }];
-}
-
-- (void)loadData {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSArray *files = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:HSCachesDirectory error:nil];
-        for (NSString *subPath in files) {
-            NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[subPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-            NSURL *fileURL = [NSURL URLWithString:fullPath];
-            if ([fileURL.pathExtension isEqualToString:@"epub"]) {
-                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-                [self.dataArr addObject:model];
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView reloadData];
-        });
-    });
 }
 
 - (UIImage *)parserEpubCoverImg:(NSString *)content imagePath:(NSString *)imagePath
@@ -116,11 +109,26 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    LSYReadModel *model = self.dataArr[indexPath.row];
-    LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
-    pageView.resourceURL = model.resource;    //文件位置
-    pageView.model = model;
-    [self presentViewController:pageView animated:YES completion:nil];
+    if (self.pageStyle == PageStyle_MyBookshelf && indexPath.row == self.dataArr.count) {
+        
+    } else {
+        LSYReadModel *model = self.dataArr[indexPath.row];
+        LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
+        pageView.resourceURL = model.resource;    //文件位置
+        pageView.model = model;
+        NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
+        if (!historyDataArr) {
+            historyDataArr = [NSMutableArray arrayWithObjects:model, nil];
+            
+        } else {
+            if ([historyDataArr containsObject:model]) {
+                [historyDataArr removeObject:model];
+            }
+            [historyDataArr insertObject:model atIndex:0];
+        }
+        [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
+        [self presentViewController:pageView animated:YES completion:nil];
+    }
 }
 
 #pragma mark - getter and setter

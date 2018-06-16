@@ -13,6 +13,10 @@
 #define kSearchHistoryFileName @"SearchHistoryFileName"
 
 //---- epub file ----
+// 我的书架数据缓存路径
+#define kMyBookshelfFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MyBookshelfFileName"]
+// 浏览历史数据缓存路径
+#define kBrowserHistoryFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"BrowserHistoryFileName"]
 // 缓存主目录
 #define HSCachesDirectory [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HSCache"]
 // 保存文件名
@@ -30,6 +34,7 @@
 #define LSYThemeNotification @"LSYThemeNotification"
 #define LSYEditingNotification @"LSYEditingNotification"
 #define LSYEndEditNotification @"LSYEndEditNotification"
+#define DownloadSucces @"DownloadSucces" //下载成功的通知
 
 
 #endif /* SaticCommonConst_h */
