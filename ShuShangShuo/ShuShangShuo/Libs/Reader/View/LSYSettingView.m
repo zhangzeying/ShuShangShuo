@@ -30,8 +30,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupUI];
-//        [self addObserver:self forKeyPath:@"readModel.chapter" options:NSKeyValueObservingOptionNew context:NULL];
-//        [self addObserver:self forKeyPath:@"readModel.page" options:NSKeyValueObservingOptionNew context:NULL];
         [[LSYReadConfig shareInstance] addObserver:self forKeyPath:@"fontSize" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -228,6 +226,12 @@
         _themeView = [[LSYThemeView alloc] init];
     }
     return _themeView;
+}
+
+/*3.移除通知*/
+-(void)dealloc{
+    [_slider removeObserver:self forKeyPath:@"highlighted"];
+     [[LSYReadConfig shareInstance] removeObserver:self forKeyPath:@"fontSize"];
 }
 
 @end

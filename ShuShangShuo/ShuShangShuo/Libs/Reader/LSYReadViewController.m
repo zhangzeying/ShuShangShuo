@@ -28,7 +28,10 @@
 -(void)changeTheme:(NSNotification *)no
 {
     if ([LSYReadConfig shareInstance].theme != no.object) {
-        [LSYReadConfig shareInstance].theme = no.object;
+        if ([no.object isKindOfClass:[UIColor class]]) {
+            [LSYReadConfig shareInstance].theme = (UIColor *)no.object;
+        }
+        
         [self.view setBackgroundColor:[LSYReadConfig shareInstance].theme];
     }
 }

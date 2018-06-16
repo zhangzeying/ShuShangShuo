@@ -39,7 +39,6 @@
     [self addSubview:self.nextChapter];
     [self addObserver:self forKeyPath:@"readModel.chapter" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"readModel.page" options:NSKeyValueObservingOptionNew context:NULL];
-    [[LSYReadConfig shareInstance] addObserver:self forKeyPath:@"fontSize" options:NSKeyValueObservingOptionNew context:NULL];
 }
 -(UIButton *)catalog
 {
@@ -191,6 +190,11 @@
 }
 
 - (void)modeBtnClick:(UIButton *)sender {
+    if (sender.selected) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:LSYThemeNotification object:[UIColor whiteColor]];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:LSYThemeNotification object:[UIColor blackColor]];
+    }
     sender.selected = !sender.selected;
 }
 
@@ -221,7 +225,6 @@
     [_slider removeObserver:self forKeyPath:@"highlighted"];
     [self removeObserver:self forKeyPath:@"readModel.chapter"];
     [self removeObserver:self forKeyPath:@"readModel.page"];
-    [[LSYReadConfig shareInstance] removeObserver:self forKeyPath:@"fontSize"];
 }
 @end
 

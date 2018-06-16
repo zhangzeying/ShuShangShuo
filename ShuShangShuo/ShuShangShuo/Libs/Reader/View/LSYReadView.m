@@ -227,7 +227,6 @@
     if (_frameRef != frameRef) {
         if (_frameRef) {
             CFRelease(_frameRef);
-            _frameRef = nil;
         }
         _frameRef = frameRef;
     }
