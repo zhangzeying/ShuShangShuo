@@ -31,6 +31,7 @@
             [config addObserver:config forKeyPath:@"lineSpace" options:NSKeyValueObservingOptionNew context:NULL];
             [config addObserver:config forKeyPath:@"fontColor" options:NSKeyValueObservingOptionNew context:NULL];
             [config addObserver:config forKeyPath:@"theme" options:NSKeyValueObservingOptionNew context:NULL];
+            [config addObserver:config forKeyPath:@"isNight" options:NSKeyValueObservingOptionNew context:NULL];
             return config;
         }
         _lineSpace = 10.0f;
@@ -41,6 +42,7 @@
         [self addObserver:self forKeyPath:@"lineSpace" options:NSKeyValueObservingOptionNew context:NULL];
         [self addObserver:self forKeyPath:@"fontColor" options:NSKeyValueObservingOptionNew context:NULL];
         [self addObserver:self forKeyPath:@"theme" options:NSKeyValueObservingOptionNew context:NULL];
+        [self addObserver:self forKeyPath:@"isNight" options:NSKeyValueObservingOptionNew context:NULL];
         [LSYReadConfig updateLocalConfig:self];
         
     }
@@ -65,6 +67,7 @@
     [aCoder encodeDouble:self.lineSpace forKey:@"lineSpace"];
     [aCoder encodeObject:self.fontColor forKey:@"fontColor"];
     [aCoder encodeObject:self.theme forKey:@"theme"];
+    [aCoder encodeObject:@(self.isNight) forKey:@"isNight"];
 }
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -74,6 +77,7 @@
         self.lineSpace = [aDecoder decodeDoubleForKey:@"lineSpace"];
         self.fontColor = [aDecoder decodeObjectForKey:@"fontColor"];
         self.theme = [aDecoder decodeObjectForKey:@"theme"];
+        self.isNight = [[aDecoder decodeObjectForKey:@"isNight"] boolValue];
     }
     return self;
 }

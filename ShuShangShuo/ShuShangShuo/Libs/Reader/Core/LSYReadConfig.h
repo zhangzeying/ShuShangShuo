@@ -14,4 +14,6 @@
 @property (nonatomic) CGFloat lineSpace;
 @property (nonatomic,strong) UIColor *fontColor;
 @property (nonatomic,strong) UIColor *theme;
+/** 是否是夜间模式 **/
+@property (nonatomic,assign) BOOL isNight;
 @end

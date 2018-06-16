@@ -39,6 +39,7 @@
     [self addSubview:self.nextChapter];
     [self addObserver:self forKeyPath:@"readModel.chapter" options:NSKeyValueObservingOptionNew context:NULL];
     [self addObserver:self forKeyPath:@"readModel.page" options:NSKeyValueObservingOptionNew context:NULL];
+    self.modeBtn.selected = [LSYReadConfig shareInstance].isNight;
 }
 -(UIButton *)catalog
 {
@@ -192,10 +193,17 @@
 - (void)modeBtnClick:(UIButton *)sender {
     if (sender.selected) {
         [[NSNotificationCenter defaultCenter] postNotificationName:LSYThemeNotification object:[UIColor whiteColor]];
+        [LSYReadConfig shareInstance].fontColor = [UIColor blackColor];
+        [LSYReadConfig shareInstance].isNight = NO;
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:LSYThemeNotification object:[UIColor blackColor]];
+        [LSYReadConfig shareInstance].fontColor = [UIColor whiteColor];
+        [LSYReadConfig shareInstance].isNight = YES;
     }
     sender.selected = !sender.selected;
+    if ([self.delegate respondsToSelector:@selector(menuViewFontSize)]) {
+        [self.delegate menuViewFontSize];
+    }
 }
 
 - (void)settingBtnClick:(UIButton *)sender {
