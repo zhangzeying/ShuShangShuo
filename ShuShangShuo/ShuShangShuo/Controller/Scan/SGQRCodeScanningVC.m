@@ -99,8 +99,29 @@
     [self.view addSubview:self.scanningView];
 }
 - (void)QRCodeAlbumManager:(SGQRCodeAlbumManager *)albumManager didFinishPickingMediaWithResult:(NSString *)result {
-    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:result];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (([result hasPrefix:@"http"] || [result hasPrefix:@"https"]) && [result containsString:@"/5cepub/appdownload"]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                       message:@"确认下载此书籍吗？"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [[DownLoadEpubFileTool sharedtool] downloadEpubFile:result];
+                                                                  [self.navigationController popViewControllerAnimated:YES];
+                                                              }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                             }];
+        
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
+    } else {
+        [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
+    }
+    
 }
 
 #pragma mark - - - SGQRCodeScanManagerDelegate
@@ -114,14 +135,32 @@
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         NSString *url = obj.stringValue;
-        [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
+        if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                           message:@"确认下载此书籍吗？"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
+                                                                      [self.navigationController popViewControllerAnimated:YES];
+                                                                  }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                 }];
+            
+            [alert addAction:cancelAction];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
+        }
+        
         
     } else {
-        
-        NSLog(@"暂未识别出扫描的二维码");
+        [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
     
 }
 - (void)QRCodeScanManager:(SGQRCodeScanManager *)scanManager brightnessValue:(CGFloat)brightnessValue {
