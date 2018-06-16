@@ -228,7 +228,6 @@ SingletonM(tool)
                 });
                 [kUserDefaults removeObjectForKey:@"current_download_url"];
                 [kUserDefaults synchronize];
-                [[HSDownloadManager sharedInstance] deleteFile:url];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     NSString *filePath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",HSFileName(url)]];
                     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
@@ -250,6 +249,7 @@ SingletonM(tool)
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [SProgressHUD hideHUDfromView:nil];
                                         [SProgressHUD showSuccess:@"解析成功"];
+                                        [[HSDownloadManager sharedInstance] deleteFile:url];
                                         NOTIF_POST(DownloadSucces, nil);
                                     });
                                     
@@ -257,6 +257,7 @@ SingletonM(tool)
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [SProgressHUD hideHUDfromView:nil];
                                         [SProgressHUD showFailure:@"解析出错，请重新下载"];
+                                        [[HSDownloadManager sharedInstance] deleteFile:url];
                                     });
                                 }
                             }
@@ -265,6 +266,7 @@ SingletonM(tool)
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [SProgressHUD hideHUDfromView:nil];
+                            [[HSDownloadManager sharedInstance] deleteFile:url];
                             [SProgressHUD showFailure:@"解析出错，请重新下载"];
                         });
                     }
