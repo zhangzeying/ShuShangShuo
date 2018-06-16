@@ -88,6 +88,7 @@
 		5A51176020D17B47004EEFDA /* DownLoadEpubFileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51175F20D17B47004EEFDA /* DownLoadEpubFileTool.m */; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
+		5A950D1320D3AA1D0034C521 /* AboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A950D1220D3AA1D0034C521 /* AboutUSViewController.m */; };
 		5ACC53E720C39DC9001F3F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53E620C39DC9001F3F58 /* AppDelegate.m */; };
 		5ACC53EF20C39DCA001F3F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC53EE20C39DCA001F3F58 /* Assets.xcassets */; };
 		5ACC53F520C39DCA001F3F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC53F420C39DCA001F3F58 /* main.m */; };
@@ -253,6 +254,8 @@
 		5A51175F20D17B47004EEFDA /* DownLoadEpubFileTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownLoadEpubFileTool.m; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5A950D1120D3AA1D0034C521 /* AboutUSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUSViewController.h; sourceTree = "<group>"; };
+		5A950D1220D3AA1D0034C521 /* AboutUSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUSViewController.m; sourceTree = "<group>"; };
 		5ACC53E220C39DC9001F3F58 /* ShuShangShuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuShangShuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACC53E520C39DC9001F3F58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5ACC53E620C39DC9001F3F58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -362,6 +365,8 @@
 				5A254BFE20C58B8600C45FF8 /* SettingViewController.m */,
 				5A254C0520C6910500C45FF8 /* IPSettingViewController.h */,
 				5A254C0620C6910500C45FF8 /* IPSettingViewController.m */,
+				5A950D1120D3AA1D0034C521 /* AboutUSViewController.h */,
+				5A950D1220D3AA1D0034C521 /* AboutUSViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1006,6 +1011,7 @@
 				5A51172220D128F2004EEFDA /* LSYReadViewController.m in Sources */,
 				5A51170D20D128F2004EEFDA /* mztools.c in Sources */,
 				5A51172A20D128F2004EEFDA /* LSYBottomMenuView.m in Sources */,
+				5A950D1320D3AA1D0034C521 /* AboutUSViewController.m in Sources */,
 				5A51170720D128F2004EEFDA /* LSYReadConfig.m in Sources */,
 				5A51172C20D128F2004EEFDA /* LSYMenuView.m in Sources */,
 				5A51171920D128F2004EEFDA /* CXMLDocument_PrivateExtensions.m in Sources */,
