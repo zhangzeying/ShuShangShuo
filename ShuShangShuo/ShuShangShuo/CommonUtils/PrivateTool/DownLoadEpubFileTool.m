@@ -209,35 +209,73 @@ SingletonM(tool)
 
 - (void)downloadEpubFile:(NSString *)url {
     if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
+        CGFloat progress = [[HSDownloadManager sharedInstance] progress:url];
+        if (progress == 1) {
+            [SProgressHUD showMessage:@"此书籍已下载过！"];
+            return;
+        }
         [kUserDefaults setObject:url forKey:@"current_download_url"];
         [kUserDefaults synchronize];
         [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
-            if (progress < 1) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SProgressHUD showProgressValue:progress title:@"正在下载"];
-                });
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SProgressHUD showProgressValue:progress title:@"正在下载..."];
+            });
         } state:^(DownloadState state) {
             if (state == DownloadStateCompleted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SProgressHUD hideHUDfromView:nil];
+                    [SProgressHUD showWaiting:@"下载成功，正在解析..."];
+                });
                 [kUserDefaults removeObjectForKey:@"current_download_url"];
                 [kUserDefaults synchronize];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SProgressHUD showProgressValue:1 title:@"正在下载"];
-                });
+                [[HSDownloadManager sharedInstance] deleteFile:url];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [SProgressHUD hideHUDfromView:nil];
                     NSString *filePath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",HSFileName(url)]];
                     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-                    [self decodeEpubFile:fileData fileName:HSFileName(url)];
+                    BOOL flag = [self decodeEpubFile:fileData fileName:HSFileName(url)];
+                    if (flag) {
+                        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                            NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",HSFileName(url)]];
+                            NSURL *fileURL = [NSURL URLWithString:fullPath];
+                            if ([fileURL.pathExtension isEqualToString:@"epub"]) {
+                                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+                                NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+                                if (!dataArr) {
+                                    dataArr = [NSMutableArray arrayWithObjects:model, nil];
+                                    
+                                } else {
+                                    [dataArr addObject:model];
+                                }
+                                if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath]) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [SProgressHUD hideHUDfromView:nil];
+                                        [SProgressHUD showSuccess:@"解析成功"];
+                                        NOTIF_POST(DownloadSucces, nil);
+                                    });
+                                    
+                                } else {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [SProgressHUD hideHUDfromView:nil];
+                                        [SProgressHUD showFailure:@"解析出错，请重新下载"];
+                                    });
+                                }
+                            }
+                        });
+                        
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [SProgressHUD hideHUDfromView:nil];
+                            [SProgressHUD showFailure:@"解析出错，请重新下载"];
+                        });
+                    }
+                    
                 });
-                //                NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[subPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-                //                NSURL *fileURL = [NSURL URLWithString:fullPath];
-                //                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-                //                [kUserDefaults removeObjectForKey:@"current_download_url"];
-                //                [kUserDefaults synchronize];
-                //                dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                //                });
+                
+            } else if (state == DownloadStateFailed)  {
+                [[HSDownloadManager sharedInstance] deleteFile:url];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SProgressHUD showFailure:@"下载失败，请重新下载"];
+                });
             }
         }];
     }

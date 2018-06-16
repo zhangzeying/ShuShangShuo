@@ -24,6 +24,11 @@
 #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
 #define IMAGENAMED(_pointer) [UIImage imageNamed:_pointer]
 
+//通知
+#define NOTIF_ADD(n, f)     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(f) name:n object:nil]
+#define NOTIF_POST(n, o)    [[NSNotificationCenter defaultCenter] postNotificationName:n object:o]
+#define NOTIF_REMV()        [[NSNotificationCenter defaultCenter] removeObserver:self]
+
 //单例模式
 // .h文件
 #define SingletonH(name) + (instancetype)shared##name;

@@ -129,39 +129,39 @@
     
     NSLog(@"metadataObjects - - %@", metadataObjects);
     if (metadataObjects != nil && metadataObjects.count > 0) {
-        [scanManager palySoundName:@"SGQRCode.bundle/sound.caf"];
-        [scanManager stopRunning];
-        [scanManager videoPreviewLayerRemoveFromSuperlayer];
-        
-        AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-        NSString *url = obj.stringValue;
-        if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                           message:@"确认下载此书籍吗？"
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [scanManager palySoundName:@"SGQRCode.bundle/sound.caf"];
+            [scanManager stopRunning];
+            [scanManager videoPreviewLayerRemoveFromSuperlayer];
             
-            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {
-                                                                      [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
-                                                                      [self.navigationController popViewControllerAnimated:YES];
-                                                                  }];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                                 handler:^(UIAlertAction * action) {
-                                                                 }];
-            
-            [alert addAction:cancelAction];
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-            
-        } else {
-            [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
-        }
-        
+            AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
+            NSString *url = obj.stringValue;
+            if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                               message:@"确认下载此书籍吗？"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action) {
+                                                                          [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
+                                                                          [self.navigationController popViewControllerAnimated:YES];
+                                                                      }];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                     handler:^(UIAlertAction * action) {
+                                                                     }];
+                
+                [alert addAction:cancelAction];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+            } else {
+                [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
+            }
+        });
         
     } else {
         [SProgressHUD showFailure:@"暂未识别出扫描的二维码"];
     }
-    
 }
 - (void)QRCodeScanManager:(SGQRCodeScanManager *)scanManager brightnessValue:(CGFloat)brightnessValue {
     

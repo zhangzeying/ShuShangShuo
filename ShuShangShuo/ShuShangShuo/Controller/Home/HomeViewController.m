@@ -29,6 +29,7 @@ static CGFloat const pageMenuH = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NOTIF_ADD(DownloadSucces, downloadSucces);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[IMAGENAMED(@"search") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(searchClick)];
     
     BookshelfViewController *browseHistoryVC = [[BookshelfViewController alloc]init];
@@ -71,7 +72,21 @@ static CGFloat const pageMenuH = 50;
     if (currentDownloadUrl.length > 0) {
         CGFloat progress = [[HSDownloadManager sharedInstance] progress:currentDownloadUrl];
         if (progress < 1) {
-            [[DownLoadEpubFileTool sharedtool] downloadEpubFile:currentDownloadUrl];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                           message:@"检测到上次有书籍未下载完成，是否继续下载？"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [[DownLoadEpubFileTool sharedtool] downloadEpubFile:currentDownloadUrl];
+                                                                  }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                 }];
+            
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }
     
@@ -81,6 +96,10 @@ static CGFloat const pageMenuH = 50;
     HistorySearchViewController *historySearchVC = [[HistorySearchViewController alloc]init];
     historySearchVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:historySearchVC animated:YES];
+}
+
+- (void)downloadSucces {
+    self.pageMenu.selectedItemIndex = 1;
 }
 
 #pragma mark - SPPageMenuDelegate
