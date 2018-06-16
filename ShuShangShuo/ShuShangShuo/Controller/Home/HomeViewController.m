@@ -82,11 +82,15 @@ static CGFloat const pageMenuH = 50;
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
+                                                                     [[HSDownloadManager sharedInstance] deleteFile:currentDownloadUrl];
+                                                                     [kUserDefaults removeObjectForKey:@"current_download_url"];
+                                                                     [kUserDefaults synchronize];
+                                                                     
                                                                  }];
             
             [alert addAction:defaultAction];
             [alert addAction:cancelAction];
-            [self presentViewController:alert animated:YES completion:nil];
+            [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }
     

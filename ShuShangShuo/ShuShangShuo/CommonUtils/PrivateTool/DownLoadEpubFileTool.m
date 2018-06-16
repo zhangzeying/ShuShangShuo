@@ -238,7 +238,7 @@ SingletonM(tool)
                             NSURL *fileURL = [NSURL URLWithString:fullPath];
                             if ([fileURL.pathExtension isEqualToString:@"epub"]) {
                                 LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-                                NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+                                NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
                                 if (!dataArr) {
                                     dataArr = [NSMutableArray arrayWithObjects:model, nil];
                                     
@@ -274,6 +274,8 @@ SingletonM(tool)
                 });
                 
             } else if (state == DownloadStateFailed)  {
+                [kUserDefaults removeObjectForKey:@"current_download_url"];
+                [kUserDefaults synchronize];
                 [[HSDownloadManager sharedInstance] deleteFile:url];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [SProgressHUD showFailure:@"下载失败，请重新下载"];
