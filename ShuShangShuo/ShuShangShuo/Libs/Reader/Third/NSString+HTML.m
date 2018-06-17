@@ -99,6 +99,21 @@
                     }
                     
                 }
+                
+                if ([scanner scanString:@"image" intoString:NULL]) {
+                    [scanner scanUpToString:@"xlink:href" intoString:NULL];
+                    [scanner scanString:@"xlink:href" intoString:NULL];
+                    [scanner scanString:@"=" intoString:NULL];
+                    [scanner scanString:@"\'" intoString:NULL];
+                    [scanner scanString:@"\"" intoString:NULL];
+                    NSString *imgString;
+                    if ([scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\"\'"] intoString:&imgString]) {
+                        [result appendString:[NSString stringWithFormat:@"\n<img>%@</img>\n",imgString]];
+                        imgString = nil; // reset
+                    }
+                    
+                }
+                
                 if ([scanner scanString:@"title" intoString:NULL]) {
                     [scanner scanUpToString:@"</title>" intoString:NULL];
                     [scanner scanString:@"</title>" intoString:NULL];
