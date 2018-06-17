@@ -36,7 +36,7 @@
 //        markVC.delegate = self;
 //        markVC;
 //    })];
-    _titleArray = @[@"目录",@"书签"];
+    _titleArray = @[@"目录",@"书签",@"笔记"];
     _VCArray = @[({
         LSYChapterVC *chapterVC = [[LSYChapterVC alloc]init];
         chapterVC.readModel = _readModel;
@@ -47,6 +47,11 @@
         markVC.readModel = _readModel;
         markVC.delegate = self;
         markVC;
+    }),({
+        LSYNoteVC *noteVC = [[LSYNoteVC alloc] init];
+        noteVC.readModel = _readModel;
+        noteVC.delegate = self;
+        noteVC;
     })];
     self.forbidGesture = YES;
     self.delegate = self;

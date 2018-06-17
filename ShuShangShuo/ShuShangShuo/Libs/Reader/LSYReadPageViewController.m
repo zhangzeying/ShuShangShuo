@@ -43,8 +43,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.transitionStyle = UIPageViewControllerTransitionStylePageCurl;
-    [self addChildViewController:self.pageViewController];
+    _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:self.transitionStyle navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    _pageViewController.delegate = self;
+    _pageViewController.dataSource = self;
     [_pageViewController setViewControllers:@[[self readViewWithChapter:_model.record.chapter page:_model.record.page]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    [self.view addSubview:_pageViewController.view];
+    [self addChildViewController:self.pageViewController];
     _chapter = _model.record.chapter;
     _page = _model.record.page;
     [self.view addGestureRecognizer:({
@@ -64,6 +68,16 @@
     [self.view addSubview:self.catalogView];
     [self.catalogView addSubview:self.catalogVC.view];
 
+    //添加笔记
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNotes:) name:LSYNoteNotification object:nil];
+}
+
+-(void)addNotes:(NSNotification *)no
+{
+    LSYNoteModel *model = no.object;
+    model.recordModel = [_model.record copy];
+    [[_model mutableArrayValueForKey:@"notes"] addObject:model];    //这样写才能KVO数组变化
+    [LSYReadUtilites showAlertTitle:nil content:@"保存笔记成功"];
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -96,16 +110,7 @@
     }
     return _menuView;
 }
--(UIPageViewController *)pageViewController
-{
-    if (!_pageViewController) {
-        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:self.transitionStyle navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-        _pageViewController.delegate = self;
-        _pageViewController.dataSource = self;
-        [self.view addSubview:_pageViewController.view];
-    }
-    return _pageViewController;
-}
+
 -(LSYCatalogViewController *)catalogVC
 {
     if (!_catalogVC) {
@@ -153,7 +158,7 @@
 #pragma mark - CatalogViewController Delegate
 -(void)catalog:(LSYCatalogViewController *)catalog didSelectChapter:(NSUInteger)chapter page:(NSUInteger)page
 {
-     [_pageViewController setViewControllers:@[[self readViewWithChapter:chapter page:page]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    [_pageViewController setViewControllers:@[[self readViewWithChapter:chapter page:page]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     [self updateReadModelWithChapter:chapter page:page];
     [self hiddenCatalog];
     
@@ -232,17 +237,21 @@
 
 - (void)changeTransitionStyle:(UIPageViewControllerTransitionStyle)transitionStyle {
     self.transitionStyle = transitionStyle;
-    if (self.pageViewController) {
-        [self.pageViewController.view removeFromSuperview];
-        [self.pageViewController removeFromParentViewController];
-        self.pageViewController = nil;
-        [self addChildViewController:self.pageViewController];
-        [self.view bringSubviewToFront:_pageLbl];
-        [self.view bringSubviewToFront:self.maskLightView];
-        [self.view bringSubviewToFront:self.menuView];
-        [self.view bringSubviewToFront:self.catalogView];
+    if (_pageViewController) {
+        [_pageViewController.view removeFromSuperview];
+        [_pageViewController removeFromParentViewController];
+        _pageViewController = nil;
     }
-    [_pageViewController setViewControllers:@[[self readViewWithChapter:_model.record.chapter page:_model.record.page]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:self.transitionStyle navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    _pageViewController.delegate = self;
+    _pageViewController.dataSource = self;
+    [self.pageViewController setViewControllers:@[[self readViewWithChapter:_model.record.chapter page:_model.record.page]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    [self.view addSubview:_pageViewController.view];
+    [self addChildViewController:self.pageViewController];
+    [self.view bringSubviewToFront:_pageLbl];
+    [self.view bringSubviewToFront:self.maskLightView];
+    [self.view bringSubviewToFront:self.menuView];
+    [self.view bringSubviewToFront:self.catalogView];
     _chapter = _model.record.chapter;
     _page = _model.record.page;
 }
@@ -309,7 +318,7 @@
         _readView.content = [_model.chapters[chapter] stringOfPage:page];
     }
     _readView.delegate = self;
-    NSLog(@"_readGreate");
+
     
     return _readView;
 }
@@ -359,7 +368,7 @@
     else{
         _pageChange--;
     }
-    
+    NSLog(@"_chapterChange：%ld ---- _pageChange：%ld", _chapterChange, _pageChange);
     return [self readViewWithChapter:_chapterChange page:_pageChange];
     
 }
@@ -378,6 +387,7 @@
     else{
         _pageChange++;
     }
+    NSLog(@"_chapterChange：%ld ---- _pageChange：%ld", _chapterChange, _pageChange);
     return [self readViewWithChapter:_chapterChange page:_pageChange];
 }
 #pragma mark -PageViewController Delegate
@@ -398,6 +408,20 @@
     _chapter = _chapterChange;
     _page = _pageChange;
 }
+- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    // 纵 单页
+    UIViewController *currentViewController = [pageViewController.viewControllers objectAtIndex:0];
+    NSArray *viewControllers = [NSArray arrayWithObject:currentViewController];
+    [pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
+    
+    //Important- Set the doubleSided property to NO.
+    pageViewController.doubleSided = NO;
+    //Return the spine location
+    return UIPageViewControllerSpineLocationMin;
+    
+}
+
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];

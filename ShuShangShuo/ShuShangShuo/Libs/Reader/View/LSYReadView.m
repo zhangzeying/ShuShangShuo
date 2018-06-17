@@ -13,10 +13,10 @@
 #import "LSYMagnifierView.h"
 @interface LSYReadView ()
 @property (nonatomic,strong) LSYMagnifierView *magnifierView;
+@property (nonatomic,assign) NSRange selectRange;
 @end
 @implementation LSYReadView
 {
-    NSRange _selectRange;
     NSRange _calRange;
     NSArray *_pathArray;
     
@@ -193,9 +193,9 @@
     if ([self becomeFirstResponder]) {
         UIMenuController *menuController = [UIMenuController sharedMenuController];
         UIMenuItem *menuItemCopy = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(menuCopy:)];
-//        UIMenuItem *menuItemNote = [[UIMenuItem alloc] initWithTitle:@"笔记" action:@selector(menuNote:)];
+        UIMenuItem *menuItemNote = [[UIMenuItem alloc] initWithTitle:@"笔记" action:@selector(menuNote:)];
 //        UIMenuItem *menuItemShare = [[UIMenuItem alloc] initWithTitle:@"分享" action:@selector(menuShare:)];
-        NSArray *menus = @[menuItemCopy];
+        NSArray *menus = @[menuItemCopy,menuItemNote];
         [menuController setMenuItems:menus];
         [menuController setTargetRect:CGRectMake(CGRectGetMidX(_menuRect), self.height-CGRectGetMidY(_menuRect), CGRectGetHeight(_menuRect), CGRectGetWidth(_menuRect)) inView:self];
         [menuController setMenuVisible:YES animated:YES];
@@ -222,6 +222,35 @@
     
 }
 
+-(void)menuNote:(id)sender
+{
+    [self hiddenMenu];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"笔记" message:[_content substringWithRange:_selectRange]  preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"输入内容";
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    __weak typeof (alertController) weekAlert = alertController;
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LSYNoteModel *model = [[LSYNoteModel alloc] init];
+        model.content = [self.content substringWithRange:self.selectRange];
+        model.note = weekAlert.textFields.firstObject.text;
+        model.date = [NSDate date];
+        [[NSNotificationCenter defaultCenter] postNotificationName:LSYNoteNotification object:model];
+    }];
+    [alertController addAction:cancel];
+    [alertController addAction:confirm];
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            [(UIViewController *)nextResponder presentViewController:alertController animated:YES completion:nil];
+            break;
+        }
+    }
+}
+
 -(void)setFrameRef:(CTFrameRef)frameRef
 {
     if (_frameRef != frameRef) {
@@ -233,6 +262,7 @@
 }
 -(void)dealloc
 {
+    NSLog(@"%@ dealloc",NSStringFromClass(self.class));
 }
 -(void)drawRect:(CGRect)rect
 {
