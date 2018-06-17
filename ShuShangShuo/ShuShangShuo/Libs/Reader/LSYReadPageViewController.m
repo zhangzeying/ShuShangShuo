@@ -82,7 +82,7 @@
 
 -(BOOL)prefersStatusBarHidden
 {
-    return ![kUserDefaults boolForKey:@"full_screen"];
+    return [kUserDefaults boolForKey:@"full_screen"];
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
