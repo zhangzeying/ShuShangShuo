@@ -32,10 +32,10 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.pageStyle == PageStyle_BrowseHistory) {
-        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+        self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
         
     } else {
-        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
+        self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
     }
     [self.collectionView reloadData];
 }
@@ -86,7 +86,10 @@ static NSString *const CellID = @"BookshelfCollectionCell";
     if (self.pageStyle == PageStyle_MyBookshelf && indexPath.row == self.dataArr.count) {
         cell.bookImageView.image = IMAGENAMED(@"add");
     } else {
-        LSYReadModel *model = self.dataArr[indexPath.row];
+        NSString *urlMD5 = self.dataArr[indexPath.row];
+        NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
+        NSURL *fileURL = [NSURL URLWithString:fullPath];
+        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
         if (model.epubCoverImg) {
             cell.bookImageView.image = model.epubCoverImg;
             
@@ -112,21 +115,24 @@ static NSString *const CellID = @"BookshelfCollectionCell";
     if (self.pageStyle == PageStyle_MyBookshelf && indexPath.row == self.dataArr.count) {
         
     } else {
-        LSYReadModel *model = self.dataArr[indexPath.row];
+        NSString *urlMD5 = self.dataArr[indexPath.row];
+        NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
+        NSURL *fileURL = [NSURL URLWithString:fullPath];
+        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
         LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
         pageView.resourceURL = model.resource;    //文件位置
         pageView.model = model;
         NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
         if (!historyDataArr) {
-            historyDataArr = [NSMutableArray arrayWithObjects:model, nil];
+            historyDataArr = [NSMutableArray arrayWithObjects:urlMD5, nil];
             
         } else {
-            if ([historyDataArr containsObject:model]) {
-                [historyDataArr removeObject:model];
+            if ([historyDataArr containsObject:urlMD5]) {
+                [historyDataArr removeObject:urlMD5];
             }
-            [historyDataArr insertObject:model atIndex:0];
+            [historyDataArr insertObject:urlMD5 atIndex:0];
         }
-        [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
+        [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
         [self presentViewController:pageView animated:YES completion:nil];
     }
 }

@@ -209,9 +209,33 @@ SingletonM(tool)
 
 - (void)downloadEpubFile:(NSString *)url {
     if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
-        CGFloat progress = [[HSDownloadManager sharedInstance] progress:url];
-        if (progress == 1) {
-            [SProgressHUD showMessage:@"此书籍已下载过！"];
+        NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+        NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
+        if ([dataArr containsObject:HSFileName(url)]) {
+            WEAKSELF
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                           message:@"此书籍已下载过，是否重新下载？"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      STRONGSELF
+                                                                      [[HSDownloadManager sharedInstance] deleteFile:url];
+                                                                      [dataArr removeObject:HSFileName(url)];
+                                                                      [dataArr writeToFile:kMyBookshelfFilePath atomically:YES];
+                                                                      if ([historyDataArr containsObject:HSFileName(url)]) {
+                                                                          [historyDataArr removeObject:HSFileName(url)];
+                                                                          [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
+                                                                      }
+                                                                      [strongSelf downloadEpubFile:url];
+                                                                  }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                 }];
+            
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
             return;
         }
         [kUserDefaults setObject:url forKey:@"current_download_url"];
@@ -237,18 +261,19 @@ SingletonM(tool)
                             NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",HSFileName(url)]];
                             NSURL *fileURL = [NSURL URLWithString:fullPath];
                             if ([fileURL.pathExtension isEqualToString:@"epub"]) {
-                                LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-                                NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+                                NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
                                 if (!dataArr) {
-                                    dataArr = [NSMutableArray arrayWithObjects:model, nil];
+                                    dataArr = [NSMutableArray arrayWithObjects:HSFileName(url), nil];
                                     
                                 } else {
-                                    [dataArr addObject:model];
+                                    [dataArr addObject:HSFileName(url)];
                                 }
-                                if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath]) {
+                                if ([dataArr writeToFile:kMyBookshelfFilePath atomically:YES]) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [SProgressHUD hideHUDfromView:nil];
                                         [SProgressHUD showSuccess:@"解析成功"];
+                                        NSString *key = [fileURL.path lastPathComponent];
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
                                         [[HSDownloadManager sharedInstance] deleteFile:url];
                                         NOTIF_POST(DownloadSucces, nil);
                                     });
