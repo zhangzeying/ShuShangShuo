@@ -19,6 +19,9 @@
 @property (nonatomic,strong) UIButton *increaseFont;
 @property (nonatomic,strong) UIButton *decreaseFont;
 @property (nonatomic,strong) UILabel *fontLabel;
+@property (nonatomic,strong) UIButton *increaseLineSpace;
+@property (nonatomic,strong) UIButton *decreaseLineSpace;
+@property (nonatomic,strong) UILabel *lineSpaceLabel;
 @property (nonatomic,strong) LSYThemeView *themeView;
 
 @end
@@ -31,6 +34,7 @@
     if (self) {
         [self setupUI];
         [[LSYReadConfig shareInstance] addObserver:self forKeyPath:@"fontSize" options:NSKeyValueObservingOptionNew context:NULL];
+        [[LSYReadConfig shareInstance] addObserver:self forKeyPath:@"lineSpace" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -45,6 +49,9 @@
     [self addSubview:self.increaseFont];
     [self addSubview:self.decreaseFont];
     [self addSubview:self.fontLabel];
+    [self addSubview:self.increaseLineSpace];
+    [self addSubview:self.decreaseLineSpace];
+    [self addSubview:self.lineSpaceLabel];
     [self addSubview:self.themeView];
 }
 
@@ -56,9 +63,13 @@
     self.slider.frame = CGRectMake(self.nightModeImgView.right+10, 0, self.dayModeImgView.x - sliderX - 10, 30);
     self.slider.centerY = self.nightModeImgView.centerY;
     
-    self.decreaseFont.frame = CGRectMake(self.slider.x, self.slider.bottom + 10, 70, 30);
-    self.increaseFont.frame = CGRectMake(self.slider.right - 70, self.slider.bottom + 10,  70, 30);
-    self.fontLabel.frame = CGRectMake(self.decreaseFont.right, self.slider.bottom + 10, self.increaseFont.x - self.decreaseFont.right, 30);
+    self.decreaseFont.frame = CGRectMake(self.nightModeImgView.x, self.slider.bottom + 10, 40, 30);
+    self.fontLabel.frame = CGRectMake(self.decreaseFont.right, self.slider.bottom + 10, 50, 30);
+    self.increaseFont.frame = CGRectMake(self.fontLabel.right, self.slider.bottom + 10,  40, 30);
+    
+    self.decreaseLineSpace.frame = CGRectMake(self.increaseFont.right + 30, self.slider.bottom + 10,  40, 30);
+    self.lineSpaceLabel.frame = CGRectMake(self.decreaseLineSpace.right, self.slider.bottom + 10, 50, 30);
+    self.increaseLineSpace.frame = CGRectMake(self.lineSpaceLabel.right, self.slider.bottom + 10, 40, 30);
     
     self.curlTransitionBtn.frame = CGRectMake(self.slider.x, self.decreaseFont.bottom + 20, 50, 35);
     self.scrollTransitionBtn.frame = CGRectMake(self.slider.right - 50, self.decreaseFont.bottom + 20, 50, 35);
@@ -101,6 +112,19 @@
     }
 }
 
+-(void)changeLineSpace:(UIButton *)sender {
+    if (sender == _increaseLineSpace) {
+        
+        [LSYReadConfig shareInstance].lineSpace++;
+    }
+    else{
+        [LSYReadConfig shareInstance].lineSpace--;
+    }
+    if ([self.delegate respondsToSelector:@selector(menuViewFontSize)]) {
+        [self.delegate menuViewFontSize];
+    }
+}
+
 - (void)curlTransitionBtnClick {
     if ([self.delegate respondsToSelector:@selector(changeTransitionStyle:)]) {
         [self.delegate changeTransitionStyle:UIPageViewControllerTransitionStylePageCurl];
@@ -124,6 +148,10 @@
 {
     if ([keyPath isEqualToString:@"fontSize"]){
         _fontLabel.text = [NSString stringWithFormat:@"%d",(int)[LSYReadConfig shareInstance].fontSize];
+    }
+    
+    if ([keyPath isEqualToString:@"lineSpace"]) {
+        _lineSpaceLabel.text = [NSString stringWithFormat:@"%d",(int)[LSYReadConfig shareInstance].lineSpace];
     }
 }
 
@@ -220,6 +248,41 @@
     }
     return _fontLabel;
 }
+
+-(UIButton *)increaseLineSpace
+{
+    if (!_increaseLineSpace) {
+        _increaseLineSpace = [LSYReadUtilites commonButtonSEL:@selector(changeLineSpace:) target:self];
+        [_increaseLineSpace setTitle:@"L+" forState:UIControlStateNormal];
+        [_increaseLineSpace.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        _increaseLineSpace.layer.borderWidth = 1;
+        _increaseLineSpace.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+    return _increaseLineSpace;
+}
+-(UIButton *)decreaseLineSpace
+{
+    if (!_decreaseLineSpace) {
+        _decreaseLineSpace = [LSYReadUtilites commonButtonSEL:@selector(changeLineSpace:) target:self];
+        [_decreaseLineSpace setTitle:@"L-" forState:UIControlStateNormal];
+        [_decreaseLineSpace.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        _decreaseLineSpace.layer.borderWidth = 1;
+        _decreaseLineSpace.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+    return _decreaseLineSpace;
+}
+-(UILabel *)lineSpaceLabel
+{
+    if (!_lineSpaceLabel) {
+        _lineSpaceLabel = [[UILabel alloc] init];
+        _lineSpaceLabel.font = [UIFont systemFontOfSize:14];
+        _lineSpaceLabel.textColor = [UIColor whiteColor];
+        _lineSpaceLabel.textAlignment = NSTextAlignmentCenter;
+        _lineSpaceLabel.text = [NSString stringWithFormat:@"%d",(int)[LSYReadConfig shareInstance].lineSpace];
+    }
+    return _lineSpaceLabel;
+}
+
 -(LSYThemeView *)themeView
 {
     if (!_themeView) {
@@ -231,7 +294,8 @@
 /*3.移除通知*/
 -(void)dealloc{
     [_slider removeObserver:self forKeyPath:@"highlighted"];
-     [[LSYReadConfig shareInstance] removeObserver:self forKeyPath:@"fontSize"];
+    [[LSYReadConfig shareInstance] removeObserver:self forKeyPath:@"fontSize"];
+    [[LSYReadConfig shareInstance] removeObserver:self forKeyPath:@"lineSpace"];
 }
 
 @end
