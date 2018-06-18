@@ -143,8 +143,9 @@
                 
                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action) {
-                                                                          [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
                                                                           [self.navigationController popViewControllerAnimated:YES];
+                                                                          [[DownLoadEpubFileTool sharedtool] downloadEpubFile:url];
+                                                                          
                                                                       }];
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
                                                                      handler:^(UIAlertAction * action) {
