@@ -217,14 +217,17 @@
     _lastChapter.frame = CGRectMake(5, 20, 40, 30);
     _nextChapter.frame = CGRectMake(DistanceFromLeftGuiden(_slider)+5, 20, 40, 30);
     _progressView.frame = CGRectMake(60, -60, self.width-120, 50);
-    _catalog.frame = CGRectMake(15, self.height - 60 - 10, 60, 60);
+    
+    CGFloat btnY = self.height - 60 - 10 - (iPhoneX_inch ? kIphoneXSafeBottomHeight : 0);
+    
+    _catalog.frame = CGRectMake(15, btnY , 60, 60);
     _catalog.centerOffset = 15;
     
-    _modeBtn.frame = CGRectMake(0, self.height - 60 - 10, 70, 60);
+    _modeBtn.frame = CGRectMake(0, btnY , 80, 60);
     _modeBtn.centerX = self.centerX;
     _modeBtn.centerOffset = 15;
     
-    _settingBtn.frame = CGRectMake(self.width - 60 - 15, self.height - 60 - 10, 60, 60);
+    _settingBtn.frame = CGRectMake(self.width - 60 - 15, btnY, 60, 60);
     _settingBtn.centerOffset = 15;
     
 }

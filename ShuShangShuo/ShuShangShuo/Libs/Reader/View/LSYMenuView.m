@@ -12,16 +12,20 @@
 #import "LSYSettingView.h"
 #define AnimationDelay 0.3f
 #define TopViewHeight 64.0f
-#define BottomViewHeight 150.0f
-#define SettingViewHeight 220.0f
 @interface LSYMenuView ()<LSYMenuViewDelegate>
+
 @property (nonatomic,assign) BOOL isShowSettingView;
+@property (nonatomic,assign) CGFloat bottomViewHeight;
+@property (nonatomic,assign) CGFloat settingViewHeight;
+
 @end
 @implementation LSYMenuView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.bottomViewHeight= iPhoneX_inch ? 150.0f + kIphoneXSafeBottomHeight : 150.0f;
+        self.settingViewHeight= iPhoneX_inch ? 220.0f + kIphoneXSafeBottomHeight : 220.0f;
         [self setup];
     }
     return self;
@@ -45,7 +49,7 @@
 -(LSYBottomMenuView *)bottomView
 {
     if (!_bottomView) {
-        _bottomView = [[LSYBottomMenuView alloc] initWithFrame:CGRectMake(0, self.height, self.width,BottomViewHeight)];
+        _bottomView = [[LSYBottomMenuView alloc] initWithFrame:CGRectMake(0, self.height, self.width,self.bottomViewHeight)];
         _bottomView.delegate = self;
     }
     return _bottomView;
@@ -53,7 +57,7 @@
 -(LSYSettingView *)settingView
 {
     if (!_settingView) {
-        _settingView = [[LSYSettingView alloc] initWithFrame:CGRectMake(0, self.height, self.width,SettingViewHeight)];
+        _settingView = [[LSYSettingView alloc] initWithFrame:CGRectMake(0, self.height, self.width,self.settingViewHeight)];
         _settingView.delegate = self;
     }
     return _settingView;
@@ -107,7 +111,7 @@
     if (self.isShowSettingView) {
         self.isShowSettingView = NO;
         [UIView animateWithDuration:AnimationDelay animations:^{
-            self.settingView.frame = CGRectMake(0, self.height, self.width,SettingViewHeight);
+            self.settingView.frame = CGRectMake(0, self.height, self.width,self.settingViewHeight);
             
         } completion:^(BOOL finished) {
             self.hidden = YES;
@@ -122,7 +126,7 @@
     self.hidden = NO;
     [UIView animateWithDuration:animation?AnimationDelay:0 animations:^{
         self.topView.frame = CGRectMake(0, 0, self.width, TopViewHeight);
-        self.bottomView.frame = CGRectMake(0, self.height-BottomViewHeight, self.width,BottomViewHeight);
+        self.bottomView.frame = CGRectMake(0, self.height-self.bottomViewHeight, self.width,self.bottomViewHeight);
     } completion:^(BOOL finished) {
         
     }];
@@ -134,7 +138,7 @@
 {
     [UIView animateWithDuration:animation?AnimationDelay:0 animations:^{
         self.topView.frame = CGRectMake(0, -TopViewHeight, self.width, TopViewHeight);
-        self.bottomView.frame = CGRectMake(0, self.height, self.width,BottomViewHeight);
+        self.bottomView.frame = CGRectMake(0, self.height, self.width,self.bottomViewHeight);
     } completion:^(BOOL finished) {
         self.hidden = YES;
     }];
@@ -152,10 +156,10 @@
         self.isShowSettingView = YES;
         [UIView animateWithDuration:AnimationDelay animations:^{
             self.topView.frame = CGRectMake(0, -TopViewHeight, self.width, TopViewHeight);
-            self.bottomView.frame = CGRectMake(0, self.height, self.width,BottomViewHeight);
+            self.bottomView.frame = CGRectMake(0, self.height, self.width,self.bottomViewHeight);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:AnimationDelay animations:^{
-                self.settingView.frame = CGRectMake(0, self.height-SettingViewHeight, self.width,SettingViewHeight);
+                self.settingView.frame = CGRectMake(0, self.height-self.settingViewHeight, self.width,self.settingViewHeight);
                 
             } completion:^(BOOL finished) {
                 
