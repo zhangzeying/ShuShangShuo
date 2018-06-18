@@ -23,7 +23,7 @@
 #endif
 
 @interface SGQRCodeAlbumManager () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@property (nonatomic, strong) UIViewController *currentVC;
+@property (nonatomic, weak) UIViewController *currentVC;
 @property (nonatomic, strong) NSString *detectorString;
 @end
 
