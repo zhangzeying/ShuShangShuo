@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RootTabBarController.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -21,6 +22,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     RootTabBarController *rootVC = [[RootTabBarController alloc]init];
     self.window.rootViewController = rootVC;
+    [Bugly startWithAppId:@"5b45d23945"];
     [self.window makeKeyAndVisible];
     return YES;
 }

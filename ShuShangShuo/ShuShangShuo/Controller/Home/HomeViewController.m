@@ -93,7 +93,6 @@ static CGFloat const pageMenuH = 50;
             [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }
-    
 }
 
 - (void)searchClick {
