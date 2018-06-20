@@ -245,7 +245,12 @@ SingletonM(tool)
                 [SProgressHUD showProgressValue:progress title:@"正在下载..."];
             });
         } state:^(DownloadState state) {
-            if (state == DownloadStateCompleted) {
+            if (state == DownloadStateStart) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SProgressHUD showProgressValue:0.f title:@"正在下载..."];
+                });
+                
+            } else if (state == DownloadStateCompleted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [SProgressHUD hideHUDfromView:nil];
                     [SProgressHUD showWaiting:@"下载成功，正在解析..."];
