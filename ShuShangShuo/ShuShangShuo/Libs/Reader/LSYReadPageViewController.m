@@ -368,7 +368,7 @@
     else{
         _pageChange--;
     }
-    NSLog(@"_chapterChange：%ld ---- _pageChange：%ld", _chapterChange, _pageChange);
+    
     return [self readViewWithChapter:_chapterChange page:_pageChange];
     
 }
@@ -387,7 +387,7 @@
     else{
         _pageChange++;
     }
-    NSLog(@"_chapterChange：%ld ---- _pageChange：%ld", _chapterChange, _pageChange);
+    
     return [self readViewWithChapter:_chapterChange page:_pageChange];
 }
 #pragma mark -PageViewController Delegate
