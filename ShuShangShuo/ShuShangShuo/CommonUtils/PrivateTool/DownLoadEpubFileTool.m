@@ -183,7 +183,7 @@ SingletonM(tool)
     [data getBytes:lenthByte range:NSMakeRange(28, 4)];
     int lenth = [self byteToInt:lenthByte];
     
-    Byte org_content[lenth];
+    Byte *org_content = (Byte *)malloc(lenth);
     [data getBytes:org_content range:NSMakeRange(32, lenth)];
     NSData *org_data = [[NSData alloc] initWithBytes:org_content length:lenth];
     
@@ -195,7 +195,7 @@ SingletonM(tool)
     }
     
     NSData *decryptedData = aesDecryptString(org_data, key);
-    Byte rByte[decryptedData.length];
+    Byte *rByte = (Byte *)malloc(decryptedData.length);
     
     [decryptedData getBytes:rByte length:decryptedData.length];
     [self reverse:rByte index:0 length:100];
@@ -261,6 +261,10 @@ SingletonM(tool)
                             NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",HSFileName(url)]];
                             NSURL *fileURL = [NSURL URLWithString:fullPath];
                             if ([fileURL.pathExtension isEqualToString:@"epub"]) {
+                                NSString *ePubPath = [LSYReadUtilites unZip:fullPath];
+                                if (!ePubPath) {
+                                    
+                                }
                                 NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
                                 if (!dataArr) {
                                     dataArr = [NSMutableArray arrayWithObjects:HSFileName(url), nil];
@@ -303,8 +307,24 @@ SingletonM(tool)
                 [kUserDefaults synchronize];
                 [[HSDownloadManager sharedInstance] deleteFile:url];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [SProgressHUD showFailure:@"下载失败，请重新下载"];
+                    [SProgressHUD hideHUDfromView:nil];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                                   message:@"请连接本机WiFi，默认Wi-Fi名称5csss和默认密码12345678"
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"去设置网络" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                                                          }];
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                         handler:^(UIAlertAction * action) {
+                                                                         }];
+                    
+                    [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
+                    [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
                 });
+                
             }
         }];
     }

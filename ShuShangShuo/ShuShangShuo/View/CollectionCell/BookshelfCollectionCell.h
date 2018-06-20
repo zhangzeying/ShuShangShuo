@@ -11,5 +11,6 @@
 @interface BookshelfCollectionCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *bookImageView;
+@property (nonatomic, strong) UILabel *bookTitle;
 
 @end

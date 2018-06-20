@@ -14,10 +14,14 @@
 +(UIButton *)commonButtonSEL:(SEL)sel target:(id)target;
 +(UIViewController *)getCurrentVC;
 +(void)showAlertTitle:(NSString *)title content:(NSString *)string;
++(NSString *)unZip:(NSString *)path;
++(NSString *)OPFPath:(NSString *)epubPath;
 /**
  * ePub格式处理
  * 返回章节信息数组
  */
 +(NSMutableArray *)ePubFileHandle:(NSString *)path;
+
++(NSDictionary *)parseEpubInfo:(NSString *)opfPath;
 //+(NSString *)ePubImageRelatePath:(NSString *)epubPath;  //epub图片的相对路径
 @end

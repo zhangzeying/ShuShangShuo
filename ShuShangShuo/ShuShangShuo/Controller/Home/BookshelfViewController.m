@@ -60,7 +60,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         if ([scanner scanString:@"<img>" intoString:NULL]) {
             NSString *img;
             [scanner scanUpToString:@"</img>" intoString:&img];
-            NSString *imageString = [[kDocuments stringByAppendingPathComponent:imagePath] stringByAppendingPathComponent:img];
+            NSString *imageString = [[imagePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:img];
             UIImage *image = [UIImage imageWithContentsOfFile:imageString];
             CGFloat width = ScreenBounds.size.width - LeftSpacing - RightSpacing;
             CGFloat height = ScreenBounds.size.height - TopSpacing - BottomSpacing;
@@ -83,30 +83,39 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BookshelfCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellID forIndexPath:indexPath];
+    cell.bookTitle.hidden = YES;
     if (self.pageStyle == PageStyle_MyBookshelf && indexPath.row == self.dataArr.count) {
         cell.bookImageView.image = IMAGENAMED(@"add");
+        
     } else {
         NSString *urlMD5 = self.dataArr[indexPath.row];
         NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
-        NSURL *fileURL = [NSURL URLWithString:fullPath];
-        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-        if (model.epubCoverImg) {
-            cell.bookImageView.image = model.epubCoverImg;
-            
-        } else {
-            LSYChapterModel *chapterModel = [model.chapters firstObject];
+        NSString *zipFile = [[fullPath stringByDeletingPathExtension] lastPathComponent];
+        NSString *OPFPath = [LSYReadUtilites OPFPath:zipFile];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[LSYReadUtilites parseEpubInfo:OPFPath]];
+        NSString *str = [NSString stringWithFormat:@"%@/%@", [OPFPath stringByDeletingLastPathComponent],[dict objectForKey:@"coverHtmlPath"]];
+        if (str.length > 0) {
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                NSString *path = [kDocuments stringByAppendingPathComponent:model.chapters[0].chapterpath];
+                NSString *path = [kDocuments stringByAppendingPathComponent:str];
                 NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
-                UIImage *coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:chapterModel.epubImagePath];
-                model.epubCoverImg = coverImg;
+                UIImage *coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
+                if (!coverImg) {
+                    coverImg = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cell.bookTitle.text = [dict objectForKey:@"title"];
+                        cell.bookTitle.hidden = NO;
+                    });
+                }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.bookImageView.image = coverImg;
                 });
             });
+            
+        } else {
+            cell.bookTitle.text = [dict objectForKey:@"title"];
+            cell.bookTitle.hidden = NO;
+            cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
         }
-        
-        
     }
     return cell;
 }
@@ -118,22 +127,28 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         NSString *urlMD5 = self.dataArr[indexPath.row];
         NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
         NSURL *fileURL = [NSURL URLWithString:fullPath];
-        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-        LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
-        pageView.resourceURL = model.resource;    //文件位置
-        pageView.model = model;
-        NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
-        if (!historyDataArr) {
-            historyDataArr = [NSMutableArray arrayWithObjects:urlMD5, nil];
-            
-        } else {
-            if ([historyDataArr containsObject:urlMD5]) {
-                [historyDataArr removeObject:urlMD5];
+        [SProgressHUD showWaiting:nil];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+            LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
+            pageView.resourceURL = model.resource;    //文件位置
+            pageView.model = model;
+            NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
+            if (!historyDataArr) {
+                historyDataArr = [NSMutableArray arrayWithObjects:urlMD5, nil];
+                
+            } else {
+                if ([historyDataArr containsObject:urlMD5]) {
+                    [historyDataArr removeObject:urlMD5];
+                }
+                [historyDataArr insertObject:urlMD5 atIndex:0];
             }
-            [historyDataArr insertObject:urlMD5 atIndex:0];
-        }
-        [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
-        [self presentViewController:pageView animated:YES completion:nil];
+            [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SProgressHUD hideHUDfromView:nil];
+                [self presentViewController:pageView animated:YES completion:nil];
+            });
+        });
     }
 }
 

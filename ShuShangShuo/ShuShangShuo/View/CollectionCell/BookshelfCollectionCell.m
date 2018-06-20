@@ -24,10 +24,15 @@
 
 - (void)setupUI {
     [self.contentView addSubview:self.bookImageView];
+    [self.contentView addSubview:self.bookTitle];
 }
 
 - (void)autoLayout {
     [_bookImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.contentView);
+    }];
+    
+    [_bookTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.contentView);
     }];
 }
@@ -38,5 +43,15 @@
         _bookImageView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
     }
     return _bookImageView;
+}
+
+- (UILabel *)bookTitle {
+    if(!_bookTitle) {
+        _bookTitle = [[UILabel alloc]init];
+        _bookTitle.textColor = [UIColor whiteColor];
+        _bookTitle.font = Font(13);
+        _bookTitle.hidden = YES;
+    }
+    return _bookTitle;
 }
 @end
