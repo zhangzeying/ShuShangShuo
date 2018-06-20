@@ -12,5 +12,6 @@
 SingletonH(tool)
 
 - (void)downloadEpubFile:(NSString *)url;
+- (BOOL)decodeEpubFile:(NSData *)data fileName:(NSString *)fileName;
 
 @end

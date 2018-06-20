@@ -94,7 +94,48 @@ static CGFloat const pageMenuH = 50;
         }
     }
     
-//    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:@"http://39.106.146.127:8080/5cepub/appdownload?bookid=YcmccwcY0TTSS9VRY"];
+    if (![[kUserDefaults objectForKey:@"load"] boolValue]) {
+        [self loadDefault];
+    }
+}
+
+- (void)loadDefault {
+    [SProgressHUD showWaiting:nil];
+    NSArray *array = @[@"YcmccwcY0BB222FqY", @"YcmccwcY0I0I0IuLY", @"YcmccwcY0II221BvY", @"YcmccwcY0II556IyY", @"YcmccwcY0II556rvY"];
+    for (int i = 0; i < array.count; i++) {
+        NSString *fileName = array[i];
+        @synchronized(self) {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"5cb"];
+            NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if (![fileManager fileExistsAtPath:HSCachesDirectory]) {
+                [fileManager createDirectoryAtPath:HSCachesDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
+            }
+            BOOL flag = [[DownLoadEpubFileTool sharedtool] decodeEpubFile:fileData fileName:fileName];
+            if (flag) {
+                NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",fileName]];
+                NSURL *fileURL = [NSURL URLWithString:fullPath];
+                if ([fileURL.pathExtension isEqualToString:@"epub"]) {
+                    NSString *ePubPath = [LSYReadUtilites unZip:fullPath];
+                    if (ePubPath.length > 0) {
+                        NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+                        if (!dataArr) {
+                            dataArr = [NSMutableArray arrayWithObjects:fileName, nil];
+                        } else {
+                            [dataArr addObject:fileName];
+                        }
+                        if ([dataArr writeToFile:kMyBookshelfFilePath atomically:YES] && i == 0) {
+                            [kUserDefaults setObject:@(YES) forKey:@"load"];
+                            [kUserDefaults synchronize];
+                        }
+                    }
+                }
+            }
+            if (i == array.count - 1) {
+                [SProgressHUD hideHUDfromView:nil];
+            }
+        }
+    }
 }
 
 - (void)searchClick {

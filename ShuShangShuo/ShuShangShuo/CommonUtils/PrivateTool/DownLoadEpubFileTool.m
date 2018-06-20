@@ -266,10 +266,7 @@ SingletonM(tool)
                             NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",HSFileName(url)]];
                             NSURL *fileURL = [NSURL URLWithString:fullPath];
                             if ([fileURL.pathExtension isEqualToString:@"epub"]) {
-                                NSString *ePubPath = [LSYReadUtilites unZip:fullPath];
-                                if (!ePubPath) {
-                                    
-                                }
+                                [LSYReadUtilites unZip:fullPath];
                                 NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
                                 if (!dataArr) {
                                     dataArr = [NSMutableArray arrayWithObjects:HSFileName(url), nil];

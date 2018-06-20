@@ -211,6 +211,7 @@
     for (CXMLElement *element in itemsArray){
         if ([[[element attributeForName:@"href"] stringValue] containsString:@"cover"]) {
             [itemDictionary setObject:[[element attributeForName:@"href"] stringValue] forKey:@"coverHtmlPath"];
+            [itemDictionary setObject:[[element attributeForName:@"media-type"] stringValue] forKey:@"mediaType"];
             break;
         }
     }
@@ -276,9 +277,11 @@
         NSString* chapHref = [itemDictionary objectForKey:[[element attributeForName:@"idref"] stringValue]];
 //        LSYChapterModel *model = [LSYChapterModel chapterWithEpub:[NSString stringWithFormat:@"%@/%@",absolutePath,chapHref] title:[titleDictionary valueForKey:chapHref] imagePath:[opfPath stringByDeletingLastPathComponent]];
         NSString *path = [[opfPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:chapHref];
-        LSYChapterModel *model = [LSYChapterModel chapterWithEpub:path title:[titleDictionary objectForKey:chapHref] imagePath:[path stringByDeletingLastPathComponent]];
-        [chapters addObject:model];
-        
+        NSString *title = [titleDictionary objectForKey:chapHref];
+        if (title.length > 0 ) {
+            LSYChapterModel *model = [LSYChapterModel chapterWithEpub:path title:[titleDictionary objectForKey:chapHref] imagePath:[path stringByDeletingLastPathComponent]];
+            [chapters addObject:model];
+        }
     }
     return chapters;
 }
