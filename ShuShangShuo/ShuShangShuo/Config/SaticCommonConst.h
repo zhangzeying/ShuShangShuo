@@ -35,6 +35,7 @@
 #define LSYEditingNotification @"LSYEditingNotification"
 #define LSYEndEditNotification @"LSYEndEditNotification"
 #define DownloadSucces @"DownloadSucces" //下载成功的通知
+#define ReloadHistoryPage @"ReloadHistoryPage" //刷新浏览历史的界面
 
 
 #endif /* SaticCommonConst_h */

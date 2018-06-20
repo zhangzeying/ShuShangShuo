@@ -16,5 +16,8 @@ typedef NS_ENUM(NSUInteger, PageStyle) {
 @interface BookshelfViewController : BaseViewController
 
 @property (nonatomic,assign) PageStyle pageStyle;
+@property (nonatomic,assign) BOOL isNotFristAppear;
+
+- (void)loadData;
 
 @end

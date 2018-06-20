@@ -27,17 +27,33 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
+    if (self.pageStyle == PageStyle_BrowseHistory) {
+        NOTIF_ADD(ReloadHistoryPage, reloadHistoryPage);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (!self.isNotFristAppear) {
+        [self loadData];
+        self.isNotFristAppear = YES;
+    }
+}
+
+- (void)loadData {
     if (self.pageStyle == PageStyle_BrowseHistory) {
         self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
         
     } else {
         self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
     }
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
+}
+
+- (void)reloadHistoryPage {
+    [self loadData];
 }
 
 - (void)setupUI {
@@ -74,6 +90,12 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         }
     }
     return nil;
+}
+
+- (void)dealloc {
+    if (self.pageStyle == PageStyle_BrowseHistory) {
+        NOTIF_REMV();
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -144,6 +166,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
                 [historyDataArr insertObject:urlMD5 atIndex:0];
             }
             [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
+            NOTIF_POST(ReloadHistoryPage, nil);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SProgressHUD hideHUDfromView:nil];
                 [self presentViewController:pageView animated:YES completion:nil];

@@ -93,6 +93,8 @@ static CGFloat const pageMenuH = 50;
             [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }
+    
+//    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:@"http://39.106.146.127:8080/5cepub/appdownload?bookid=YcmccwcY0TTSS9VRY"];
 }
 
 - (void)searchClick {
@@ -102,7 +104,22 @@ static CGFloat const pageMenuH = 50;
 }
 
 - (void)downloadSucces {
-    self.pageMenu.selectedItemIndex = 1;
+    if (self.pageMenu.selectedItemIndex == 1) {
+        BookshelfViewController *vc = self.childViewControllerArray[self.pageMenu.selectedItemIndex];
+        [vc loadData];
+        
+    } else {
+        self.pageMenu.selectedItemIndex = 1;
+        BookshelfViewController *vc = self.childViewControllerArray[self.pageMenu.selectedItemIndex];
+        if (vc.isNotFristAppear) {
+            [vc loadData];
+        }
+    }
+    
+}
+
+- (void)dealloc {
+    NOTIF_REMV();
 }
 
 #pragma mark - SPPageMenuDelegate
