@@ -109,7 +109,7 @@ static HSDownloadManager *_downloadManager;
     // 设置请求头
     NSString *range = [NSString stringWithFormat:@"bytes=%zd-", HSDownloadLength(url)];
     [request setValue:range forHTTPHeaderField:@"Range"];
-    
+    request.timeoutInterval = 10;
     [request setValue:@"5cepub" forHTTPHeaderField:@"User-Agent"];
     
     // 创建一个Data任务
