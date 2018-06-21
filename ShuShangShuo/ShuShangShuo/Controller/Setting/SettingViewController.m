@@ -33,7 +33,7 @@ static NSString *const CellID = @"SettingTableCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return section == 0 ? 2 : 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -66,29 +66,16 @@ static NSString *const CellID = @"SettingTableCell";
         }
     
     } else {
-        if (indexPath.row == 0) {
-            cell.titleLbl.text = @"IP设置";
-            cell.contentLbl.text = @"设置书库连接的IP";
-        } else {
-            cell.titleLbl.text = @"关于我们";
-        }
+         cell.titleLbl.text = @"关于我们";
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            IPSettingViewController *ipSettingVC = [[IPSettingViewController alloc]init];
-            ipSettingVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ipSettingVC animated:YES];
-            
-        } else {
-            AboutUSViewController *aboutUsVC = [[AboutUSViewController alloc]init];
-            aboutUsVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:aboutUsVC animated:YES];
-            
-        }
+        AboutUSViewController *aboutUsVC = [[AboutUSViewController alloc]init];
+        aboutUsVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:aboutUsVC animated:YES];
     }
 }
 
