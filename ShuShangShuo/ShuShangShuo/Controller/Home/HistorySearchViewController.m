@@ -7,13 +7,20 @@
 //
 
 #import "HistorySearchViewController.h"
+#import "SearchTableCell.h"
+#import "BookInfoModel.h"
+#import "LSYReadPageViewController.h"
+#import "LSYReadUtilites.h"
+#import "LSYReadModel.h"
 
 // ----垂直的距离----
 #define distanceV 9
 // ----水平间距----
 #define distanceH 13
 
-@interface HistorySearchViewController ()
+static NSString *const CellID = @"SearchTableCell";
+
+@interface HistorySearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UILabel *historySearchLbl;
@@ -21,8 +28,10 @@
 @property (nonatomic, strong) UIView *containerView;
 @property(nonatomic,copy)NSString *historyFilePath;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *bookArr;
+@property (nonatomic, strong) NSMutableArray *searchBookArr;
 @property (nonatomic, copy)NSString *keyword;
-
+@property(nonatomic, strong)UITableView *table;
 @end
 
 @implementation HistorySearchViewController
@@ -41,7 +50,7 @@
     [self.view addSubview:self.historySearchLbl];
     [self.view addSubview:self.clearBtn];
     [self.view addSubview:self.containerView];
-    NSInteger row = 0; //记录行数
+    NSInteger row = 1; //记录行数
     CGFloat lastBtnMaxX = 0;
     CGFloat btnH = 25;
     NSMutableArray *array = (NSMutableArray *)[[self.dataArr reverseObjectEnumerator]allObjects];
@@ -72,7 +81,7 @@
         
         lastBtnMaxX = btnX + btnW;
         
-        CGFloat btnY = row * (distanceV + btnH);
+        CGFloat btnY = (row - 1) * (distanceV + btnH);
         
         btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
         [self.containerView addSubview:btn];
@@ -115,10 +124,96 @@
     [self.dataArr writeToFile:self.historyFilePath atomically:YES];
 }
 
+- (void)searchClick:(UIButton *)sender {
+    
+    self.searchBar.text = sender.titleLabel.text;
+    [self.searchBar resignFirstResponder];
+    [self search];
+}
+
 - (void)search {
     [self.searchBar resignFirstResponder];
     self.keyword = [self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    [self updateHistoryData];
+    if (self.keyword.length > 0) {
+        [self updateHistoryData];
+        [self.view addSubview:self.table];
+        [self.searchBookArr removeAllObjects];
+        WEAKSELF
+        [self.bookArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            STRONGSELF
+            BookInfoModel *model = obj;
+            if ([model.title isEqualToString:strongSelf.keyword] || [model.creator isEqualToString:strongSelf.keyword]) {
+                [strongSelf.searchBookArr addObject:model];
+            }
+        }];
+        [self.table reloadData];
+        
+    } else {
+        [SProgressHUD showMessage:@"搜索内容不能为空！"];
+    }
+   
+}
+
+- (void)clear {
+    NSString *searchHistoryFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:kSearchHistoryFileName];
+    NSMutableArray *historyArr = [[NSMutableArray alloc] initWithContentsOfFile:searchHistoryFilePath];
+    [historyArr removeAllObjects];
+    [historyArr writeToFile:searchHistoryFilePath atomically:YES];
+    [self.dataArr removeAllObjects];
+    [self.historySearchLbl removeFromSuperview];
+    [self.clearBtn removeFromSuperview];
+    [self.containerView removeFromSuperview];
+    self.historySearchLbl = nil;
+    self.clearBtn = nil;
+    self.containerView = nil;
+    [self setupUI];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.searchBookArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SearchTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.model = self.searchBookArr[indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BookInfoModel *bookModel = self.searchBookArr[indexPath.row];
+    NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",bookModel.fileUrl]];
+    NSURL *fileURL = [NSURL URLWithString:fullPath];
+    [SProgressHUD showWaiting:nil];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+        LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
+        pageView.resourceURL = model.resource;    //文件位置
+        pageView.model = model;
+        NSMutableArray *historyDataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+        if (!historyDataArr) {
+            historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
+            
+        } else {
+            if ([historyDataArr containsObject:bookModel]) {
+                [historyDataArr removeObject:bookModel];
+            }
+            [historyDataArr insertObject:bookModel atIndex:0];
+        }
+        [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
+        NOTIF_POST(ReloadHistoryPage, nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SProgressHUD hideHUDfromView:nil];
+            [self presentViewController:pageView animated:YES completion:nil];
+        });
+    });
+   
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - getter and setter
@@ -132,6 +227,20 @@
     return _dataArr;
 }
 
+- (NSMutableArray *)bookArr {
+    if(!_bookArr) {
+        _bookArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
+    }
+    return _bookArr;
+}
+
+- (NSMutableArray *)searchBookArr {
+    if(!_searchBookArr) {
+        _searchBookArr = [NSMutableArray array];
+    }
+    return _searchBookArr;
+}
+
 - (UISearchBar *)searchBar {
     if(!_searchBar) {
         [[UISearchBar appearance] setSearchFieldBackgroundImage:[UIImage imageNamed:@"search_bg"] forState:UIControlStateNormal];
@@ -140,7 +249,7 @@
         _searchBar.searchTextPositionAdjustment = offect;
         _searchBar.placeholder = @"请输入本地搜索关键字";
         _searchBar.tintColor = [UIColor colorWithHexString:@"BEBEBE"];
-//        _searchBar.delegate = self;
+        _searchBar.delegate = self;
         [_searchBar setBackgroundImage:[[UIImage alloc] init]];
         UITextField *searchField = [_searchBar valueForKey:@"_searchField"];
         searchField.leftView = nil;
@@ -148,6 +257,10 @@
         [searchField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"font"];
     }
     return _searchBar;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar{
+    [self search];
 }
 
 - (UILabel *)historySearchLbl {
@@ -172,6 +285,7 @@
         _clearBtn.titleEdgeInsets =UIEdgeInsetsMake(0, 5, 0, 0);
         _clearBtn.frame = CGRectMake(ScreenWidth - 45 - 15, 0, 45, 40);
         _clearBtn.centerY = self.historySearchLbl.centerY;
+        [_clearBtn addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
     }
     return _clearBtn;
 }
@@ -181,6 +295,22 @@
         _containerView = [[UIView alloc]init];
     }
     return _containerView;
+}
+
+- (UITableView *)table {
+    
+    if (_table == nil) {
+        
+        _table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+        _table.delegate = self;
+        _table.dataSource = self;
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _table.rowHeight = (115 * ((ScreenWidth - 10 * 2 - 2 * 20) / 3) / 90) + 20;
+        [_table registerClass:SearchTableCell.class forCellReuseIdentifier:CellID];
+        [self.view addSubview:_table];
+    }
+    
+    return _table;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BookInfoModel;
 
 @interface SearchTableCell : UITableViewCell
+
+@property (nonatomic, strong) BookInfoModel *model;
 
 @end
