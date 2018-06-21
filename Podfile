@@ -16,6 +16,5 @@ target 'ShuShangShuo'  do
    pod 'Bugly'
    pod 'MLeaksFinder'
    pod 'DZNEmptyDataSet'
-   pod 'FMDB'
 
 end

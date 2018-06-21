@@ -17,9 +17,6 @@ PODS:
   - Bugly (2.5.0)
   - DZNEmptyDataSet (1.8.1)
   - FBRetainCycleDetector (0.1.4)
-  - FMDB (2.7.2):
-    - FMDB/standard (= 2.7.2)
-  - FMDB/standard (2.7.2)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.3)
@@ -34,7 +31,6 @@ DEPENDENCIES:
   - AFNetworking
   - Bugly
   - DZNEmptyDataSet
-  - FMDB
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -48,7 +44,6 @@ SPEC REPOS:
     - Bugly
     - DZNEmptyDataSet
     - FBRetainCycleDetector
-    - FMDB
     - Masonry
     - MBProgressHUD
     - MJRefresh
@@ -61,7 +56,6 @@ SPEC CHECKSUMS:
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
-  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
@@ -69,6 +63,6 @@ SPEC CHECKSUMS:
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: f1384ecd2b56ef3293d8e40494d0a866e5a61365
+PODFILE CHECKSUM: 106ae65e0a495030e02d515727c5d7098b7ea191
 
 COCOAPODS: 1.5.3
