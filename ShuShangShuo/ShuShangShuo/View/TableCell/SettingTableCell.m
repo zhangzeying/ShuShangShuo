@@ -33,16 +33,13 @@
             [self.switchView setOn: [kUserDefaults boolForKey:@"show_page"]];
         }
     } else {
-        if (self.indexPath.row == 0) {
-            [self.contentView addSubview:self.contentLbl];
-        }
         [self.contentView addSubview:self.arrow];
     }
     [self autoLayout];
 }
 
 - (void)autoLayout {
-    if (self.indexPath.section == 1 && self.indexPath.row == 1) {
+    if (self.indexPath.section == 1) {
         [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView).offset(15);
             make.centerY.mas_equalTo(self.contentView.mas_centerY);
