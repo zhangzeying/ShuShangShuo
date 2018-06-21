@@ -12,6 +12,7 @@
 #import "LSYReadUtilites.h"
 #import "LSYReadModel.h"
 #import "NSString+HTML.h"
+#import "BookInfoModel.h"
 
 static NSString *const CellID = @"BookshelfCollectionCell";
 
@@ -42,10 +43,10 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 
 - (void)loadData {
     if (self.pageStyle == PageStyle_BrowseHistory) {
-        self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
+        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
         
     } else {
-        self.dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+        self.dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
@@ -106,29 +107,27 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BookshelfCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellID forIndexPath:indexPath];
     cell.bookTitle.hidden = YES;
-    NSString *urlMD5 = self.dataArr[indexPath.row];
-    NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
-    NSString *zipFile = [[fullPath stringByDeletingPathExtension] lastPathComponent];
-    NSString *OPFPath = [LSYReadUtilites OPFPath:zipFile];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[LSYReadUtilites parseEpubInfo:OPFPath]];
-    NSString *str = [NSString stringWithFormat:@"%@/%@", [OPFPath stringByDeletingLastPathComponent],[dict objectForKey:@"coverHtmlPath"]];
-    if (str.length > 0) {
+    BookInfoModel *model = self.dataArr[indexPath.row];
+    if (model.coverPath.length > 0) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            NSString *path = [kDocuments stringByAppendingPathComponent:str];
-            NSString *mediaType = [dict objectForKey:@"mediaType"];
+//            NSString *mediaType = [dict objectForKey:@"mediaType"];
             UIImage *coverImg = nil;
-            if ([mediaType containsString:@"image/"]) {
-                coverImg = [UIImage imageWithContentsOfFile:path];
-                
-            } else {
-                NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
-                coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
-            }
+            NSString *path = [kDocuments stringByAppendingPathComponent:model.coverPath];
+            NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
+            coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
+//            if ([mediaType containsString:@"image/"]) {
+//                coverImg = [UIImage imageWithContentsOfFile:path];
+//
+//            } else {
+//                NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
+//                coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
+//            }
             if (!coverImg) {
                 coverImg = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.bookTitle.text = [dict objectForKey:@"title"];
+                    cell.bookTitle.text = model.title;
                     cell.bookTitle.hidden = NO;
+                    cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
                 });
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -137,7 +136,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         });
         
     } else {
-        cell.bookTitle.text = [dict objectForKey:@"title"];
+        cell.bookTitle.text = model.title;
         cell.bookTitle.hidden = NO;
         cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
     }
@@ -145,36 +144,32 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.pageStyle == PageStyle_MyBookshelf && indexPath.row == self.dataArr.count) {
-        
-    } else {
-        NSString *urlMD5 = self.dataArr[indexPath.row];
-        NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",urlMD5]];
-        NSURL *fileURL = [NSURL URLWithString:fullPath];
-        [SProgressHUD showWaiting:nil];
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-            LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
-            pageView.resourceURL = model.resource;    //文件位置
-            pageView.model = model;
-            NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
-            if (!historyDataArr) {
-                historyDataArr = [NSMutableArray arrayWithObjects:urlMD5, nil];
-                
-            } else {
-                if ([historyDataArr containsObject:urlMD5]) {
-                    [historyDataArr removeObject:urlMD5];
-                }
-                [historyDataArr insertObject:urlMD5 atIndex:0];
+    BookInfoModel *bookModel = self.dataArr[indexPath.row];
+    NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",bookModel.fileUrl]];
+    NSURL *fileURL = [NSURL URLWithString:fullPath];
+    [SProgressHUD showWaiting:nil];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+        LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
+        pageView.resourceURL = model.resource;    //文件位置
+        pageView.model = model;
+        NSMutableArray *historyDataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+        if (!historyDataArr) {
+            historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
+            
+        } else {
+            if ([historyDataArr containsObject:bookModel]) {
+                [historyDataArr removeObject:bookModel];
             }
-            [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
-            NOTIF_POST(ReloadHistoryPage, nil);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SProgressHUD hideHUDfromView:nil];
-                [self presentViewController:pageView animated:YES completion:nil];
-            });
+            [historyDataArr insertObject:bookModel atIndex:0];
+        }
+        [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
+        NOTIF_POST(ReloadHistoryPage, nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SProgressHUD hideHUDfromView:nil];
+            [self presentViewController:pageView animated:YES completion:nil];
         });
-    }
+    });
 }
 
 #pragma mark - getter and setter

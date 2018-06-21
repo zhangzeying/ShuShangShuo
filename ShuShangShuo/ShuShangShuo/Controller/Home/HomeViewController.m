@@ -30,6 +30,11 @@ static CGFloat const pageMenuH = 50;
 - (void)viewDidLoad {
     [super viewDidLoad];
     NOTIF_ADD(DownloadSucces, downloadSucces);
+    UIImageView *image = [[UIImageView alloc]init];
+    image.image = IMAGENAMED(@"logo");
+    image.width = 50;
+    image.height = 25;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[IMAGENAMED(@"logo") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[IMAGENAMED(@"search") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(searchClick)];
     
     BookshelfViewController *browseHistoryVC = [[BookshelfViewController alloc]init];
@@ -95,8 +100,10 @@ static CGFloat const pageMenuH = 50;
     }
     
     if (![[kUserDefaults objectForKey:@"load"] boolValue]) {
-        [self loadDefault];
+//        [self loadDefault];
     }
+    
+    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:@"http://39.106.146.127:8080/5cepub/appdownload?bookid=YcmccwcY0B0B0BVLY"];
 }
 
 - (void)loadDefault {

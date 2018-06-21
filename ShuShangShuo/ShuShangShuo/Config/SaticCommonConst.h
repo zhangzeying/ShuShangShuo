@@ -17,6 +17,8 @@
 #define kMyBookshelfFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MyBookshelfFileName"]
 // 浏览历史数据缓存路径
 #define kBrowserHistoryFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"BrowserHistoryFileName"]
+// 记录已经下载过的url
+#define kDownloadUrlFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"DownloadUrlFilePath"]
 // 缓存主目录
 #define HSCachesDirectory [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HSCache"]
 // 保存文件名

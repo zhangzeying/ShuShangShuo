@@ -198,24 +198,45 @@
     NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] init];
     NSString *fullPath = [NSString stringWithFormat:@"%@/%@",kDocuments,opfPath];
     CXMLDocument *document = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:fullPath] options:0 error:nil];
-    NSArray *itemsMetadata=[document nodesForXPath:@"//opf:metadata" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
-    CXMLElement *nodeMetadata = itemsMetadata[0];
-    for (CXMLElement *child in [nodeMetadata children]){
-        NSString *nodeName = [child name];
-        if ([nodeName containsString:@"dc:title"]) {
-            [itemDictionary setObject:[child stringValue] forKey:@"title"];
-        }
+    NSString *title = [self readDCValueFromOPFForKey:@"title" document:document];
+    NSString *creator = [self readDCValueFromOPFForKey:@"creator" document:document];
+    [itemDictionary setObject:title?:@"" forKey:@"title"];
+    [itemDictionary setObject:creator?:@"" forKey:@"creator"];
+    NSArray *itemsArray = [document nodesForXPath:@"//opf:reference" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
+    if (itemsArray.count == 0) {
+        itemsArray = [document nodesForXPath:@"//reference" error:nil];
     }
-    
-    NSArray *itemsArray = [document nodesForXPath:@"//opf:item" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
     for (CXMLElement *element in itemsArray){
-        if ([[[element attributeForName:@"href"] stringValue] containsString:@"cover"]) {
-            [itemDictionary setObject:[[element attributeForName:@"href"] stringValue] forKey:@"coverHtmlPath"];
-            [itemDictionary setObject:[[element attributeForName:@"media-type"] stringValue] forKey:@"mediaType"];
-            break;
+        if ([[[[element attributeForName:@"type"] stringValue] lowercaseString] isEqualToString:@"cover"]) {
+            [itemDictionary setObject:[[element attributeForName:@"href"] stringValue]?:@"" forKey:@"coverHtmlPath"];
+            
         }
     }
     return itemDictionary;
+}
+
++ (NSString *)readDCValueFromOPFForKey:(NSString *)key document:(CXMLDocument *)document{
+    
+    //    <title>:题名
+    //    <creator>：责任者
+    //    <subject>：主题词或关键词
+    //    <description>：内容描述
+    //    <contributor>：贡献者或其它次要责任者
+    //    <date>：日期
+    //    <type>：类型
+    //    <format>：格式
+    //    <identifier>：标识符
+    //    <source>：来源
+    //    <language>：语种
+    //    <relation>：相关信息
+    //    <coverage>：履盖范围
+    //    <rights>：权限描述
+    //    <x-metadata>，即扩展元素。如果有些信息在上述元素中无法描述，则在此元素中进行扩展。
+    
+    NSString *xPath = [NSString stringWithFormat:@"//dc:%@[1]",key];
+    CXMLNode *node = [document nodeForXPath:xPath namespaceMappings:[NSDictionary dictionaryWithObject:@"http://purl.org/dc/elements/1.1/" forKey:@"dc"] error:nil];
+    NSString *value = node.stringValue;
+    return value.length?value:@"";
 }
 
 #pragma mark - 解析OPF文件
@@ -223,18 +244,12 @@
 {
     NSString *fullPath = [NSString stringWithFormat:@"%@/%@",kDocuments,opfPath];
     CXMLDocument *document = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:fullPath] options:0 error:nil];
-    NSString *title = @"";
-    NSArray *itemsMetadata=[document nodesForXPath:@"//opf:metadata" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
-    CXMLElement *nodeMetadata = itemsMetadata[0];
-    for (CXMLElement *child in [nodeMetadata children]){
-        NSString *nodeName = [child name];
-        if ([nodeName containsString:@"dc:title"]) {
-             title = [child stringValue];
-        }
-    }
     
     NSArray *itemsArray = [document nodesForXPath:@"//opf:item" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
     //opf文件的命名空间 xmlns="http://www.idpf.org/2007/opf" 需要取到某个节点设置命名空间的键为opf 用opf:节点来获取节点
+    if (itemsArray.count == 0) {
+        itemsArray = [document nodesForXPath:@"//item" error:nil];
+    }
     NSString *ncxFile;
     NSMutableDictionary* itemDictionary = [[NSMutableDictionary alloc] init];
     for (CXMLElement* element in itemsArray){
@@ -272,6 +287,9 @@
         }
     }
     NSArray* itemRefsArray = [document nodesForXPath:@"//opf:itemref" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
+    if (itemRefsArray.count == 0) {
+        itemRefsArray = [document nodesForXPath:@"//itemref" error:nil];
+    }
     NSMutableArray *chapters = [NSMutableArray array];
     for (CXMLElement* element in itemRefsArray){
         NSString* chapHref = [itemDictionary objectForKey:[[element attributeForName:@"idref"] stringValue]];

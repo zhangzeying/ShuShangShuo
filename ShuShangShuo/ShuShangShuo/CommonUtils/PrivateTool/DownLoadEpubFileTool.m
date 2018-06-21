@@ -11,6 +11,7 @@
 #import "NSData+CommonCrypto.h"
 #import "AESCipher.h"
 #import "HSDownloadManager.h"
+#import "BookInfoModel.h"
 
 @implementation DownLoadEpubFileTool
 SingletonM(tool)
@@ -209,9 +210,8 @@ SingletonM(tool)
 
 - (void)downloadEpubFile:(NSString *)url {
     if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
-        NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
-        NSMutableArray *historyDataArr = [[NSMutableArray alloc] initWithContentsOfFile:kBrowserHistoryFilePath];
-        if ([dataArr containsObject:HSFileName(url)]) {
+        __block NSMutableArray *downloadUrlArr = [NSMutableArray arrayWithContentsOfFile:kDownloadUrlFilePath];
+        if ([downloadUrlArr containsObject:HSFileName(url)]) {
             WEAKSELF
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
                                                                            message:@"此书籍已下载过，是否重新下载？"
@@ -221,12 +221,8 @@ SingletonM(tool)
                                                                   handler:^(UIAlertAction * action) {
                                                                       STRONGSELF
                                                                       [[HSDownloadManager sharedInstance] deleteFile:url];
-                                                                      [dataArr removeObject:HSFileName(url)];
-                                                                      [dataArr writeToFile:kMyBookshelfFilePath atomically:YES];
-                                                                      if ([historyDataArr containsObject:HSFileName(url)]) {
-                                                                          [historyDataArr removeObject:HSFileName(url)];
-                                                                          [historyDataArr writeToFile:kBrowserHistoryFilePath atomically:YES];
-                                                                      }
+                                                                      [downloadUrlArr removeObject:HSFileName(url)];
+                                                                      [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES];
                                                                       [strongSelf downloadEpubFile:url];
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
@@ -266,31 +262,49 @@ SingletonM(tool)
                             NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",HSFileName(url)]];
                             NSURL *fileURL = [NSURL URLWithString:fullPath];
                             if ([fileURL.pathExtension isEqualToString:@"epub"]) {
-                                [LSYReadUtilites unZip:fullPath];
-                                NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
-                                if (!dataArr) {
-                                    dataArr = [NSMutableArray arrayWithObjects:HSFileName(url), nil];
+                                NSString *zipFile = [LSYReadUtilites unZip:fullPath];
+                                if (zipFile.length > 0) {
+                                    NSString *OPFPath = [LSYReadUtilites OPFPath:zipFile];
+                                    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[LSYReadUtilites parseEpubInfo:OPFPath]];
+                                    NSString *str = [NSString stringWithFormat:@"%@/%@", [OPFPath stringByDeletingLastPathComponent],[dict objectForKey:@"coverHtmlPath"]];
+                                    BookInfoModel *model = [[BookInfoModel alloc]init];
+                                    model.title = [dict objectForKey:@"title"];
+                                    model.creator = [dict objectForKey:@"creator"];
+                                    model.coverPath = str;
+                                    model.fileUrl = HSFileName(url);
+                                    NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+                                    if (!dataArr) {
+                                        dataArr = [NSMutableArray arrayWithObjects:model, nil];
+                                        
+                                    } else {
+                                        [dataArr addObject:model];
+                                    }
                                     
-                                } else {
-                                    [dataArr addObject:HSFileName(url)];
+                                    if (!downloadUrlArr) {
+                                        downloadUrlArr = [NSMutableArray arrayWithObjects:HSFileName(url), nil];
+                                        
+                                    } else {
+                                        [downloadUrlArr addObject:HSFileName(url)];
+                                    }
+                                    if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath] && [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES]) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [SProgressHUD hideHUDfromView:nil];
+                                            [SProgressHUD showSuccess:@"解析成功"];
+                                            NSString *key = [fileURL.path lastPathComponent];
+                                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+                                            [[HSDownloadManager sharedInstance] deleteFile:url];
+                                            NOTIF_POST(DownloadSucces, nil);
+                                        });
+                                        
+                                    } else {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [SProgressHUD hideHUDfromView:nil];
+                                            [SProgressHUD showFailure:@"解析出错，请重新下载"];
+                                            [[HSDownloadManager sharedInstance] deleteFile:url];
+                                        });
+                                    }
                                 }
-                                if ([dataArr writeToFile:kMyBookshelfFilePath atomically:YES]) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [SProgressHUD hideHUDfromView:nil];
-                                        [SProgressHUD showSuccess:@"解析成功"];
-                                        NSString *key = [fileURL.path lastPathComponent];
-                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-                                        [[HSDownloadManager sharedInstance] deleteFile:url];
-                                        NOTIF_POST(DownloadSucces, nil);
-                                    });
-                                    
-                                } else {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [SProgressHUD hideHUDfromView:nil];
-                                        [SProgressHUD showFailure:@"解析出错，请重新下载"];
-                                        [[HSDownloadManager sharedInstance] deleteFile:url];
-                                    });
-                                }
+                                
                             }
                         });
                         
@@ -330,6 +344,11 @@ SingletonM(tool)
             }
         }];
     }
+}
+
+- (void)test {
+//    NSString *zipFile = [[fullPath stringByDeletingPathExtension] lastPathComponent];
+
 }
 
 @end
