@@ -91,6 +91,8 @@
 		5A842C8120DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7C20DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb */; };
 		5A842C8220DA89010082C8CF /* YcmccwcY0II556IyY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7D20DA89010082C8CF /* YcmccwcY0II556IyY.5cb */; };
 		5A842C8320DA89010082C8CF /* YcmccwcY0II221BvY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7E20DA89010082C8CF /* YcmccwcY0II221BvY.5cb */; };
+		5A842C8A20DB4D810082C8CF /* SearchTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A842C8920DB4D810082C8CF /* SearchTableCell.m */; };
+		5A842C8E20DBDF400082C8CF /* BookInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A842C8D20DBDF400082C8CF /* BookInfoModel.m */; };
 		5A8BD77A20C823970013ADBE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77920C823970013ADBE /* libz.tbd */; };
 		5A8BD77C20C824630013ADBE /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8BD77B20C824630013ADBE /* libxml2.tbd */; };
 		5A950D1320D3AA1D0034C521 /* AboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A950D1220D3AA1D0034C521 /* AboutUSViewController.m */; };
@@ -262,6 +264,10 @@
 		5A842C7C20DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0I0I0IuLY.5cb; sourceTree = "<group>"; };
 		5A842C7D20DA89010082C8CF /* YcmccwcY0II556IyY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0II556IyY.5cb; sourceTree = "<group>"; };
 		5A842C7E20DA89010082C8CF /* YcmccwcY0II221BvY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0II221BvY.5cb; sourceTree = "<group>"; };
+		5A842C8820DB4D810082C8CF /* SearchTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchTableCell.h; sourceTree = "<group>"; };
+		5A842C8920DB4D810082C8CF /* SearchTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchTableCell.m; sourceTree = "<group>"; };
+		5A842C8C20DBDF400082C8CF /* BookInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookInfoModel.h; sourceTree = "<group>"; };
+		5A842C8D20DBDF400082C8CF /* BookInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookInfoModel.m; sourceTree = "<group>"; };
 		5A8BD77920C823970013ADBE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5A8BD77B20C824630013ADBE /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5A950D1120D3AA1D0034C521 /* AboutUSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUSViewController.h; sourceTree = "<group>"; };
@@ -364,6 +370,8 @@
 			children = (
 				5A254C0120C5965C00C45FF8 /* SettingTableCell.h */,
 				5A254C0220C5965C00C45FF8 /* SettingTableCell.m */,
+				5A842C8820DB4D810082C8CF /* SearchTableCell.h */,
+				5A842C8920DB4D810082C8CF /* SearchTableCell.m */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -682,6 +690,22 @@
 			path = SProgressHUD;
 			sourceTree = "<group>";
 		};
+		5A842C8B20DBDF2B0082C8CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A842C8C20DBDF400082C8CF /* BookInfoModel.h */,
+				5A842C8D20DBDF400082C8CF /* BookInfoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5A842C8F20DBE9D50082C8CF /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		5ACC53D920C39DC9001F3F58 = {
 			isa = PBXGroup;
 			children = (
@@ -703,7 +727,9 @@
 		5ACC53E420C39DC9001F3F58 /* ShuShangShuo */ = {
 			isa = PBXGroup;
 			children = (
+				5A842C8F20DBE9D50082C8CF /* DataBase */,
 				5ACC540620C39F4C001F3F58 /* AppDelegate */,
+				5A842C8B20DBDF2B0082C8CF /* Model */,
 				5A254BEF20C5315A00C45FF8 /* View */,
 				5A254BF120C5316700C45FF8 /* Controller */,
 				5ACC540120C39EE8001F3F58 /* CommonUIs */,
@@ -993,6 +1019,7 @@
 				5A51173D20D128F2004EEFDA /* LSYReadView.m in Sources */,
 				5A51172D20D128F2004EEFDA /* LSYMagnifierView.m in Sources */,
 				5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */,
+				5A842C8E20DBDF400082C8CF /* BookInfoModel.m in Sources */,
 				5A254C0320C5965C00C45FF8 /* SettingTableCell.m in Sources */,
 				5A51174420D160F1004EEFDA /* AESCipher.m in Sources */,
 				5A51171120D128F2004EEFDA /* CXMLNamespaceNode.m in Sources */,
@@ -1053,6 +1080,7 @@
 				5A254C1A20C6CACD00C45FF8 /* SGQRCodeHelperTool.m in Sources */,
 				5A51172620D128F2004EEFDA /* LSYChapterModel.m in Sources */,
 				5A254BFF20C58B8600C45FF8 /* SettingViewController.m in Sources */,
+				5A842C8A20DB4D810082C8CF /* SearchTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
