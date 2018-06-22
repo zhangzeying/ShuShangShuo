@@ -142,7 +142,7 @@ static NSString *const CellID = @"SearchTableCell";
         [self.bookArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             STRONGSELF
             BookInfoModel *model = obj;
-            if ([model.title isEqualToString:strongSelf.keyword] || [model.creator isEqualToString:strongSelf.keyword]) {
+            if ([model.title containsString:strongSelf.keyword] || [model.creator containsString:strongSelf.keyword]) {
                 [strongSelf.searchBookArr addObject:model];
             }
         }];
@@ -197,8 +197,16 @@ static NSString *const CellID = @"SearchTableCell";
             historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
             
         } else {
-            if ([historyDataArr containsObject:bookModel]) {
-                [historyDataArr removeObject:bookModel];
+            __block NSInteger index = -1;
+            [historyDataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                BookInfoModel *item = obj;
+                if ([item.fileUrl isEqualToString:bookModel.fileUrl]) {
+                    index = idx;
+                    *stop = YES;
+                }
+            }];
+            if (index > -1) {
+                [historyDataArr removeObjectAtIndex:index];
             }
             [historyDataArr insertObject:bookModel atIndex:0];
         }

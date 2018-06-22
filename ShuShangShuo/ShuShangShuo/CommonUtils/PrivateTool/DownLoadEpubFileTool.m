@@ -272,7 +272,7 @@ SingletonM(tool)
                                     model.creator = [dict objectForKey:@"creator"];
                                     model.coverPath = str;
                                     model.fileUrl = HSFileName(url);
-                                    NSMutableArray *dataArr = [[NSMutableArray alloc] initWithContentsOfFile:kMyBookshelfFilePath];
+                                    NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
                                     if (!dataArr) {
                                         dataArr = [NSMutableArray arrayWithObjects:model, nil];
                                         

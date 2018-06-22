@@ -72,6 +72,8 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 
 - (UIImage *)parserEpubCoverImg:(NSString *)content imagePath:(NSString *)imagePath
 {
+    content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:content];
     while (![scanner isAtEnd]) {
         if ([scanner scanString:@"<img>" intoString:NULL]) {
@@ -88,6 +90,9 @@ static NSString *const CellID = @"BookshelfCollectionCell";
                 size.height = height - 20;
             }
             return image;
+        } else{
+            NSString *content;
+            [scanner scanUpToString:@"<img>" intoString:&content];
         }
     }
     return nil;
@@ -129,10 +134,12 @@ static NSString *const CellID = @"BookshelfCollectionCell";
                     cell.bookTitle.hidden = NO;
                     cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
                 });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.bookImageView.image = coverImg;
+                });
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                cell.bookImageView.image = coverImg;
-            });
+            
         });
         
     } else {
@@ -158,8 +165,16 @@ static NSString *const CellID = @"BookshelfCollectionCell";
             historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
             
         } else {
-            if ([historyDataArr containsObject:bookModel]) {
-                [historyDataArr removeObject:bookModel];
+            __block NSInteger index = -1;
+            [historyDataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                BookInfoModel *item = obj;
+                if ([item.fileUrl isEqualToString:bookModel.fileUrl]) {
+                    index = idx;
+                    *stop = YES;
+                }
+            }];
+            if (index > -1) {
+                [historyDataArr removeObjectAtIndex:index];
             }
             [historyDataArr insertObject:bookModel atIndex:0];
         }

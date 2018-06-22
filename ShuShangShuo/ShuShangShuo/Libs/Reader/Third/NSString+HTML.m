@@ -164,7 +164,6 @@
 	
 	// Cleanup
 	[scanner release];
-	
 	// Decode HTML entities and return
 	NSString *retString = [[result stringByDecodingHTMLEntities] retain];
 	[result release];

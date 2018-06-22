@@ -79,6 +79,9 @@
                 size.height = height - 20;
             }
             return image;
+        } else{
+            NSString *content;
+            [scanner scanUpToString:@"<img>" intoString:&content];
         }
     }
     return nil;
