@@ -12,6 +12,7 @@
 #import "LSYReadPageViewController.h"
 #import "LSYReadUtilites.h"
 #import "LSYReadModel.h"
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 // ----垂直的距离----
 #define distanceV 9
@@ -20,7 +21,7 @@
 
 static NSString *const CellID = @"SearchTableCell";
 
-@interface HistorySearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface HistorySearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UILabel *historySearchLbl;
@@ -224,6 +225,15 @@ static NSString *const CellID = @"SearchTableCell";
     [self.searchBar resignFirstResponder];
 }
 
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *title = @"翻遍了书架，没有找到~";
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName:[UIColor lightGrayColor]
+                                 };
+    return [[NSAttributedString alloc] initWithString:title attributes:attributes];
+}
+
 #pragma mark - getter and setter
 - (NSMutableArray *)dataArr {
     if(!_dataArr) {
@@ -312,6 +322,8 @@ static NSString *const CellID = @"SearchTableCell";
         _table = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
         _table.delegate = self;
         _table.dataSource = self;
+        _table.emptyDataSetSource = self;
+        _table.emptyDataSetDelegate = self;
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.rowHeight = (115 * ((ScreenWidth - 10 * 2 - 2 * 20) / 3) / 90) + 20;
         [_table registerClass:SearchTableCell.class forCellReuseIdentifier:CellID];
