@@ -19,45 +19,26 @@
 }
 
 - (void)setupUI {
-    for (UIView *view in self.contentView.subviews) {
-        [view removeFromSuperview];
-    }
     [self.contentView addSubview:self.titleLbl];
     [self.contentView addSubview:self.line];
-    if (self.indexPath.section == 0) {
-        [self.contentView addSubview:self.contentLbl];
-        [self.contentView addSubview:self.switchView];
-        if (self.indexPath.row == 0) {
-            [self.switchView setOn: [kUserDefaults boolForKey:@"full_screen"]];
-        } else {
-            [self.switchView setOn: [kUserDefaults boolForKey:@"show_page"]];
-        }
-    } else {
-        [self.contentView addSubview:self.arrow];
-    }
+    [self.contentView addSubview:self.arrow];
     [self autoLayout];
 }
 
 - (void)autoLayout {
-    if (self.indexPath.section == 1) {
-        [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.contentView).offset(15);
-            make.centerY.mas_equalTo(self.contentView.mas_centerY);
-        }];
-        
-    } else {
-        [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.mas_equalTo(self.contentView).offset(15);
-        }];
-    }
+    [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView).offset(15);
+        make.centerY.mas_equalTo(self.contentView.mas_centerY);
+    }];
+    
     [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.mas_equalTo(self.contentView).offset(15);
     }];
     
-    [_contentLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.titleLbl);
-        make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-15);
-    }];
+//    [_contentLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.titleLbl);
+//        make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-15);
+//    }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLbl);
@@ -66,10 +47,10 @@
         make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
     }];
     
-    [_switchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
-        make.centerY.mas_equalTo(self.contentView.mas_centerY);
-    }];
+//    [_switchView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
+//        make.centerY.mas_equalTo(self.contentView.mas_centerY);
+//    }];
     
     [_arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView.mas_right).offset(-15);

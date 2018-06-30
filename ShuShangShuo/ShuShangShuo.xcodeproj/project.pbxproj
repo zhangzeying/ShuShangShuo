@@ -26,6 +26,7 @@
 		5A254C2520C6CF9500C45FF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2420C6CF9500C45FF8 /* HomeViewController.m */; };
 		5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */; };
 		5A254C2D20C6D76300C45FF8 /* HistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */; };
+		5A3748D520E66BBE005498F9 /* DownloadBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3748D420E66BBE005498F9 /* DownloadBookModel.m */; };
 		5A51170720D128F2004EEFDA /* LSYReadConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51169820D128F2004EEFDA /* LSYReadConfig.m */; };
 		5A51170820D128F2004EEFDA /* LSYReadParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51169A20D128F2004EEFDA /* LSYReadParser.m */; };
 		5A51170920D128F2004EEFDA /* LSYReadUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51169C20D128F2004EEFDA /* LSYReadUtilites.m */; };
@@ -86,6 +87,8 @@
 		5A51174F20D16123004EEFDA /* HSDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51174C20D16123004EEFDA /* HSDownloadManager.m */; };
 		5A51175320D161CE004EEFDA /* SProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51175120D161CE004EEFDA /* SProgressHUD.m */; };
 		5A51176020D17B47004EEFDA /* DownLoadEpubFileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A51175F20D17B47004EEFDA /* DownLoadEpubFileTool.m */; };
+		5A62821420E3DE13002254CA /* ActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62821320E3DE13002254CA /* ActivationCodeViewController.m */; };
+		5A62821720E3F254002254CA /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62821620E3F254002254CA /* ToolView.m */; };
 		5A842C7F20DA89010082C8CF /* YcmccwcY0BB222FqY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7A20DA89000082C8CF /* YcmccwcY0BB222FqY.5cb */; };
 		5A842C8020DA89010082C8CF /* YcmccwcY0II556rvY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7B20DA89010082C8CF /* YcmccwcY0II556rvY.5cb */; };
 		5A842C8120DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb in Resources */ = {isa = PBXBuildFile; fileRef = 5A842C7C20DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb */; };
@@ -107,6 +110,7 @@
 		5ACC542020C50FC6001F3F58 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC541E20C50FC5001F3F58 /* NSData+CommonCrypto.m */; };
 		5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */; };
 		5ACC542820C524EE001F3F58 /* STabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC542720C524EE001F3F58 /* STabBar.m */; };
+		5AFD94DC20E66F4900063002 /* DownLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD94DB20E66F4900063002 /* DownLoadViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +150,8 @@
 		5A254C2920C6D4DD00C45FF8 /* BookshelfCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookshelfCollectionCell.m; sourceTree = "<group>"; };
 		5A254C2B20C6D76300C45FF8 /* HistorySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchViewController.h; sourceTree = "<group>"; };
 		5A254C2C20C6D76300C45FF8 /* HistorySearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchViewController.m; sourceTree = "<group>"; };
+		5A3748D320E66BBE005498F9 /* DownloadBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadBookModel.h; sourceTree = "<group>"; };
+		5A3748D420E66BBE005498F9 /* DownloadBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadBookModel.m; sourceTree = "<group>"; };
 		5A51169620D128F2004EEFDA /* LSYReadPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSYReadPageViewController.h; sourceTree = "<group>"; };
 		5A51169820D128F2004EEFDA /* LSYReadConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSYReadConfig.m; sourceTree = "<group>"; };
 		5A51169920D128F2004EEFDA /* LSYReadUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSYReadUtilites.h; sourceTree = "<group>"; };
@@ -259,6 +265,10 @@
 		5A51175220D161CE004EEFDA /* SProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SProgressHUD.h; sourceTree = "<group>"; };
 		5A51175E20D17B47004EEFDA /* DownLoadEpubFileTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownLoadEpubFileTool.h; sourceTree = "<group>"; };
 		5A51175F20D17B47004EEFDA /* DownLoadEpubFileTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownLoadEpubFileTool.m; sourceTree = "<group>"; };
+		5A62821220E3DE13002254CA /* ActivationCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivationCodeViewController.h; sourceTree = "<group>"; };
+		5A62821320E3DE13002254CA /* ActivationCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivationCodeViewController.m; sourceTree = "<group>"; };
+		5A62821520E3F254002254CA /* ToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
+		5A62821620E3F254002254CA /* ToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
 		5A842C7A20DA89000082C8CF /* YcmccwcY0BB222FqY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0BB222FqY.5cb; sourceTree = "<group>"; };
 		5A842C7B20DA89010082C8CF /* YcmccwcY0II556rvY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0II556rvY.5cb; sourceTree = "<group>"; };
 		5A842C7C20DA89010082C8CF /* YcmccwcY0I0I0IuLY.5cb */ = {isa = PBXFileReference; lastKnownFileType = file; path = YcmccwcY0I0I0IuLY.5cb; sourceTree = "<group>"; };
@@ -299,6 +309,8 @@
 		5ACC542220C51047001F3F58 /* PrivacyFuncTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacyFuncTool.m; sourceTree = "<group>"; };
 		5ACC542620C524EE001F3F58 /* STabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STabBar.h; sourceTree = "<group>"; };
 		5ACC542720C524EE001F3F58 /* STabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STabBar.m; sourceTree = "<group>"; };
+		5AFD94DA20E66F4900063002 /* DownLoadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownLoadViewController.h; sourceTree = "<group>"; };
+		5AFD94DB20E66F4900063002 /* DownLoadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownLoadViewController.m; sourceTree = "<group>"; };
 		60D7A78AE2EE54DE3000EF8E /* Pods-ShuShangShuo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuShangShuo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ShuShangShuo/Pods-ShuShangShuo.release.xcconfig"; sourceTree = "<group>"; };
 		85667DF2E0DA67917D6CDCC7 /* libPods-ShuShangShuo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShuShangShuo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F22207DC375343588A8DB914 /* Pods-ShuShangShuo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuShangShuo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ShuShangShuo/Pods-ShuShangShuo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -341,6 +353,8 @@
 			children = (
 				5A254C2720C6D4A600C45FF8 /* CollectionCell */,
 				5A254C0020C595D200C45FF8 /* TableCell */,
+				5A62821520E3F254002254CA /* ToolView.h */,
+				5A62821620E3F254002254CA /* ToolView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -385,6 +399,10 @@
 				5A254C0620C6910500C45FF8 /* IPSettingViewController.m */,
 				5A950D1120D3AA1D0034C521 /* AboutUSViewController.h */,
 				5A950D1220D3AA1D0034C521 /* AboutUSViewController.m */,
+				5A62821220E3DE13002254CA /* ActivationCodeViewController.h */,
+				5A62821320E3DE13002254CA /* ActivationCodeViewController.m */,
+				5AFD94DA20E66F4900063002 /* DownLoadViewController.h */,
+				5AFD94DB20E66F4900063002 /* DownLoadViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -695,6 +713,8 @@
 			children = (
 				5A842C8C20DBDF400082C8CF /* BookInfoModel.h */,
 				5A842C8D20DBDF400082C8CF /* BookInfoModel.m */,
+				5A3748D320E66BBE005498F9 /* DownloadBookModel.h */,
+				5A3748D420E66BBE005498F9 /* DownloadBookModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1033,6 +1053,7 @@
 				5A51170E20D128F2004EEFDA /* ZipArchive.mm in Sources */,
 				5A51170B20D128F2004EEFDA /* zip.c in Sources */,
 				5A254BFC20C57F1C00C45FF8 /* SPPageMenu.m in Sources */,
+				5A62821720E3F254002254CA /* ToolView.m in Sources */,
 				5A51170920D128F2004EEFDA /* LSYReadUtilites.m in Sources */,
 				5A254C1E20C6CACD00C45FF8 /* SGQRCodeAlbumManager.m in Sources */,
 				5A51170820D128F2004EEFDA /* LSYReadParser.m in Sources */,
@@ -1052,6 +1073,7 @@
 				5A254C2A20C6D4DD00C45FF8 /* BookshelfCollectionCell.m in Sources */,
 				5A254C1920C6CACD00C45FF8 /* UIImage+ImageSize.m in Sources */,
 				5A51171720D128F2004EEFDA /* CXMLDocument_CreationExtensions.m in Sources */,
+				5A62821420E3DE13002254CA /* ActivationCodeViewController.m in Sources */,
 				5ACC542320C51047001F3F58 /* PrivacyFuncTool.m in Sources */,
 				5A51171D20D128F2004EEFDA /* LSYViewPagerVC.m in Sources */,
 				5A254BED20C5284E00C45FF8 /* RootTabBarController.m in Sources */,
@@ -1069,12 +1091,14 @@
 				5A51175320D161CE004EEFDA /* SProgressHUD.m in Sources */,
 				5ACC541720C3CD27001F3F58 /* UIResponder+Router.m in Sources */,
 				5A51172020D128F2004EEFDA /* GTMNSString+HTML.m in Sources */,
+				5AFD94DC20E66F4900063002 /* DownLoadViewController.m in Sources */,
 				5A254C1D20C6CACD00C45FF8 /* SGQRCodeGenerateManager.m in Sources */,
 				5A51171A20D128F2004EEFDA /* CXHTMLDocument.m in Sources */,
 				5A51171820D128F2004EEFDA /* CTidy.m in Sources */,
 				5A51171B20D128F2004EEFDA /* CXMLElement_CreationExtensions.m in Sources */,
 				5A51174E20D16123004EEFDA /* NSString+Hash.m in Sources */,
 				5A51171320D128F2004EEFDA /* CXMLNode_PrivateExtensions.m in Sources */,
+				5A3748D520E66BBE005498F9 /* DownloadBookModel.m in Sources */,
 				5A254BE820C5272F00C45FF8 /* UIView+Frame.m in Sources */,
 				5A51170C20D128F2004EEFDA /* ioapi.c in Sources */,
 				5A254C1A20C6CACD00C45FF8 /* SGQRCodeHelperTool.m in Sources */,

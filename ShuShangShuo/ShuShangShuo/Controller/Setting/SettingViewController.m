@@ -10,6 +10,7 @@
 #import "IPSettingViewController.h"
 #import "AboutUSViewController.h"
 #import "SettingTableCell.h"
+#import "ActivationCodeViewController.h"
 
 static NSString *const CellID = @"SettingTableCell";
 
@@ -33,7 +34,7 @@ static NSString *const CellID = @"SettingTableCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 2 : 1;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -57,13 +58,14 @@ static NSString *const CellID = @"SettingTableCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.indexPath = indexPath;
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            cell.titleLbl.text = @"全屏显示";
-            cell.contentLbl.text = @"隐藏状态栏";
-        } else {
-            cell.titleLbl.text = @"显示页码";
-            cell.contentLbl.text = @"在阅读界面显示页码";
-        }
+        cell.titleLbl.text = @"激活码";
+//        if (indexPath.row == 0) {
+//            cell.titleLbl.text = @"全屏显示";
+//            cell.contentLbl.text = @"隐藏状态栏";
+//        } else {
+//            cell.titleLbl.text = @"显示页码";
+//            cell.contentLbl.text = @"在阅读界面显示页码";
+//        }
     
     } else {
          cell.titleLbl.text = @"关于我们";
@@ -72,7 +74,12 @@ static NSString *const CellID = @"SettingTableCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        ActivationCodeViewController *activationCodeVC = [[ActivationCodeViewController alloc]init];
+        activationCodeVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:activationCodeVC animated:YES];
+        
+    } else {
         AboutUSViewController *aboutUsVC = [[AboutUSViewController alloc]init];
         aboutUsVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aboutUsVC animated:YES];
@@ -86,7 +93,7 @@ static NSString *const CellID = @"SettingTableCell";
         _tableView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
         [_tableView registerClass:SettingTableCell.class forCellReuseIdentifier:CellID];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = 65;
+        _tableView.rowHeight = 50;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

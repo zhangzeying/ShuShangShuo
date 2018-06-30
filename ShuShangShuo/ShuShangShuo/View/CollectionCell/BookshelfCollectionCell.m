@@ -7,6 +7,8 @@
 //
 
 #import "BookshelfCollectionCell.h"
+#import "UIResponder+Router.h"
+#import "BookInfoModel.h"
 
 @interface BookshelfCollectionCell ()
 
@@ -25,6 +27,11 @@
 - (void)setupUI {
     [self.contentView addSubview:self.bookImageView];
     [self.contentView addSubview:self.bookTitle];
+    [self.bookImageView addSubview:self.checkBoxBtn];
+    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress)];
+    longPressReger.minimumPressDuration = 1.0;
+    [self.bookImageView addGestureRecognizer:longPressReger];
+
 }
 
 - (void)autoLayout {
@@ -35,12 +42,34 @@
     [_bookTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.contentView);
     }];
+    
+    [_checkBoxBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.bookImageView);
+        make.right.mas_equalTo(self.bookImageView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
+    }];
+}
+
+- (void)handleLongPress {
+    [self.bookImageView routerEventWithName:BookshelfCollectionCellLongPressKey userInfo:nil];
+}
+
+- (void)checkBoxBtnClick:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    self.model.isSelected = sender.selected;
+    [sender routerEventWithName:BookshelfCollectionCellCheckBtnClickKey userInfo:@{@"isSelected":@(sender.isSelected)}];
+}
+
+- (void)setModel:(BookInfoModel *)model {
+    _model = model;
+    self.checkBoxBtn.selected = model.isSelected;
 }
 
 - (UIImageView *)bookImageView {
     if(!_bookImageView) {
         _bookImageView = [[UIImageView alloc]init];
         _bookImageView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+        _bookImageView.userInteractionEnabled = YES;
     }
     return _bookImageView;
 }
@@ -54,4 +83,16 @@
     }
     return _bookTitle;
 }
+
+- (UIButton *)checkBoxBtn {
+    if(!_checkBoxBtn) {
+        _checkBoxBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_checkBoxBtn setBackgroundImage:IMAGENAMED(@"checkbox_normal") forState:UIControlStateNormal];
+        [_checkBoxBtn setBackgroundImage:IMAGENAMED(@"checkbox_selected") forState:UIControlStateSelected];
+        [_checkBoxBtn addTarget:self action:@selector(checkBoxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _checkBoxBtn.hidden = YES;
+    }
+    return _checkBoxBtn;
+}
+
 @end

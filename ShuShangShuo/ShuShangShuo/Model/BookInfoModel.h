@@ -14,5 +14,6 @@
 @property (nonatomic,copy) NSString *creator;
 @property (nonatomic,copy) NSString *coverPath;
 @property (nonatomic,copy) NSString *fileUrl;
+@property (nonatomic,assign) BOOL isSelected;
 
 @end

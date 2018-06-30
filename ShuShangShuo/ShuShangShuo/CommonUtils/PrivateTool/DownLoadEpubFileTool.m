@@ -209,12 +209,12 @@ SingletonM(tool)
 }
 
 - (void)downloadEpubFile:(NSString *)url {
-    if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"]) && [url containsString:@"/5cepub/appdownload"]) {
+    if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"])) {
         __block NSMutableArray *downloadUrlArr = [NSMutableArray arrayWithContentsOfFile:kDownloadUrlFilePath];
         if ([downloadUrlArr containsObject:HSFileName(url)]) {
             WEAKSELF
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                           message:@"此书籍已下载过，是否重新下载？"
+                                                                           message:@"此书籍已下载过，是否再次下载？"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault
@@ -237,6 +237,7 @@ SingletonM(tool)
         [kUserDefaults setObject:url forKey:@"current_download_url"];
         [kUserDefaults synchronize];
         [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
+            NSLog(@"%f",progress);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SProgressHUD showProgressValue:progress title:@"正在下载..."];
             });

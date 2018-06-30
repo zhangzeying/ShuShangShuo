@@ -63,7 +63,6 @@ static CGFloat const pageMenuH = 50;
     self.pageMenu.delegate = self;
     self.pageMenu.bridgeScrollView = self.scrollView;
     [self.view addSubview:self.pageMenu];
-    
     if (self.pageMenu.selectedItemIndex < self.childViewControllerArray.count) {
         BaseViewController *baseVc = self.childViewControllerArray[self.pageMenu.selectedItemIndex];
         [self.scrollView addSubview:baseVc.view];
@@ -99,6 +98,8 @@ static CGFloat const pageMenuH = 50;
             [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }
+    
+    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:@"http://39.106.146.127:8080/5cepub/appdownload?bookid=YcmccwcY0KK224kEY"];
     
     if (![[kUserDefaults objectForKey:@"load"] boolValue]) {
         [self loadDefault];

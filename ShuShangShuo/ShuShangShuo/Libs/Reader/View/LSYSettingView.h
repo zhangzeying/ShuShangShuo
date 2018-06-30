@@ -18,4 +18,6 @@
 
 @interface LSYThemeView : UIView
 
+@property (nonatomic, weak) LSYSettingView *settingView;
+
 @end

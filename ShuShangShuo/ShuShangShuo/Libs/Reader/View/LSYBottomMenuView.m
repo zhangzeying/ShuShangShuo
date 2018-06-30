@@ -29,6 +29,7 @@
     return self;
 }
 -(void)setup{
+    NOTIF_ADD(@"ModeChange", modeChange);
     [self setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8]];
     [self addSubview:self.slider];
     [self addSubview:self.catalog];
@@ -119,6 +120,12 @@
         [_lastChapter setTitle:@"上一章" forState:UIControlStateNormal];
     }
     return _lastChapter;
+}
+
+- (void)modeChange {
+    
+    self.modeBtn.selected = YES;
+    [self modeBtnClick:self.modeBtn];
 }
 
 #pragma mark - Button Click
@@ -236,6 +243,7 @@
     [_slider removeObserver:self forKeyPath:@"highlighted"];
     [self removeObserver:self forKeyPath:@"readModel.chapter"];
     [self removeObserver:self forKeyPath:@"readModel.page"];
+    NOTIF_REMV();
 }
 @end
 

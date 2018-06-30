@@ -287,6 +287,7 @@
 {
     if (!_themeView) {
         _themeView = [[LSYThemeView alloc] init];
+        _themeView.settingView = self;
     }
     return _themeView;
 }
@@ -349,6 +350,9 @@
 }
 -(void)changeTheme:(UITapGestureRecognizer *)tap
 {
+    if ([tap.view.backgroundColor isEqual:[UIColor whiteColor]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ModeChange" object:nil];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:LSYThemeNotification object:tap.view.backgroundColor];
 }
 -(void)layoutSubviews

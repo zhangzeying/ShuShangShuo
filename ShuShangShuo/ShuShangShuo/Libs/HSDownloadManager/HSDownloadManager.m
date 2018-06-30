@@ -182,6 +182,9 @@ static HSDownloadManager *_downloadManager;
  */
 - (BOOL)isCompletion:(NSString *)url
 {
+    NSLog(@"%ld",[self fileTotalLength:url]);
+    NSLog(@"%ld",HSDownloadLength(url));
+    NSLog(@"%f",[self progress:url])
     if ([self fileTotalLength:url] && HSDownloadLength(url) == [self fileTotalLength:url]) {
         return YES;
     }

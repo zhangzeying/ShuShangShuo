@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class BookInfoModel;
+
+static NSString *const BookshelfCollectionCellLongPressKey = @"BookshelfCollectionCellLongPressKey";
+static NSString *const BookshelfCollectionCellCheckBtnClickKey = @"BookshelfCollectionCellCheckBtnClickKey";
+
 @interface BookshelfCollectionCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *bookImageView;
 @property (nonatomic, strong) UILabel *bookTitle;
+@property (nonatomic, strong) UIButton *checkBoxBtn;
+@property (nonatomic, strong) BookInfoModel *model;
 
 @end

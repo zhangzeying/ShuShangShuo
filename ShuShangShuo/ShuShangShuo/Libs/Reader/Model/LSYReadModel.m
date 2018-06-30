@@ -91,6 +91,7 @@
             NSLog(@"this is epub");
             LSYReadModel *model = [[LSYReadModel alloc] initWithePub:url.path];
             model.resource = url;
+            [[NSFileManager defaultManager] removeItemAtPath:url.path error:nil];
             [LSYReadModel updateLocalModel:model url:url];
             return model;
         }

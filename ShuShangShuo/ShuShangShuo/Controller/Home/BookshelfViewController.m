@@ -13,13 +13,18 @@
 #import "LSYReadModel.h"
 #import "NSString+HTML.h"
 #import "BookInfoModel.h"
+#import "ToolView.h"
+#import "UIResponder+Router.h"
+#import "HSDownloadManager.h"
 
 static NSString *const CellID = @"BookshelfCollectionCell";
 
-@interface BookshelfViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BookshelfViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ToolViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) ToolView *toolView;
+@property (nonatomic, assign) BOOL isEditing;
 
 @end
 
@@ -70,6 +75,27 @@ static NSString *const CellID = @"BookshelfCollectionCell";
     }];
 }
 
+- (void)routerEventWithName:(NSString *)eventName userInfo:(NSDictionary *)userInfo {
+    if ([eventName isEqualToString:BookshelfCollectionCellLongPressKey]) {
+        if (!_toolView) {
+            [self.navigationController.view addSubview:self.toolView];
+        }
+        for (BookshelfCollectionCell *cell in self.collectionView.visibleCells) {
+            cell.checkBoxBtn.hidden = NO;
+        }
+        self.isEditing = YES;
+    } else if ([eventName isEqualToString:BookshelfCollectionCellCheckBtnClickKey]) {
+        BOOL flag = NO;
+        for (BookInfoModel *model in self.dataArr) {
+            if (model.isSelected) {
+                flag = YES;
+                break;
+            }
+        }
+        self.toolView.finishBtn.selected = flag;
+    }
+}
+
 - (UIImage *)parserEpubCoverImg:(NSString *)content imagePath:(NSString *)imagePath
 {
     content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -113,6 +139,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
     BookshelfCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellID forIndexPath:indexPath];
     cell.bookTitle.hidden = YES;
     BookInfoModel *model = self.dataArr[indexPath.row];
+    cell.model = model;
     if (model.coverPath.length > 0) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //            NSString *mediaType = [dict objectForKey:@"mediaType"];
@@ -151,6 +178,9 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isEditing) {
+        return;
+    }
     BookInfoModel *bookModel = self.dataArr[indexPath.row];
     NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",bookModel.fileUrl]];
     NSURL *fileURL = [NSURL URLWithString:fullPath];
@@ -187,6 +217,44 @@ static NSString *const CellID = @"BookshelfCollectionCell";
     });
 }
 
+- (void)checkAll:(BOOL)isSelected {
+    for (BookInfoModel *model in self.dataArr) {
+        model.isSelected = isSelected;
+    }
+    [self.collectionView reloadData];
+    self.toolView.finishBtn.selected = isSelected;
+}
+
+- (void)finish:(BOOL)isSelected {
+    if (isSelected) { //完成
+        if (_toolView) {
+            [self.toolView removeFromSuperview];
+            self.toolView = nil;
+        }
+        for (BookshelfCollectionCell *cell in self.collectionView.visibleCells) {
+            cell.checkBoxBtn.hidden = YES;
+        }
+        self.isEditing = NO;
+        
+    } else { //删除
+        NSMutableArray *tempArr = self.dataArr.mutableCopy;
+        NSMutableArray *downloadUrlArr = [NSMutableArray arrayWithContentsOfFile:kDownloadUrlFilePath];
+        for (BookInfoModel *model in tempArr) {
+            if (model.isSelected) {
+                [self.dataArr removeObject:model];
+                [downloadUrlArr removeObject:model.fileUrl];
+            }
+        }
+        if (self.pageStyle == PageStyle_BrowseHistory) {
+            [NSKeyedArchiver archiveRootObject:self.dataArr toFile:kBrowserHistoryFilePath];
+        } else {
+            [NSKeyedArchiver archiveRootObject:self.dataArr toFile:kMyBookshelfFilePath];
+        }
+        [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES];
+        [self.collectionView reloadData];
+    }
+}
+
 #pragma mark - getter and setter
 - (NSMutableArray *)dataArr {
     if(!_dataArr) {
@@ -211,6 +279,14 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         [_collectionView registerClass:BookshelfCollectionCell.class forCellWithReuseIdentifier:CellID];
     }
     return _collectionView;
+}
+
+- (ToolView *)toolView {
+    if(!_toolView) {
+        _toolView = [[ToolView alloc]initWithFrame:CGRectMake(0, kNavigationBarHeight, ScreenWidth, 50)];
+        _toolView.delegate = self;
+    }
+    return _toolView;
 }
 
 - (void)didReceiveMemoryWarning {
