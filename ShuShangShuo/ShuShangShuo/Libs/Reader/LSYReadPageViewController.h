@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "LSYReadModel.h"
+@class BookInfoModel;
 @interface LSYReadPageViewController : UIViewController
 @property (nonatomic,strong) NSURL *resourceURL;
 @property (nonatomic,strong) LSYReadModel *model;
+@property (nonatomic, strong) BookInfoModel *bookInfoModel;
 //+(void)loadURL:(NSURL *)url;
 @end

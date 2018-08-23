@@ -16,6 +16,8 @@
 #import "ToolView.h"
 #import "UIResponder+Router.h"
 #import "HSDownloadManager.h"
+#import "UIImageView+WebCache.h"
+#import "DownLoadEpubFileTool.h"
 
 static NSString *const CellID = @"BookshelfCollectionCell";
 
@@ -80,19 +82,27 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         if (!_toolView) {
             [self.navigationController.view addSubview:self.toolView];
         }
-        for (BookshelfCollectionCell *cell in self.collectionView.visibleCells) {
-            cell.checkBoxBtn.hidden = NO;
-        }
-        self.isEditing = YES;
-    } else if ([eventName isEqualToString:BookshelfCollectionCellCheckBtnClickKey]) {
-        BOOL flag = NO;
-        for (BookInfoModel *model in self.dataArr) {
-            if (model.isSelected) {
-                flag = YES;
-                break;
+        NSInteger index = [userInfo[@"rowIndex"] integerValue];
+        [self.dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BookInfoModel *model = obj;
+            if (index == idx) {
+                model.isSelected = YES;
+            } else {
+                model.isSelected = NO;
             }
-        }
-        self.toolView.finishBtn.selected = flag;
+        }];
+        self.isEditing = YES;
+        NOTIF_POST(@"ChangeScrollState", @"1");
+        [self.collectionView reloadData];
+    } else if ([eventName isEqualToString:BookshelfCollectionCellCheckBtnClickKey]) {
+//        BOOL flag = NO;
+//        for (BookInfoModel *model in self.dataArr) {
+//            if (model.isSelected) {
+//                flag = YES;
+//                break;
+//            }
+//        }
+//        self.toolView.finishBtn.selected = flag;
     }
 }
 
@@ -105,6 +115,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         if ([scanner scanString:@"<img>" intoString:NULL]) {
             NSString *img;
             [scanner scanUpToString:@"</img>" intoString:&img];
+            img = [img stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSString *imageString = [[imagePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:img];
             UIImage *image = [UIImage imageWithContentsOfFile:imageString];
             CGFloat width = ScreenBounds.size.width - LeftSpacing - RightSpacing;
@@ -138,83 +149,91 @@ static NSString *const CellID = @"BookshelfCollectionCell";
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BookshelfCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellID forIndexPath:indexPath];
     cell.bookTitle.hidden = YES;
+    cell.index = indexPath.row;
+    cell.checkBoxBtn.hidden = !self.isEditing;
     BookInfoModel *model = self.dataArr[indexPath.row];
     cell.model = model;
-    if (model.coverPath.length > 0) {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            NSString *mediaType = [dict objectForKey:@"mediaType"];
-            UIImage *coverImg = nil;
-            NSString *path = [kDocuments stringByAppendingPathComponent:model.coverPath];
-            NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
-            coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
-//            if ([mediaType containsString:@"image/"]) {
-//                coverImg = [UIImage imageWithContentsOfFile:path];
-//
-//            } else {
-//                NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
-//                coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
-//            }
-            if (!coverImg) {
-                coverImg = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.bookTitle.text = model.title;
-                    cell.bookTitle.hidden = NO;
-                    cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.bookImageView.image = coverImg;
-                });
-            }
-            
-        });
+    if (model.isNeedDownLoad) {
+        [cell.bookImageView sd_setImageWithURL:[NSURL URLWithString:model.coverPath] placeholderImage:nil options:SDWebImageRetryFailed];
         
     } else {
-        cell.bookTitle.text = model.title;
-        cell.bookTitle.hidden = NO;
-        cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
+        [cell.bookImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:nil options:SDWebImageRetryFailed];
+        if (model.coverPath.length > 0) {
+            cell.bookImageView.image = [UIImage imageWithContentsOfFile:[kDocuments stringByAppendingPathComponent:model.coverPath]];
+            
+        } else {
+            cell.bookTitle.text = model.title;
+            cell.bookTitle.hidden = NO;
+            cell.bookImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
+        }
     }
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    BookInfoModel *bookModel = self.dataArr[indexPath.row];
     if (self.isEditing) {
+        BookshelfCollectionCell *cell = (BookshelfCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        cell.checkBoxBtn.selected = !cell.checkBoxBtn.selected;
+        bookModel.isSelected = cell.checkBoxBtn.selected;
         return;
     }
-    BookInfoModel *bookModel = self.dataArr[indexPath.row];
-    NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",bookModel.fileUrl]];
-    NSURL *fileURL = [NSURL URLWithString:fullPath];
-    [SProgressHUD showWaiting:nil];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
-        LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
-        pageView.resourceURL = model.resource;    //文件位置
-        pageView.model = model;
-        NSMutableArray *historyDataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
-        if (!historyDataArr) {
-            historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
-            
-        } else {
-            __block NSInteger index = -1;
-            [historyDataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                BookInfoModel *item = obj;
-                if ([item.fileUrl isEqualToString:bookModel.fileUrl]) {
-                    index = idx;
-                    *stop = YES;
+    
+    if (bookModel.isNeedDownLoad) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                       message:@"此书籍还未下载，是否下载？"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [[DownLoadEpubFileTool sharedtool] downloadEpubFile:bookModel.fileUrl code:bookModel.code isContinue:NO];
+                                                              }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 
+                                                             }];
+        
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+    } else {
+        NSString *fullPath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.epub",bookModel.fileUrl]];
+        NSURL *fileURL = [NSURL URLWithString:fullPath];
+        [SProgressHUD showWaiting:nil];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
+            LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
+            pageView.resourceURL = model.resource;    //文件位置
+            pageView.bookInfoModel = bookModel;
+            pageView.model = model;
+            NSMutableArray *historyDataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
+            if (!historyDataArr) {
+                historyDataArr = [NSMutableArray arrayWithObjects:bookModel, nil];
+                
+            } else {
+                __block NSInteger index = -1;
+                [historyDataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    BookInfoModel *item = obj;
+                    if ([item.fileUrl isEqualToString:bookModel.fileUrl]) {
+                        index = idx;
+                        *stop = YES;
+                    }
+                }];
+                if (index > -1) {
+                    [historyDataArr removeObjectAtIndex:index];
                 }
-            }];
-            if (index > -1) {
-                [historyDataArr removeObjectAtIndex:index];
+                [historyDataArr insertObject:bookModel atIndex:0];
             }
-            [historyDataArr insertObject:bookModel atIndex:0];
-        }
-        [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
-        NOTIF_POST(ReloadHistoryPage, nil);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SProgressHUD hideHUDfromView:nil];
-            [self presentViewController:pageView animated:YES completion:nil];
+            [NSKeyedArchiver archiveRootObject:historyDataArr toFile:kBrowserHistoryFilePath];
+            NOTIF_POST(ReloadHistoryPage, nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SProgressHUD hideHUDfromView:nil];
+                [self presentViewController:pageView animated:YES completion:nil];
+            });
         });
-    });
+    }
 }
 
 - (void)checkAll:(BOOL)isSelected {
@@ -235,6 +254,7 @@ static NSString *const CellID = @"BookshelfCollectionCell";
             cell.checkBoxBtn.hidden = YES;
         }
         self.isEditing = NO;
+        NOTIF_POST(@"ChangeScrollState", @"0");
         
     } else { //删除
         NSMutableArray *tempArr = self.dataArr.mutableCopy;
@@ -252,6 +272,16 @@ static NSString *const CellID = @"BookshelfCollectionCell";
         }
         [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES];
         [self.collectionView reloadData];
+        
+        if (_toolView) {
+            [self.toolView removeFromSuperview];
+            self.toolView = nil;
+        }
+        for (BookshelfCollectionCell *cell in self.collectionView.visibleCells) {
+            cell.checkBoxBtn.hidden = YES;
+        }
+        self.isEditing = NO;
+        NOTIF_POST(@"ChangeScrollState", @"0");
     }
 }
 

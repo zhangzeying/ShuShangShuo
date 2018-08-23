@@ -16,6 +16,8 @@
 #import "LSYMarkModel.h"
 #import <objc/runtime.h>
 #import "NSString+HTML.h"
+#import "BookInfoModel.h"
+#import "AppDelegate.h"
 
 #define AnimationDelay 0.3
 
@@ -36,6 +38,7 @@
 @property (nonatomic,assign) UIPageViewControllerTransitionStyle transitionStyle;
 @property (nonatomic, strong) UILabel *pageLbl;
 @property (nonatomic, strong) UIView *maskLightView;
+
 @end
 
 @implementation LSYReadPageViewController
@@ -70,6 +73,33 @@
 
     //添加笔记
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNotes:) name:LSYNoteNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.bookInfoModel.begin_time = (NSInteger)floor([[NSDate date] timeIntervalSince1970]);
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    __block NSInteger total = 0;
+    [self.model.chapters enumerateObjectsUsingBlock:^(LSYChapterModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        total += obj.pageCount;
+    }];
+    CGFloat current = 0.f;
+    for (int i = 0; i < _chapter; i++) {
+        LSYChapterModel *model = self.model.chapters[i];
+        current += model.pageCount;
+    }
+    current += _page + 1;
+    self.bookInfoModel.readProgress = current / total;
+    self.bookInfoModel.end_time = (NSInteger)floor([[NSDate date] timeIntervalSince1970]);
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (!appDelegate.staticsBookArr) {
+        appDelegate.staticsBookArr = [NSMutableArray arrayWithObjects:self.bookInfoModel, nil];
+    } else {
+        [appDelegate.staticsBookArr addObject:self.bookInfoModel];
+    }
 }
 
 -(void)addNotes:(NSNotification *)no
@@ -433,6 +463,7 @@
 
 - (void)dealloc {
     NSLog(@"%@ dealloc",NSStringFromClass(self.class));
+    
 }
 
 @end

@@ -192,6 +192,7 @@ static NSString *const CellID = @"SearchTableCell";
         LSYReadModel *model = [LSYReadModel getLocalModelWithURL:fileURL];
         LSYReadPageViewController *pageView = [[LSYReadPageViewController alloc] init];
         pageView.resourceURL = model.resource;    //文件位置
+        pageView.bookInfoModel = bookModel;
         pageView.model = model;
         NSMutableArray *historyDataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kBrowserHistoryFilePath];
         if (!historyDataArr) {

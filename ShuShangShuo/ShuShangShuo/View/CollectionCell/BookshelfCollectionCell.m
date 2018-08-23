@@ -28,7 +28,7 @@
     [self.contentView addSubview:self.bookImageView];
     [self.contentView addSubview:self.bookTitle];
     [self.bookImageView addSubview:self.checkBoxBtn];
-    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress)];
+    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
     longPressReger.minimumPressDuration = 1.0;
     [self.bookImageView addGestureRecognizer:longPressReger];
 
@@ -50,8 +50,13 @@
     }];
 }
 
-- (void)handleLongPress {
-    [self.bookImageView routerEventWithName:BookshelfCollectionCellLongPressKey userInfo:nil];
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        
+        [self.bookImageView routerEventWithName:BookshelfCollectionCellLongPressKey userInfo:@{@"rowIndex":@(self.index)}];
+        
+    }
+    
 }
 
 - (void)checkBoxBtnClick:(UIButton *)sender {

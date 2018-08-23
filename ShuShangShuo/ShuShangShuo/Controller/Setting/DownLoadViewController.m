@@ -14,6 +14,7 @@
 #import "NSString+Hash.h"
 #import "BookInfoModel.h"
 #import "DownLoadEpubFileTool.h"
+#import "RootTabBarController.h"
 
 static NSString *const CellID = @"CellID";
 
@@ -78,16 +79,57 @@ static NSString *const CellID = @"CellID";
 }
 
 - (void)addBtnClick {
-    [SProgressHUD showWaiting:@"正在下载..."];
-    [self download];
+//    [SProgressHUD showWaiting:@"正在下载..."];
+//    [self download];
+    NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
+    for (DownloadBookModel *item in self.dataArr) {
+        BookInfoModel *model = [[BookInfoModel alloc]init];
+        model.title = item.title;
+        model.coverPath = item.img_url;
+        model.fileUrl = item.download_url;
+        model.code = self.code;
+        model.isNeedDownLoad = YES;
+        if (!dataArr) {
+            dataArr = [NSMutableArray arrayWithObjects:model, nil];
+        } else {
+            [dataArr insertObject:model atIndex:0];
+        }
+    }
+    [NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath];
+    RootTabBarController *tabBar = (RootTabBarController *)[UIApplication sharedApplication].delegate.window.rootViewController;
+    tabBar.selectedIndex = 0;
+    if (self.navigationController.viewControllers.count) {
+        self.navigationController.viewControllers = @[self.navigationController.viewControllers.firstObject];
+    }
+    NOTIF_POST(DownloadSucces, nil);
 }
 
 - (void)download {
+    if (self.index >= self.dataArr.count) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SProgressHUD hideHUDfromView:nil];
+            RootTabBarController *tabBar = (RootTabBarController *)[UIApplication sharedApplication].delegate.window.rootViewController;
+            tabBar.selectedIndex = 0;
+            if (self.navigationController.viewControllers.count) {
+                self.navigationController.viewControllers = @[self.navigationController.viewControllers.firstObject];
+            }
+            NOTIF_POST(DownloadSucces, nil);
+        });
+        return;
+    }
     DownloadBookModel *model = self.dataArr[self.index];
     NSString *url = model.download_url;
     WEAKSELF
     [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
         NSLog(@"%f",progress);
+        STRONGSELF
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:strongSelf.index inSection:0];
+            BookshelfCollectionCell *cell = (BookshelfCollectionCell *)[strongSelf.collectionView cellForItemAtIndexPath:indexPath];
+            if (progress > 0.5) {
+                cell.bookImageView.alpha = progress;
+            }
+        });
         
     } state:^(DownloadState state) {
         if (state == DownloadStateStart) {
@@ -114,6 +156,7 @@ static NSString *const CellID = @"CellID";
                             model.creator = [dict objectForKey:@"creator"];
                             model.coverPath = str;
                             model.fileUrl = HSFileName(url);
+                            model.code = strongSelf.code;
                             NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
                             if (!dataArr) {
                                 dataArr = [NSMutableArray arrayWithObjects:model, nil];
@@ -130,13 +173,6 @@ static NSString *const CellID = @"CellID";
                             }
                             if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath] && [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES]) {
                                 [[HSDownloadManager sharedInstance] deleteFile:url];
-                                if (strongSelf.index == strongSelf.dataArr.count - 1) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [SProgressHUD hideHUDfromView:nil];
-                                        [SProgressHUD showSuccess:@"添加成功"];
-                                    });
-                                    NOTIF_POST(DownloadSucces, nil);
-                                }
                             }
                         }
                         
@@ -152,12 +188,6 @@ static NSString *const CellID = @"CellID";
  
         } else if (state == DownloadStateFailed) {
             STRONGSELF
-            if (strongSelf.index == strongSelf.dataArr.count - 1) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SProgressHUD hideHUDfromView:nil];
-                    [SProgressHUD showFailure:@"添加失败"];
-                });
-            }
             strongSelf.index++;
             [strongSelf download];
         }
@@ -173,6 +203,7 @@ static NSString *const CellID = @"CellID";
     DownloadBookModel *model = self.dataArr[indexPath.row];
     BookshelfCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellID forIndexPath:indexPath];
     [cell.bookImageView sd_setImageWithURL:[NSURL URLWithString:model.img_url] placeholderImage:nil options:SDWebImageRetryFailed];
+//    cell.bookImageView.alpha = 0.5;
     return cell;
 }
 

@@ -13,6 +13,8 @@
 #import "DownLoadEpubFileTool.h"
 #import "HSDownloadManager.h"
 #import "BookInfoModel.h"
+#import "NSString+Hash.h"
+#import "NSString+HTML.h"
 
 static CGFloat const pageMenuH = 50;
 
@@ -31,6 +33,7 @@ static CGFloat const pageMenuH = 50;
 - (void)viewDidLoad {
     [super viewDidLoad];
     NOTIF_ADD(DownloadSucces, downloadSucces);
+    NOTIF_ADD(@"ChangeScrollState", changeScrollState:);
     UIImageView *image = [[UIImageView alloc]init];
     image.image = IMAGENAMED(@"logo");
     image.width = 50;
@@ -77,13 +80,14 @@ static CGFloat const pageMenuH = 50;
     if (currentDownloadUrl.length > 0) {
         CGFloat progress = [[HSDownloadManager sharedInstance] progress:currentDownloadUrl];
         if (progress < 1) {
+            NSString *code = [kUserDefaults objectForKey:HSFileName(currentDownloadUrl)];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
                                                                            message:@"检测到上次有书籍未下载完成，是否继续下载？"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
-                                                                      [[DownLoadEpubFileTool sharedtool] downloadEpubFile:currentDownloadUrl];
+                                                                      [[DownLoadEpubFileTool sharedtool] downloadEpubFile:currentDownloadUrl code:code isContinue:YES];
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
@@ -98,8 +102,6 @@ static CGFloat const pageMenuH = 50;
             [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }
-    
-    [[DownLoadEpubFileTool sharedtool] downloadEpubFile:@"http://39.106.146.127:8080/5cepub/appdownload?bookid=YcmccwcY0KK224kEY"];
     
     if (![[kUserDefaults objectForKey:@"load"] boolValue]) {
         [self loadDefault];
@@ -130,14 +132,16 @@ static CGFloat const pageMenuH = 50;
                     BookInfoModel *model = [[BookInfoModel alloc]init];
                     model.title = [dict objectForKey:@"title"];
                     model.creator = [dict objectForKey:@"creator"];
-                    model.coverPath = str;
+                    NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:[kDocuments stringByAppendingPathComponent:str]]] encoding:NSUTF8StringEncoding];
+                    NSString *img = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText]];
+                    model.coverPath = [[str stringByDeletingLastPathComponent] stringByAppendingPathComponent:img];
                     model.fileUrl = fileName;
                     NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
                     if (!dataArr) {
                         dataArr = [NSMutableArray arrayWithObjects:model, nil];
                         
                     } else {
-                        [dataArr addObject:model];
+                        [dataArr insertObject:model atIndex:0];
                     }
                     if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath]) {
                         [kUserDefaults setObject:@(YES) forKey:@"load"];
@@ -150,6 +154,25 @@ static CGFloat const pageMenuH = 50;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [SProgressHUD hideHUDfromView:nil];
     });
+}
+
+- (NSString *)parserEpubCoverImg:(NSString *)content
+{
+    content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSScanner *scanner = [NSScanner scannerWithString:content];
+    while (![scanner isAtEnd]) {
+        if ([scanner scanString:@"<img>" intoString:NULL]) {
+            NSString *img;
+            [scanner scanUpToString:@"</img>" intoString:&img];
+            img = [img stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            return img;
+        } else{
+            NSString *content;
+            [scanner scanUpToString:@"<img>" intoString:&content];
+        }
+    }
+    return nil;
 }
 
 - (void)searchClick {
@@ -171,6 +194,11 @@ static CGFloat const pageMenuH = 50;
         }
     }
     
+}
+
+- (void)changeScrollState:(NSNotification *)sender {
+    NSString *state = sender.object;
+    self.pageMenu.bridgeScrollView.scrollEnabled = [state isEqualToString:@"1"] ? NO : YES;
 }
 
 - (void)dealloc {

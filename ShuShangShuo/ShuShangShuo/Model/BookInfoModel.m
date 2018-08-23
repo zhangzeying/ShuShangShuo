@@ -15,6 +15,8 @@
     [aCoder encodeObject:self.creator forKey:@"creator"];
     [aCoder encodeObject:self.coverPath forKey:@"coverPath"];
     [aCoder encodeObject:self.fileUrl forKey:@"fileUrl"];
+    [aCoder encodeObject:self.code forKey:@"code"];
+    [aCoder encodeObject:@(self.isNeedDownLoad) forKey:@"isNeedDownLoad"];
 }
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
@@ -23,6 +25,8 @@
         self.creator = [aDecoder decodeObjectForKey:@"creator"];
         self.coverPath = [aDecoder decodeObjectForKey:@"coverPath"];
         self.fileUrl = [aDecoder decodeObjectForKey:@"fileUrl"];
+        self.code = [aDecoder decodeObjectForKey:@"code"];
+        self.isNeedDownLoad = [[aDecoder decodeObjectForKey:@"isNeedDownLoad"] boolValue];
     }
     return self;
 }

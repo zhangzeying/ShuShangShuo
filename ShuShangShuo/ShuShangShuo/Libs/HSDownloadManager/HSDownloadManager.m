@@ -157,7 +157,6 @@ static HSDownloadManager *_downloadManager;
 {
     NSURLSessionDataTask *task = [self getTask:url];
     [task suspend];
-
     [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateSuspended);
 }
 
@@ -269,7 +268,6 @@ static HSDownloadManager *_downloadManager;
     
     // 打开流
     [sessionModel.stream open];
-    
     // 获得服务器这次请求 返回数据的总长度
     NSInteger totalLength = [response.allHeaderFields[@"Content-Length"] integerValue] + HSDownloadLength(sessionModel.url);
     sessionModel.totalLength = totalLength;

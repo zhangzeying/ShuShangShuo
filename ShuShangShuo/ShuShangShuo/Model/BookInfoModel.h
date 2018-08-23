@@ -15,5 +15,10 @@
 @property (nonatomic,copy) NSString *coverPath;
 @property (nonatomic,copy) NSString *fileUrl;
 @property (nonatomic,assign) BOOL isSelected;
+@property (nonatomic, assign) NSInteger begin_time;
+@property (nonatomic, assign) NSInteger end_time;
+@property (nonatomic, assign) CGFloat readProgress;
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, assign) BOOL isNeedDownLoad;
 
 @end

@@ -681,11 +681,11 @@
 		5A51174520D16123004EEFDA /* HSDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
-				5A51174620D16123004EEFDA /* HSSessionModel.m */,
-				5A51174720D16123004EEFDA /* MD5 */,
-				5A51174A20D16123004EEFDA /* HSDownloadManager.h */,
 				5A51174B20D16123004EEFDA /* HSSessionModel.h */,
+				5A51174620D16123004EEFDA /* HSSessionModel.m */,
+				5A51174A20D16123004EEFDA /* HSDownloadManager.h */,
 				5A51174C20D16123004EEFDA /* HSDownloadManager.m */,
+				5A51174720D16123004EEFDA /* MD5 */,
 			);
 			path = HSDownloadManager;
 			sourceTree = "<group>";

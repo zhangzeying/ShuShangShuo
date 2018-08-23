@@ -75,6 +75,7 @@
     [archiver encodeObject:readModel forKey:key];
     [archiver finishEncoding];
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 +(id)getLocalModelWithURL:(NSURL *)url
 {
@@ -91,8 +92,8 @@
             NSLog(@"this is epub");
             LSYReadModel *model = [[LSYReadModel alloc] initWithePub:url.path];
             model.resource = url;
-            [[NSFileManager defaultManager] removeItemAtPath:url.path error:nil];
             [LSYReadModel updateLocalModel:model url:url];
+            [[NSFileManager defaultManager] removeItemAtPath:url.path error:nil];
             return model;
         }
         else{

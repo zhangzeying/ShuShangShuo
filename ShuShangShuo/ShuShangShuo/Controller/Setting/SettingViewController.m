@@ -30,7 +30,7 @@ static NSString *const CellID = @"SettingTableCell";
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [kUserDefaults boolForKey:@"ShowActivationCode"] ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -57,33 +57,36 @@ static NSString *const CellID = @"SettingTableCell";
     SettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.indexPath = indexPath;
-    if (indexPath.section == 0) {
-        cell.titleLbl.text = @"激活码";
-//        if (indexPath.row == 0) {
-//            cell.titleLbl.text = @"全屏显示";
-//            cell.contentLbl.text = @"隐藏状态栏";
-//        } else {
-//            cell.titleLbl.text = @"显示页码";
-//            cell.contentLbl.text = @"在阅读界面显示页码";
-//        }
-    
+    if ([kUserDefaults boolForKey:@"ShowActivationCode"]) {
+        if (indexPath.section == 0) {
+            cell.titleLbl.text = @"激活码";
+        } else {
+            cell.titleLbl.text = @"关于我们";
+        }
     } else {
-         cell.titleLbl.text = @"关于我们";
+        cell.titleLbl.text = @"关于我们";
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        ActivationCodeViewController *activationCodeVC = [[ActivationCodeViewController alloc]init];
-        activationCodeVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:activationCodeVC animated:YES];
-        
+    if ([kUserDefaults boolForKey:@"ShowActivationCode"]) {
+        if (indexPath.section == 0) {
+            ActivationCodeViewController *activationCodeVC = [[ActivationCodeViewController alloc]init];
+            activationCodeVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:activationCodeVC animated:YES];
+            
+        } else {
+            AboutUSViewController *aboutUsVC = [[AboutUSViewController alloc]init];
+            aboutUsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
     } else {
         AboutUSViewController *aboutUsVC = [[AboutUSViewController alloc]init];
         aboutUsVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aboutUsVC animated:YES];
     }
+    
 }
 
 #pragma mark - getter and setter

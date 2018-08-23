@@ -11,7 +11,8 @@
 @interface DownLoadEpubFileTool : NSObject
 SingletonH(tool)
 
-- (void)downloadEpubFile:(NSString *)url;
+- (void)downloadEpubFile:(NSString *)url code:(NSString *)code isContinue:(BOOL)isContinue;
 - (BOOL)decodeEpubFile:(NSData *)data fileName:(NSString *)fileName;
+- (NSString *)currentWifiSSID;
 
 @end

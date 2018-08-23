@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *grade;
 @property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, copy) NSString *code;
 
 @end

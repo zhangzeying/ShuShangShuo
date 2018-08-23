@@ -61,24 +61,17 @@
     }];
 }
 
-- (UIImage *)parserEpubCoverImg:(NSString *)content imagePath:(NSString *)imagePath
+- (NSString *)parserEpubCoverImg:(NSString *)content
 {
+    content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:content];
     while (![scanner isAtEnd]) {
         if ([scanner scanString:@"<img>" intoString:NULL]) {
             NSString *img;
             [scanner scanUpToString:@"</img>" intoString:&img];
-            NSString *imageString = [[imagePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:img];
-            UIImage *image = [UIImage imageWithContentsOfFile:imageString];
-            CGFloat width = ScreenBounds.size.width - LeftSpacing - RightSpacing;
-            CGFloat height = ScreenBounds.size.height - TopSpacing - BottomSpacing;
-            CGFloat scale = image.size.width / width;
-            CGFloat realHeight = image.size.height / scale;
-            CGSize size = CGSizeMake(width, realHeight);
-            if (size.height > (height - 20)) {
-                size.height = height - 20;
-            }
-            return image;
+            img = [img stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            return img;
         } else{
             NSString *content;
             [scanner scanUpToString:@"<img>" intoString:&content];
@@ -89,19 +82,7 @@
 
 - (void)setModel:(BookInfoModel *)model {
     if (model.coverPath.length > 0) {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            UIImage *coverImg = nil;
-            NSString *path = [kDocuments stringByAppendingPathComponent:model.coverPath];
-            NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] encoding:NSUTF8StringEncoding];
-            coverImg = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText] imagePath:path];
-            if (!coverImg) {
-                coverImg = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                 self.cover.image = coverImg;
-            });
-        });
-        
+        self.cover.image = [UIImage imageWithContentsOfFile:[kDocuments stringByAppendingPathComponent:model.coverPath]];
     } else {
         self.cover.image = [UIImage imageNamed:[NSString stringWithFormat:@"default%ld", (long)arc4random() % 3]];
     }
@@ -142,6 +123,5 @@
     }
     return _line;
 }
-
 
 @end

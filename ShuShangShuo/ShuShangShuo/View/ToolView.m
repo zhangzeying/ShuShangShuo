@@ -27,33 +27,38 @@
 }
 
 - (void)setupUI {
-    [self addSubview:self.checkBtn];
     [self addSubview:self.finishBtn];
+    [self addSubview:self.deleteBtn];
 }
 
-- (void)checkBtnClick:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    if ([self.delegate respondsToSelector:@selector(checkAll:)]) {
-        [self.delegate checkAll:sender.selected];
+//- (void)checkBtnClick:(UIButton *)sender {
+//    sender.selected = !sender.selected;
+//    if ([self.delegate respondsToSelector:@selector(checkAll:)]) {
+//        [self.delegate checkAll:sender.selected];
+//    }
+//}
+
+- (void)finishBtnClick {
+    if ([self.delegate respondsToSelector:@selector(finish:)]) {
+        [self.delegate finish:YES];
     }
 }
 
-- (void)finishBtnClick:(UIButton *)sender {
-    sender.selected = !sender.selected;
+- (void)deleteBtnClick {
     if ([self.delegate respondsToSelector:@selector(finish:)]) {
-        [self.delegate finish:sender.selected];
+        [self.delegate finish:NO];
     }
 }
 
 - (void)autoLayout {
-    [self.checkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).offset(10);
         make.top.mas_equalTo(self);
         make.height.mas_equalTo(self);
         make.width.mas_equalTo(60);
     }];
     
-    [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.mas_right).offset(-10);
         make.top.mas_equalTo(self);
         make.height.mas_equalTo(self);
@@ -61,28 +66,26 @@
     }];
 }
 
-- (UIButton *)checkBtn {
-    if(!_checkBtn) {
-        _checkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_checkBtn setTitle:@"全选" forState:UIControlStateNormal];
-        [_checkBtn setTitle:@"取消" forState:UIControlStateSelected];
-        [_checkBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _checkBtn.titleLabel.font = Font(15);
-        [_checkBtn addTarget:self action:@selector(checkBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _checkBtn;
-}
-
 - (UIButton *)finishBtn {
     if(!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_finishBtn setTitle:@"删除" forState:UIControlStateSelected];
         [_finishBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = Font(15);
-        [_finishBtn addTarget:self action:@selector(finishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_finishBtn addTarget:self action:@selector(finishBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _finishBtn;
+}
+
+- (UIButton *)deleteBtn {
+    if(!_deleteBtn) {
+        _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _deleteBtn.titleLabel.font = Font(15);
+        [_deleteBtn addTarget:self action:@selector(deleteBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _deleteBtn;
 }
 
 @end

@@ -11,6 +11,7 @@
 #import <YYModel.h>
 #import "DownloadBookModel.h"
 #import "DownLoadViewController.h"
+#import "AppDelegate.h"
 
 @interface ActivationCodeViewController ()
 
@@ -71,12 +72,15 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
     NSDictionary *params = @{@"code":self.inputTxt.text};
     [SProgressHUD showWaiting:nil];
+    WEAKSELF
     [manager POST:@"http://wx.5csss.com/booklist/index/getBookList" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        STRONGSELF
         [SProgressHUD hideHUDfromView:nil];
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
             NSArray *array = [NSArray yy_modelArrayWithClass:[DownloadBookModel class] json:responseObject[@"result"]];
             DownLoadViewController *downloadVC = [[DownLoadViewController alloc]init];
             downloadVC.grade =responseObject[@"grade"];
+            downloadVC.code = strongSelf.inputTxt.text;
             downloadVC.dataArr = array;
             downloadVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:downloadVC animated:YES];

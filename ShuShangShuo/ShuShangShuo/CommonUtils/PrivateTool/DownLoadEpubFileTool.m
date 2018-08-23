@@ -12,6 +12,8 @@
 #import "AESCipher.h"
 #import "HSDownloadManager.h"
 #import "BookInfoModel.h"
+#import "NSString+HTML.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 @implementation DownLoadEpubFileTool
 SingletonM(tool)
@@ -208,8 +210,17 @@ SingletonM(tool)
     return writeFlag;
 }
 
-- (void)downloadEpubFile:(NSString *)url {
+- (void)downloadEpubFile:(NSString *)url code:(NSString *)code isContinue:(BOOL)isContinue {
     if (([url hasPrefix:@"http"] || [url hasPrefix:@"https"])) {
+        if (!isContinue) {
+            NSString *wifiName = [[DownLoadEpubFileTool sharedtool] currentWifiSSID];
+            if (![wifiName isEqualToString:@"5csss"]) {
+                NSArray *array = [url componentsSeparatedByString:@"?"];
+                if (array.count > 1) {
+                    url = [NSString stringWithFormat:@"%@?%@", @"http://39.106.146.127:8080/5cepub/appdownload", array[1]];
+                }
+            }
+        }
         __block NSMutableArray *downloadUrlArr = [NSMutableArray arrayWithContentsOfFile:kDownloadUrlFilePath];
         if ([downloadUrlArr containsObject:HSFileName(url)]) {
             WEAKSELF
@@ -223,7 +234,7 @@ SingletonM(tool)
                                                                       [[HSDownloadManager sharedInstance] deleteFile:url];
                                                                       [downloadUrlArr removeObject:HSFileName(url)];
                                                                       [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES];
-                                                                      [strongSelf downloadEpubFile:url];
+                                                                      [strongSelf downloadEpubFile:url code:@"" isContinue:NO];
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
@@ -235,6 +246,8 @@ SingletonM(tool)
             return;
         }
         [kUserDefaults setObject:url forKey:@"current_download_url"];
+        [kUserDefaults synchronize];
+        [kUserDefaults setObject:code forKey:HSFileName(url)];
         [kUserDefaults synchronize];
         [[HSDownloadManager sharedInstance] download:url progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
             NSLog(@"%f",progress);
@@ -254,6 +267,8 @@ SingletonM(tool)
                 });
                 [kUserDefaults removeObjectForKey:@"current_download_url"];
                 [kUserDefaults synchronize];
+                [kUserDefaults removeObjectForKey:HSFileName(url)];
+                [kUserDefaults synchronize];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     NSString *filePath = [HSCachesDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",HSFileName(url)]];
                     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
@@ -271,14 +286,29 @@ SingletonM(tool)
                                     BookInfoModel *model = [[BookInfoModel alloc]init];
                                     model.title = [dict objectForKey:@"title"];
                                     model.creator = [dict objectForKey:@"creator"];
-                                    model.coverPath = str;
+                                    NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:[kDocuments stringByAppendingPathComponent:str]]] encoding:NSUTF8StringEncoding];
+                                    NSString *img = [self parserEpubCoverImg:[html stringByConvertingHTMLToPlainText]];
+                                    model.coverPath = [[str stringByDeletingLastPathComponent] stringByAppendingPathComponent:img];
                                     model.fileUrl = HSFileName(url);
+                                    model.code = code;
                                     NSMutableArray *dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:kMyBookshelfFilePath];
                                     if (!dataArr) {
                                         dataArr = [NSMutableArray arrayWithObjects:model, nil];
                                         
                                     } else {
-                                        [dataArr addObject:model];
+                                        __block NSInteger index = -1;
+                                        [dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                            BookInfoModel *item = obj;
+                                            if ([item.title isEqualToString:model.title] || [url isEqualToString:item.fileUrl]) {
+                                                index = idx;
+                                                *stop = YES;
+                                            }
+                                        }];
+                                        if (index > -1) {
+                                            [dataArr replaceObjectAtIndex:index withObject:model];
+                                        } else {
+                                            [dataArr insertObject:model atIndex:0];
+                                        }
                                     }
                                     
                                     if (!downloadUrlArr) {
@@ -290,7 +320,7 @@ SingletonM(tool)
                                     if ([NSKeyedArchiver archiveRootObject:dataArr toFile:kMyBookshelfFilePath] && [downloadUrlArr writeToFile:kDownloadUrlFilePath atomically:YES]) {
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [SProgressHUD hideHUDfromView:nil];
-                                            [SProgressHUD showSuccess:@"解析成功"];
+                                            [SProgressHUD showSuccess:@"点击开始阅读"];
                                             NSString *key = [fileURL.path lastPathComponent];
                                             [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
                                             [[HSDownloadManager sharedInstance] deleteFile:url];
@@ -322,34 +352,67 @@ SingletonM(tool)
             } else if (state == DownloadStateFailed)  {
                 [kUserDefaults removeObjectForKey:@"current_download_url"];
                 [kUserDefaults synchronize];
+                [kUserDefaults removeObjectForKey:HSFileName(url)];
+                [kUserDefaults synchronize];
                 [[HSDownloadManager sharedInstance] deleteFile:url];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [SProgressHUD hideHUDfromView:nil];
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                                   message:@"请连接本机WiFi，默认Wi-Fi名称5csss和默认密码12345678"
-                                                                            preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"去设置网络" style:UIAlertActionStyleDefault
-                                                                          handler:^(UIAlertAction * action) {
-                                                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                                                                          }];
-                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                                         handler:^(UIAlertAction * action) {
-                                                                         }];
-                    
-                    [alert addAction:defaultAction];
-                    [alert addAction:cancelAction];
-                    [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                    if (code.length > 0) {
+                        [SProgressHUD showFailure:@"下载失败，请检查网络连接"];
+                    } else {
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                                       message:@"请连接本机WiFi，默认Wi-Fi名称5csss和默认密码12345678"
+                                                                                preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"去设置网络" style:UIAlertActionStyleDefault
+                                                                              handler:^(UIAlertAction * action) {
+                                                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                                                              }];
+                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                             handler:^(UIAlertAction * action) {
+                                                                             }];
+                        
+                        [alert addAction:defaultAction];
+                        [alert addAction:cancelAction];
+                        [kWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                    }
                 });
-                
             }
         }];
     }
 }
 
-- (void)test {
-//    NSString *zipFile = [[fullPath stringByDeletingPathExtension] lastPathComponent];
+- (NSString *)parserEpubCoverImg:(NSString *)content
+{
+    content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSScanner *scanner = [NSScanner scannerWithString:content];
+    while (![scanner isAtEnd]) {
+        if ([scanner scanString:@"<img>" intoString:NULL]) {
+            NSString *img;
+            [scanner scanUpToString:@"</img>" intoString:&img];
+            img = [img stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            return img;
+        } else{
+            NSString *content;
+            [scanner scanUpToString:@"<img>" intoString:&content];
+        }
+    }
+    return nil;
+}
 
+- (NSString *)currentWifiSSID
+{
+    NSString *ssid = nil;
+    NSArray *ifs = (__bridge   id)CNCopySupportedInterfaces();
+    for (NSString *ifname in ifs) {
+        NSDictionary *info = (__bridge id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
+        if (info[@"SSID"])
+        {
+            ssid = info[@"SSID"];
+        }
+    }
+    return ssid;
 }
 
 @end

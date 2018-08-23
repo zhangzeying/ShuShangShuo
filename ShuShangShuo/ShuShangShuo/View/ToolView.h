@@ -10,15 +10,14 @@
 
 @protocol ToolViewDelegate <NSObject>
 
-- (void)checkAll:(BOOL)isSelected;
 - (void)finish:(BOOL)isSelected;
 
 @end
 
 @interface ToolView : UIView
 
-@property (nonatomic, strong) UIButton *checkBtn;
 @property (nonatomic, strong) UIButton *finishBtn;
+@property (nonatomic, strong) UIButton *deleteBtn;
 @property (nonatomic,weak) id<ToolViewDelegate> delegate;
 
 @end

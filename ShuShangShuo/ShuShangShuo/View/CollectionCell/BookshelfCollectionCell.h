@@ -19,5 +19,6 @@ static NSString *const BookshelfCollectionCellCheckBtnClickKey = @"BookshelfColl
 @property (nonatomic, strong) UILabel *bookTitle;
 @property (nonatomic, strong) UIButton *checkBoxBtn;
 @property (nonatomic, strong) BookInfoModel *model;
+@property (nonatomic, assign) NSInteger index;
 
 @end
